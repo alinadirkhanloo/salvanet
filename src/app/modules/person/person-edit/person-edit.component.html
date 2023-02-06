@@ -213,7 +213,7 @@
                          [ngClass]="{
                                         'is-valid':editForm.controls['sIMNumber'].valid,
                                         'is-invalid':editForm.controls['sIMNumber'].invalid && editForm.controls['sIMNumber'].touched}"
-                         formControlName="idNumber" placeholder="شماره تماس" >
+                         formControlName="sIMNumber" placeholder="شماره تماس" >
                 </div>
 
 
@@ -224,7 +224,7 @@
                     <span *appSpinOn="disableButton; color: 'warn';"></span>
                     بررسی و ثبت
                   </button>
-                  <button type="submit" (click)="cancle()" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                  <button type="submit" (click)="cancle()" pButton pRipple [disabled]="disableButton"
                           class="p-button-danger">
                     <span *appSpinOn="disableButton; color: 'warn';"></span>
                     انصراف

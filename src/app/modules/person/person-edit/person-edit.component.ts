@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { RoleService } from './../../role/role.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import {PersonService} from "modules/person/person.service";
 
 @Component({
   selector: 'app-person-edit',
@@ -19,6 +20,7 @@ export class PersonEditComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private roleService: RoleService,
+    private personService: PersonService,
     private route: ActivatedRoute
   ) {
 
@@ -43,6 +45,7 @@ export class PersonEditComponent implements OnInit {
       levelOfEdu: ['', [Validators.required]],
       home: ['', [Validators.required]],
       address: ['', [Validators.required]],
+      sIMNumber : ['', [Validators.required]],
       id:-1
     });
   }
@@ -58,7 +61,7 @@ export class PersonEditComponent implements OnInit {
 
 
   loadById(id:number|string) {
-    let res = this.roleService.getById(id).subscribe({
+    let res = this.personService.getById(id).subscribe({
       next:(result)=>{
         this.setDataToForm(result);
       },
@@ -80,7 +83,7 @@ export class PersonEditComponent implements OnInit {
     this.disableButton = true;
 
     if (this.editForm.valid) {
-      let rest = this.updateMode?this.roleService.insert(this.editForm.value) : this.roleService.update(this.editForm.value.id,this.editForm.value);
+      let rest = !this.updateMode?this.personService.insert(this.editForm.value) : this.personService.update(this.editForm.value.id,this.editForm.value);
       let restSub =rest.subscribe({
         next: (result) => {
           this.disableButton = false;
@@ -92,6 +95,8 @@ export class PersonEditComponent implements OnInit {
           restSub.unsubscribe();
         }
       });
+    } else {
+      this.disableButton = false;
     }
   }
 
