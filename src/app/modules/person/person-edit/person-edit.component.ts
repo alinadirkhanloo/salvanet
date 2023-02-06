@@ -23,25 +23,31 @@ export class PersonEditComponent implements OnInit {
   ) {
 
     this.editForm = this._formBuilder.group({
-      firstName: ['', [Validators.required, Validators.maxLength(36)]],
-      lastName: ['', [Validators.required, Validators.maxLength(36)]],
-      gender: ['', [Validators.required, Validators.maxLength(36)]],
-      identityCardNumber: ['', [Validators.required, Validators.maxLength(36)]],
-      // birthDate: ['', [Validators.required, Validators.maxLength(36)]],
-      // religion: ['', [Validators.required, Validators.maxLength(36)]],
-      // sect: ['', [Validators.required, Validators.maxLength(36)]],
-      // militaryStatus: ['', [Validators.required, Validators.maxLength(36)]],
-      // maritalStatus: ['', [Validators.required, Validators.maxLength(36)]],
-      // employmentStatus: ['', [Validators.required, Validators.maxLength(36)]],
-      // numberOfChildren: ['', [Validators.required, Validators.maxLength(36)]],
-      // isStudying: [false, [Validators.required]],
-      // levelOfEducation: ['', [Validators.required, Validators.maxLength(24)]],
-      // address: ['', [Validators.required, Validators.maxLength(24)]],
+      nationalId: ['', [Validators.required]],
+      fName: ['', [Validators.required]],
+      lName: ['', [Validators.required]],
+      idNumber: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      birthLocation: ['', [Validators.required]],
+      idNumberLocation: ['', [Validators.required]],
+      nationality: ['', [Validators.required]],
+      country: ['', [Validators.required]],
+      religen: ['', [Validators.required]],
+      sect: ['', [Validators.required]],
+      military: ['', [Validators.required]],
+      marrid: ['', [Validators.required]],
+      childNum: ['', [Validators.required]],
+      job: ['', [Validators.required]],
+      edu: ['', [Validators.required]],
+      levelOfEdu: ['', [Validators.required]],
+      home: ['', [Validators.required]],
+      address: ['', [Validators.required]],
       id:-1
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
@@ -57,7 +63,7 @@ export class PersonEditComponent implements OnInit {
         this.setDataToForm(result);
       },
       error(err) {
-        
+
       },
       complete() {
         res.unsubscribe();
