@@ -1,0 +1,33 @@
+
+  <p-dropdown
+  [options]="selectionConfig.items"
+  [(ngModel)]="dateValue"
+  [optionLabel]="selectionConfig.optionLabel"
+  [filter]="selectionConfig.filter"
+  [filterBy]="selectionConfig.filterBy"
+  [showClear]="selectionConfig.showClear"
+  [placeholder]="selectionConfig.placeholder"
+  [emptyFilterMessage]="selectionConfig.emptyFilterMessage || 'موردی یافت نشد'"
+  (ngModelChange)="onChange($event)">
+
+  <!-- Selected option -->
+
+    <ng-template pTemplate="selectedItem">
+
+        <div class="item item-value" *ngIf="dateValue">
+            <div>{{dateValue.topic}}</div>
+        </div>
+
+    </ng-template>
+
+    <!-- Options  -->
+
+    <ng-template let-option pTemplate="item">
+
+        <div class="country-item">
+            <div>{{option.topic}}</div>
+        </div>
+
+    </ng-template>
+
+</p-dropdown>

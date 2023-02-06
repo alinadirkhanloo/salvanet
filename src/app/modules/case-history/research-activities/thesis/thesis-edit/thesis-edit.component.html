@@ -1,0 +1,58 @@
+<div class="container-fluid h-100v">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">مربی / سوابق پژوهشی</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">پایان نامه</a></li>
+            </ol>
+        </div>
+    </div>
+<div class="vh-100">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-10 col-md-11">
+            <div class="authincation-content">
+                <div class="row no-gutters">
+                    <div class="col-xl-12">
+                        <div class="auth-form">
+                            <h2 class="text-center mb-4">مشخصات پایان نامه</h2>
+                            <form [formGroup]="editForm" class="row mx-0 px-0">
+                                <div class="form-group col-lg-6">
+                                    <label class="mb-1"><strong>عنوان</strong></label>
+                                    <input type="text" class="form-control text-center"
+                                    maxlength="36"
+                                        [ngClass]="{
+                                    'is-valid':editForm.controls['title'].valid,
+                                    'is-invalid':editForm.controls['title'].invalid && editForm.controls['title'].touched}"
+                                        formControlName="title" placeholder="">
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label class="mb-1"><strong>نمره </strong></label>
+                                    <input type="text" class="form-control text-center"
+                                    maxlength="36"
+                                        [ngClass]="{
+                                    'is-valid':editForm.controls['registrationNumber'].valid,
+                                    'is-invalid':editForm.controls['registrationNumber'].invalid && editForm.controls['registrationNumber'].touched}"
+                                        formControlName="registrationNumber" placeholder="">
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                        (click)="submit()" class="p-button-success mx-2">
+                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                        تایید
+                                    </button>
+                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                        (click)="cancle()" class="p-button-danger">
+                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                        انصراف
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

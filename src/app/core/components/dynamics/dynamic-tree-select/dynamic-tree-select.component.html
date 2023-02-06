@@ -1,0 +1,20 @@
+<p-treeSelect
+  class='d-block'
+  [disabled]='disabled'
+  name='treeSelect'
+  [(ngModel)]='selectedNode'
+  [filter]='configs.filter'
+  [filterBy]='configs.filterBy ?? "" '
+  [filterMode]='configs.filterMode ?? ""'
+  [filterPlaceholder]='configs.filterPlaceholder ?? "" '
+  [emptyMessage]='configs.emptyMessage ?? "نتیجه‌ای یافت نشد."'
+  [placeholder]='configs.placeholder  ?? "" '
+  [showClear]='configs.showClear'
+  [resetFilterOnHide]='configs.resetFilterOnHide'
+  [selectionMode]='configs.selectionMode ?? "single"'
+  [filterInputAutoFocus]='configs.filterInputAutoFocus ?? true'
+  [options]='nodes'
+  (blur)='onTouched()'
+  (onNodeUnselect)='onChange(omitObject(["parent","children"],selectedNode))'
+  (onNodeSelect)='onChange(omitObject(["parent","children"],selectedNode))'>
+</p-treeSelect>

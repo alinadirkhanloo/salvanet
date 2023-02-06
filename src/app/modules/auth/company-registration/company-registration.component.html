@@ -1,0 +1,105 @@
+<div class="container-fluid vh-100 my-5">
+    <div class="row justify-content-center align-items-center">
+      <div class="col-lg-10 col-md-11">
+        <div class="authincation-content">
+          <div class="row no-gutters">
+            <div class="col-xl-12">
+              <div class="auth-form">
+                <h2 class="text-center mb-4">مشخصات گروه جهادی</h2>
+                <form class="form-row">
+  
+                  <div class="form-group col-6">
+                    <label><strong>کد ملی</strong></label>
+                    <input type="text" class="form-control" placeholder="">
+                  </div>
+  
+                  <div class="form-group col-6">
+                    <label><strong>نام</strong></label>
+                    <input  type="text" class="form-control" placeholder="">
+                  </div>
+  
+                  <div class="form-group col-6">
+                    <label><strong>تاریخ تاسیس</strong></label>
+                    <input type="text" class="form-control" placeholder="">
+                  </div>
+  
+                  <div class="form-group col-6">
+                    <label><strong>تاریخ ثبت</strong></label>
+                    <input type="text" class="form-control" placeholder="">
+                  </div>
+  
+                  <div class="form-group col-6">
+                    <label><strong>شماره ثبت</strong></label>
+                    <input type="text" class="form-control" placeholder="">
+                  </div>
+  
+  
+  
+                  <div class="align-items-center col-6">
+                    <label class="mb-1 text-right"><strong>سرپرست</strong></label>
+                    <div class="input-group mb-3" dir="ltr">
+                      <div class="input-group-prepend">
+                        <button class="btn btn-primary h-100" type="button">
+                          <i class="flaticon-381-add-1"></i>
+                        </button>
+                      </div>
+                      <input  type="text" class="form-control text-right" placeholder="">
+  
+                    </div>
+                  </div>
+  
+                  <div class="form-group col-6">
+                    <label><strong>نماینده</strong></label>
+                    <input disabled type="text" class="form-control" placeholder="">
+                  </div>
+  
+  
+                  <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                          <h4 class="card-title">زمینه های فعالیت</h4>
+                        </div>
+                        <div class="card-body">
+                          <div class="basic-form">
+                            <form>
+                              <fieldset disabled>
+                                <div class="form-group">
+                                  <button type="submit" class="btn btn-primary mt-3"><i class="flaticon-381-add-1"></i></button>
+                                </div>
+                                <div class="form-group">
+                                  <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
+                                    <ng-template pTemplate="header">
+                                        <tr>
+                                            <th>ردیف</th>
+                                            <th>عنوان</th>
+                                        </tr>
+                                    </ng-template>
+                                    <ng-template pTemplate="body" let-product>
+                                        <tr>
+                                            <td>{{product.code}}</td>
+                                            <td>{{product.name}}</td>
+                                        </tr>
+                                    </ng-template>
+                                </p-table>
+                                </div>
+      
+                              </fieldset>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                  <div class="form-group col-6">
+                    <button type="submit" (click)="goToLogin()" pButton pRipple class="p-button-success mx-2">ایجاد</button>
+                    <button type="submit" (click)="goToLogin()" pButton pRipple class="p-button-danger">انصراف</button>
+                  </div>
+                </form>
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

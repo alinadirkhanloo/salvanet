@@ -1,0 +1,34 @@
+<div class="time-picker-container">
+  <div class="input-group">
+      <input type="text" class="form-control"
+      [ngxTimepicker]="picker"
+      name="timepicker"
+      type="text"
+      [readOnly]="timePickerConfig.readOnly"
+      [placeholder]="timePickerConfig.placeholder"
+      [classList]="timePickerConfig.classList"
+      [style]="timePickerConfig.style"
+      [required]="timePickerConfig.required"
+      [format]="timePickerConfig.format"
+      [disabled]="timePickerConfig.disabled"
+      [disableClick]="timePickerConfig.disableClick"
+      (onChange)="timeChanged($event)"
+      >
+    <div [ngClass]="{'input-group-append':timePickerConfig.toggleBtn && timePickerConfig.clearBtn}">
+      <ngx-material-timepicker-toggle class="btn btn-primary p-0" [for]="picker" (click)="toggleBtnClick($event)">
+        <i class="flaticon-381-clock-1 clock-icon text-light" *ngIf="timePickerConfig.toggleBtn" ngxMaterialTimepickerToggleIcon></i>
+      </ngx-material-timepicker-toggle>
+      <button class="btn btn-primary" type="button" *ngIf="timePickerConfig.clearBtn" (click)="clearBtnClick($event)"><i class="flaticon-381-multiply-1"></i></button>
+    </div>
+  </div>
+</div>
+
+<ngx-material-timepicker dir="ltr" #picker [cancelBtnTmpl]="cancelBtn"
+[confirmBtnTmpl]="confirmBtn"></ngx-material-timepicker>
+
+<ng-template #cancelBtn>
+  <button class="btn btn-outline-secandary" >{{ 'AbpAccount:Ok' | abpLocalization }}</button>
+</ng-template>
+<ng-template #confirmBtn>
+  <button class="btn btn-success ml-2">{{ 'AbpAccount:Close' | abpLocalization }}</button>
+</ng-template>

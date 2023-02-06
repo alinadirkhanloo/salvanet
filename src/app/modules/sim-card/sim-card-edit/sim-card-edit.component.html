@@ -1,0 +1,57 @@
+<div class="container vh-100">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="authincation-content">
+                <div class="row no-gutters">
+                    <div class="col-xl-12">
+                        <div class="auth-form">
+                            <h2 class="text-center mb-4">مشخصات سیم کارت</h2>
+                            <form [formGroup]="simCardEditForm">
+                                <div class="form-group">
+                                    <label class="mb-1"><strong>کد ملی مالک</strong></label>
+                                    <input type="text" class="form-control text-center"
+                                    maxlength="36"
+                                        [ngClass]="{
+                                    'is-valid':simCardEditForm.controls['ownerId'].valid,
+                                    'is-invalid':simCardEditForm.controls['ownerId'].invalid && simCardEditForm.controls['ownerId'].touched}"
+                                        formControlName="ownerId" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1"><strong>اپراتور</strong></label>
+                                    <input type="text" class="form-control text-center"
+                                    maxlength="36"
+                                        [ngClass]="{
+                                    'is-valid':simCardEditForm.controls['operator'].valid,
+                                    'is-invalid':simCardEditForm.controls['operator'].invalid && simCardEditForm.controls['operator'].touched}"
+                                        formControlName="operator" placeholder="">
+                                </div>
+                                <div class="form-group">
+                                    <label class="mb-1"><strong>شماره سیم کارت</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="11"
+                                            [ngClass]="{
+                                        'is-valid':simCardEditForm.controls['phoneNumber'].valid,
+                                        'is-invalid':simCardEditForm.controls['phoneNumber'].invalid && simCardEditForm.controls['phoneNumber'].touched}"
+                                            formControlName="phoneNumber" placeholder="- -  - -  - - -  - - 09">
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" pButton pRipple [disabled]="!simCardEditForm.valid || disableButton"
+                                        (click)="submit()" class="p-button-success mx-2">
+                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                        تایید
+                                    </button>
+                                    <button type="submit" pButton pRipple [disabled]="!simCardEditForm.valid || disableButton"
+                                        (click)="cancle()" class="p-button-danger">
+                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                        انصراف
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

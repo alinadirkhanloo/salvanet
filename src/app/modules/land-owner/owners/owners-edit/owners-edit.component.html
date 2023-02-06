@@ -1,0 +1,71 @@
+<div class="container">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">مالک زمین</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">تجارب کشاورزی</a></li>
+            </ol>
+        </div>
+    </div>
+<div class="container vh-100">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-10 col-md-11">
+            <div class="authincation-content">
+                <div class="row no-gutters">
+                    <div class="col-xl-12">
+                        <div class="auth-form">
+                            <h2 class="text-center mb-4">مالک واحد تولیدی</h2>
+
+                            <form [formGroup]="editForm" class="">
+
+                                <div class="form-group">
+                                    <label>فرد</label>
+                                    <select formControlName="nationalId" id="inputState2" class="form-control">
+                                        <option selected>...</option>
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>محصول</label>
+                                    <select formControlName="ratioId" id="inputState3" class="form-control">
+                                        <option selected>...</option>
+                                        <option>Option 1</option>
+                                        <option>Option 2</option>
+                                        <option>Option 3</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="mb-1"><strong>درصد مالکیت</strong></label>
+                                    <input type="text" class="form-control text-center"
+                                    maxlength="36"
+                                        [ngClass]="{
+                                    'is-valid':editForm.controls['sharePercentage'].valid,
+                                    'is-invalid':editForm.controls['sharePercentage'].invalid && editForm.controls['sharePercentage'].touched}"
+                                        formControlName="sharePercentage" placeholder="">
+                                </div>
+                                
+                                <div class="form-group text-center">
+                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                        (click)="submit()" class="p-button-success mx-2">
+                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                        تایید
+                                    </button>
+                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                        (click)="cancle()" class="p-button-danger">
+                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                        انصراف
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

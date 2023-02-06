@@ -1,0 +1,57 @@
+import { SignupTypeDialogComponent } from './signup-type-dialog/signup-type-dialog.component';
+
+import { UserAuthComponent } from './user-auth/user-auth.component';
+import { LoginComponent } from './login/login.component';
+import { UserVerificationComponent } from './user-verification/user-verification.component';
+import { Routes, RouterModule } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { SharedModule } from 'app/shared/modules/shared.module';
+import { ChangePassComponent } from './change-pass/change-pass.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { CompanyRegistrationComponent } from './company-registration/company-registration.component';
+import { UserActivationComponent } from './user-activation/user-activation.component';
+
+
+const routes: Routes = [
+    {
+        path: '', redirectTo: 'login'
+    }
+    , {
+        path: 'login', component: LoginComponent
+    }
+    , {
+        path: 'user-authentication', component: UserAuthComponent
+    }
+    , {
+        path: 'user-verification', component: UserVerificationComponent
+    },
+    {
+        path: 'user-activation', component: UserActivationComponent
+    },
+    {
+        path: 'user-registration', component: RegistrationComponent
+    },
+    {
+        path: 'change-password', component: ChangePassComponent
+    },
+    {
+        path: 'company-registration', component: CompanyRegistrationComponent
+    }
+];
+
+
+@NgModule({
+    declarations: [
+        LoginComponent,
+        UserAuthComponent,
+        UserVerificationComponent
+        ,ChangePassComponent
+        ,RegistrationComponent
+    ,SignupTypeDialogComponent, CompanyRegistrationComponent, UserActivationComponent],
+    imports: [
+        SharedModule,
+        RouterModule.forChild(routes)
+
+    ]
+})
+export class AccountModule { }

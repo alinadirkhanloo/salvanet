@@ -1,0 +1,78 @@
+<div class="container-fluid">
+  <div class="page-titles mx-0">
+    <div class="p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="javascript:void(0)">سازمان</a></li>
+        <li class="breadcrumb-item active"><a href="javascript:void(0)">مشخصات</a></li>
+      </ol>
+    </div>
+  </div>
+<div class=" vh-100">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-10 col-md-11">
+      <div class="authincation-content">
+        <div class="row no-gutters">
+          <div class="col-xl-12">
+            <div class="auth-form">
+              <h2 class="text-center mb-4">تعریف|ویرایش|حذف سازمان</h2>
+
+              <form>
+                <div class="form-row align-items-center">
+                  <div class="input-group mb-3" dir="ltr">
+                    <div class="input-group-prepend">
+                      <label class="input-group-text">واحد تقسیمات کشور</label>
+                    </div>
+                    <select class="default-select form-control">
+                      <option selected>Choose...</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+
+                  </div>
+                </div>
+
+                <label class="mb-1 text-right"><strong>فرد</strong></label>
+                <div class="input-group mb-3" dir="ltr">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-primary h-100" type="button">
+                      <i class="flaticon-381-add-1"></i>
+                    </button>
+                  </div>
+                  <input type="text" class="form-control text-right" placeholder="">
+
+                </div>
+
+                <div class="form-group">
+                  <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
+                    <ng-template pTemplate="header">
+                      <tr>
+                        <th colspan="2" class="text-center">نقش های مرتبط با نوع ساختار</th>
+                      </tr>
+                      <tr>
+                        <th>عنوان نقش</th>
+                        <th style="min-width: 2rem;">حداکثر تعداد پست قابل ایجاد بر روی نقش</th>
+                      </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-product let-i="rowIndex">
+                      <tr>
+                        <td>نقش {{i}}</td>
+                        <td>{{product.name}}</td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+                </div>
+                <div class="form-group">
+                  <button type="submit" pButton pRipple class="p-button-success mx-2">ایجاد</button>
+                  <button type="submit" pButton pRipple class="p-button-danger">انصراف</button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

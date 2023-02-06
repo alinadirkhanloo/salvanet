@@ -1,0 +1,48 @@
+<div class="authincation h-100">
+    <div class="container vh-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <a [routerLink]="['/home']"><img src="assets/images/logo-full.png"
+                                            alt=""></a>
+                                </div>
+                                <h4 class="text-center mb-4">احراز هویت کاربران</h4>
+                                <form [formGroup]="accountForm">
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>کد ملی</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="10"
+                                            [ngClass]="{
+                                        'is-valid':accountForm.controls['idNumber'].valid,
+                                        'is-invalid':accountForm.controls['idNumber'].invalid && accountForm.controls['idNumber'].touched}"
+                                            formControlName="idNumber" placeholder="- - - - - - - - - -">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>شماره تلفن</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="11"
+                                            [ngClass]="{
+                                        'is-valid':accountForm.controls['phoneNumber'].valid,
+                                        'is-invalid':accountForm.controls['phoneNumber'].invalid && accountForm.controls['phoneNumber'].touched}"
+                                            formControlName="phoneNumber" placeholder="09 - -  - - -  - -  - -">
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" [disabled]="!accountForm.valid || disableButton"
+                                            (click)="goToVerification()" class="btn btn-primary btn-block">
+                                            <span *appSpinOn="disableButton; color: 'warn';"></span>
+                                            ارسال
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

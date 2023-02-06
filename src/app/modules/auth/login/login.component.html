@@ -1,0 +1,71 @@
+<div class="authincation h-100">
+    <div class="container vh-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <a [routerLink]="['/home']"><img src="assets/images/logo-full.png"
+                                            alt=""></a>
+                                </div>
+                                <h4 class="text-center mb-4">ورود به حساب کاربری</h4>
+                                <form [formGroup]="loginForm">
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>کد کاربری</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="36"
+                                            [ngClass]="{
+                                        'is-valid':loginForm.controls['username'].valid,
+                                        'is-invalid':loginForm.controls['username'].invalid && loginForm.controls['username'].touched}"
+                                            formControlName="username" placeholder="- - - - - - - - - -">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>کلمه عبور</strong></label>
+                                        <input type="password" class="form-control text-center"
+                                        maxlength="24"
+                                            [ngClass]="{
+                                        'is-valid':loginForm.controls['password'].valid,
+                                        'is-invalid':loginForm.controls['password'].invalid && loginForm.controls['password'].touched}"
+                                            formControlName="password" placeholder="- - - - - - - - - -" >
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>کد امنیتی</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="24"
+                                            [ngClass]="{
+                                        'is-valid':loginForm.controls['code'].valid,
+                                        'is-invalid':loginForm.controls['code'].invalid && loginForm.controls['code'].touched}"
+                                            formControlName="code" placeholder="- - - - - - - - - -" >
+                                    </div>
+                                    <div class="form-row d-flex justify-content-between mt-4 mb-2">
+                                        <div class="form-group">
+                                            <a (click)="forgatenPass()">رمز عبور خود را فراموش کرده ام</a>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" 
+                                            (click)="goToActivationtion()" class="btn btn-info mx-2">
+                                            <span ></span>
+                                            فعال سازی حساب کاربری
+                                        </button>
+                                        <button type="submit" [disabled]="!loginForm.valid || disableLoginButton"
+                                            (click)="login()" class="btn btn-primary">
+                                            <span *appSpinOn="disableLoginButton; color: 'warn';"></span>
+                                            ورود
+                                        </button>
+                                    </div>
+                                </form>
+                                <div class="new-account mt-3 text-center">
+                                    <p> آیا حساب کاربری دارید؟ <a class="text-primary"
+                                        (click)="signUp()"> ثبت نام  </a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

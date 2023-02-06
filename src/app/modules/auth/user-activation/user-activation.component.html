@@ -1,0 +1,53 @@
+<div class="authincation h-100">
+    <div class="container vh-100">
+        <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="authincation-content">
+                    <div class="row no-gutters">
+                        <div class="col-xl-12">
+                            <div class="auth-form">
+                                <div class="text-center mb-3">
+                                    <a [routerLink]="['/home']"><img src="assets/images/logo-full.png"
+                                            alt=""></a>
+                                </div>
+                                <h4 class="text-center mb-4">فعال سازی حساب کاربری</h4>
+                                <form [formGroup]="passForm">
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>کلمه عبور جدید</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="36"
+                                            [ngClass]="{
+                                        'is-valid':passForm.controls['pass'].valid,
+                                        'is-invalid':passForm.controls['pass'].invalid && passForm.controls['pass'].touched}"
+                                            formControlName="pass" placeholder="- - - - - - - - - -">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="mb-1"><strong>تکرار کلمه عبور جدید</strong></label>
+                                        <input type="text" class="form-control text-center"
+                                        maxlength="24"
+                                            [ngClass]="{
+                                        'is-valid':passForm.controls['repPass'].valid,
+                                        'is-invalid':passForm.controls['repPass'].invalid && passForm.controls['repPass'].touched}"
+                                            formControlName="repPass" placeholder="- - - - - - - - - -" >
+                                    </div>
+                                    
+                                    <div class="text-center">
+                                        <button type="submit"  type="submit" [disabled]="!passForm.valid || disableSubmitButton"
+                                            (click)="submit()" class="btn btn-info mx-2">
+                                            <span *appSpinOn="disableSubmitButton; color: 'warn';"></span>
+                                            تایید
+                                        </button>
+                                        <button
+                                            (click)="goToLogin()" class="btn btn-primary">
+                                            انصراف
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

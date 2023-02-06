@@ -1,0 +1,17 @@
+<ng-container
+  *ngIf='isLoaded'>
+
+    <p-tree
+      [value]='files'
+      [selectionMode]="configs.selectionMode ?? 'checkbox'"
+      (onNodeExpand)='nodeExpand($event)'
+      [(selection)]='configs.selectedFile'>
+    </p-tree>
+
+    <p-contextMenu
+      [model]='configs.contextMenuItems'>
+    </p-contextMenu>
+
+  </ng-container>
+
+<!-- TODO => add loading spinner-->

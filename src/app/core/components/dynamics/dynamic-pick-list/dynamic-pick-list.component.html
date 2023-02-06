@@ -1,0 +1,62 @@
+<p-pickList
+  [source]='configs.sourceList'
+  [target]='configs.targetList'
+  [sourceHeader]='configs.sourceHeader ?? "لیست منبع" '
+  [targetHeader]='configs.targetHeader ?? "لیست هدف" '
+  [filterBy]='configs.filterBy ?? null'
+  [filterMatchMode]='configs.filterMatchMode ?? "contains" '
+  [trackBy]='configs.trackBy'
+  [sourceTrackBy]='configs.sourceTrackBy'
+  [targetTrackBy]='configs.targetTrackBy'
+  [showSourceFilter]='configs.showSourceFilter ?? true'
+  [showTargetFilter]='configs.showTargetFilter ?? true'
+  [dragdrop]='configs.dragdrop ?? true'
+  [style]='configs.style'
+  [styleClass]='configs.styleClass'
+  [sourceStyle]='configs.sourceStyle'
+  [targetStyle]='configs.targetStyle'
+  [responsive]='configs.responsive ?? true'
+  [showSourceControls]='configs.showSourceControls ?? true'
+  [showTargetControls]='configs.showTargetControls ?? true'
+  [metaKeySelection]='configs.metaKeySelection ?? true'
+  [sourceFilterPlaceholder]='configs.sourceFilterPlaceholder'
+  [targetFilterPlaceholder]='configs.targetFilterPlaceholder'
+  [disabled]='!!configs.disabled'
+  [keepSelection]='configs.keepSelection ?? true'
+  [ariaSourceFilterLabel]='configs.ariaSourceFilterLabel'
+  [ariaTargetFilterLabel]='configs.ariaTargetFilterLabel'
+  [rightButtonAriaLabel]='configs.rightButtonAriaLabel'
+  [leftButtonAriaLabel]='configs.leftButtonAriaLabel'
+  [allRightButtonAriaLabel]='configs.allRightButtonAriaLabel'
+  [allLeftButtonAriaLabel]='configs.allLeftButtonAriaLabel'
+  [upButtonAriaLabel]='configs.upButtonAriaLabel'
+  [downButtonAriaLabel]='configs.downButtonAriaLabel'
+  [topButtonAriaLabel]='configs.topButtonAriaLabel'
+  [bottomButtonAriaLabel]='configs.bottomButtonAriaLabel'
+  [stripedRows]='!!configs.stripedRows'>
+
+  <!--custom-->
+  <ng-container *ngIf='configs.template?.useCustom; else defaultTemplate '>
+    <ng-template  pTemplate='item' let-obj>
+        <ng-container
+          *ngTemplateOutlet='template;
+           context: {$implicit: obj}'>
+      </ng-container>
+    </ng-template>
+  </ng-container>
+
+  <!--default-->
+  <ng-template #defaultTemplate>
+
+    <ng-template let-obj pTemplate='item'>
+      <div>
+        {{obj[configs?.template?.objectKey ?? 'topic'] }}
+      </div>
+    </ng-template>
+
+  </ng-template>
+
+</p-pickList>
+
+
+
