@@ -1,15 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GenericApi } from 'app/core/interfaces/generic-api.interface';
+import { GenericApiService } from 'app/core/services/generic-api/generic-api.service';
 
 @Injectable({
     providedIn: 'root',
 })
-export class AccountService extends GenericApi {
-    constructor(http: HttpClient) {
-        super(http,'account');
-    }
-}
+export class AccountService extends GenericApiService<any> {
 
-
-
+    constructor(http:HttpClient) {
+      super(http,'account')
+     }
+  }
+  

@@ -1,0 +1,27 @@
+<div class="row no-gutters">
+    <div class="col-xl-12">
+        <div class="card mb-0">
+            <div class="card-header">
+                <h4 class="card-title">{{title}}</h4>
+            </div>
+            <div class="card-body mb-0">
+                <ng-container>
+                    <app-dynamic-tree [configs]="treeConfig">
+                    </app-dynamic-tree>
+                  </ng-container>
+
+                  <div class="text-center my-3">
+                    <button type="submit" pButton pRipple [disabled]="!disableButton"
+                        (click)="submit()" class="p-button-success mx-2">
+                        تایید
+                    </button>
+                    <button type="submit" pButton pRipple
+                        (click)="close()" class="p-button-danger">
+                        بازگشت
+                    </button>
+                </div>
+            </div>
+            </div>
+
+    </div>
+</div>

@@ -1,7 +1,8 @@
+import { SharedService } from './../../../shared/services/shared.service';
 import { DivisionsOfTheCountryService } from './../divisions-of-the-country.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ICountryDivision } from 'app/core/interfaces/country.interface';
 
 @Component({
@@ -15,11 +16,12 @@ export class CountryDevisionUploaderComponent {
   disableButton = false;
   updateMode = false;
   routeSub=null;
-
+  uploadAddress="http://localhost:3001/file"
+  landDocFiles: any[] = [];
   constructor(
     private _formBuilder: FormBuilder,
-    private dcService: DivisionsOfTheCountryService,
-    private route: ActivatedRoute
+    private dcService: DivisionsOfTheCountryService,private router:Router,
+    private route: ActivatedRoute,private shService:SharedService
   ) {
 
 
@@ -32,6 +34,14 @@ export class CountryDevisionUploaderComponent {
         this.loadById(params['id']);
       }
     });
+  }
+
+  onLandDocUpload(event) {
+    let id = event.originalEvent.body.id;
+    for (let file of event.files) {
+      this.landDocFiles.push(file);
+      this.editForm.controls['landDocumentId'].setValue(id);
+    }
   }
 
   pickFile($event: any) {
@@ -55,17 +65,17 @@ export class CountryDevisionUploaderComponent {
 
 
   loadById(id:number|string) {
-    // let res = this.dcService.getById(id).subscribe({
-    //   next:(result)=>{
-    //     this.setDataToForm(result);
-    //   },
-    //   error(err) {
+    let res = this.dcService.readById(id).subscribe({
+      next:(result)=>{
+        this.setDataToForm(result);
+      },
+      error(err) {
 
-    //   },
-    //   complete() {
-    //     res.unsubscribe();
-    //   },
-    // });
+      },
+      complete() {
+        res.unsubscribe();
+      },
+    });
   }
 
   setDataToForm(entityData:any) {
@@ -74,25 +84,30 @@ export class CountryDevisionUploaderComponent {
 
   submit() {
 
-    // this.disableButton = true;
+    this.disableButton = true;
 
-    // if (this.editForm.valid) {
-    //   let rest = this.updateMode?this.dcService.insert(this.editForm.value) : this.dcService.update(this.editForm.value.id,this.editForm.value);
-    //   let restSub =rest.subscribe({
-    //     next: (result) => {
-    //       this.disableButton = false;
-    //     },
-    //     error: (error) => {
-    //         this.disableButton = false;
-    //     },
-    //     complete() {
-    //       restSub.unsubscribe();
-    //     }
-    //   });
-    // }
+    if (this.editForm.valid) {
+      let rest = !this.updateMode?this.dcService.create(this.editForm.value) : this.dcService.update(this.editForm.value.id,this.editForm.value);
+      let restSub =rest.subscribe({
+        next: (result) => {
+          this.shService.showSuccess()
+          this.disableButton = false;
+          this.cancle();
+        },
+        error: (error) => {
+          this.shService.showError();
+            this.disableButton = false;
+        },
+        complete() {
+          restSub.unsubscribe();
+        }
+      });
+    }
   }
 
-  cancle(){}
+  cancle(){
+    this.router.navigate(['pages/divisions-of-the-country']);
+  }
 
 
 }

@@ -1,4 +1,4 @@
-import { AuthService } from './../../../core/services/auth/auth.service';
+import { AuthService } from 'core/services/auth/auth.service';
 import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component } from '@angular/core';
@@ -33,7 +33,7 @@ export class SimCardEditComponent {
     this.disableButton = true;
 
     if (this.simCardEditForm.valid) {
-      let rest = this.auth.checkAndSendSms(this.simCardEditForm.value, this.simCardEditForm.value).subscribe({
+      let rest = this.auth.checkAndSendSms(this.simCardEditForm.value).subscribe({
         next: (result) => {
 
           if (result['userCkeck']=== true) {
@@ -52,7 +52,9 @@ export class SimCardEditComponent {
     }
   }
 
-  cancle(){}
+  cancle(){
+
+  }
 
 
 }

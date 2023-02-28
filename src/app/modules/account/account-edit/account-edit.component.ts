@@ -1,3 +1,4 @@
+import { SharedService } from 'shared/services/shared.service';
 import { AuthService } from 'app/core/services/auth/auth.service';
 
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class AccountEditComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
-    private auth: AuthService
+    private auth: AuthService,private shService:SharedService
   ) {
     this.accountEditForm = this._formBuilder.group({
       username: ['', [Validators.required, Validators.maxLength(36)]],
@@ -35,12 +36,14 @@ export class AccountEditComponent implements OnInit {
     this.disableButton = true;
 
     if (this.accountEditForm.valid) {
-      let rest = this.auth.checkAndSendSms(this.accountEditForm.value.username, this.accountEditForm.value.password).subscribe({
+      let rest = this.auth.checkAndSendSms(this.accountEditForm.value).subscribe({
         next: (result) => {
 
           if (result['userCkeck']=== true) {
             // id number and phone number is correct
             this.router.navigate(['/auth/verification']);
+            this.shService.showSuccess();
+            this.cancle();
             rest.unsubscribe();
           } else {
             this.disableButton = false;
@@ -49,12 +52,15 @@ export class AccountEditComponent implements OnInit {
         },
         error: () => {
             this.disableButton = false;
+            this.shService.showError();
         }
       });
     }
   }
 
-  cancle(){}
+  cancle(){
+    this.router.navigate(['pages/account']);
+  }
 
 
 }

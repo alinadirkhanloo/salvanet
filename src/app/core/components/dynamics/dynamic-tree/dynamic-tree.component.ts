@@ -56,6 +56,8 @@ export class DynamicTreeComponent implements OnInit, OnDestroy
 
   ngOnInit(): void
   {
+    /* checking User access level **/
+
     /* get headers node and also set contextMenu items **/
     this.subscription.add(
       this.configs.treeNodes$
@@ -85,6 +87,8 @@ export class DynamicTreeComponent implements OnInit, OnDestroy
 
   public nodeExpand(event: { node: TreeNode, originalEvent: unknown }): void
   {
+    console.log(event.node);
+    
     const lazyUrl = this.sharedService.createLazyUrl(
       event.node.data,
       this.configs.lazyUrl

@@ -5,55 +5,80 @@
           <div class="row no-gutters">
             <div class="col-xl-12">
               <div class="auth-form">
-                <h2 class="text-center mb-4">مشخصات گروه جهادی</h2>
-                <form class="form-row">
-  
-                  <div class="form-group col-6">
-                    <label><strong>کد ملی</strong></label>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-  
+                <h2 class="text-center mb-4">مشخصات شرکت</h2>
+                <form [formGroup]="accountForm" class="form-row">
+
                   <div class="form-group col-6">
                     <label><strong>نام</strong></label>
-                    <input  type="text" class="form-control" placeholder="">
+                    <input formControlName="name" maxlength="64" minlength="3" type="text" class="form-control" placeholder="">
                   </div>
-  
+
                   <div class="form-group col-6">
                     <label><strong>تاریخ تاسیس</strong></label>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-  
+                    <input
+                    type="text"
+                    class="form-control text-center"
+                    (click)="picker1.open()"
+                    maxlength="11"
+                    name="datepicker1"
+                    [matDatepicker]="picker1"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['establishmentDate'].valid,
+                      'is-invalid':
+                        accountForm.controls['establishmentDate'].invalid &&
+                        accountForm.controls['establishmentDate'].touched
+                    }"
+                    formControlName="establishmentDate"
+                  />
+                  <mat-datepicker #picker1></mat-datepicker>
+                </div>
+
                   <div class="form-group col-6">
                     <label><strong>تاریخ ثبت</strong></label>
-                    <input type="text" class="form-control" placeholder="">
-                  </div>
-  
+                    <input
+                    type="text"
+                    class="form-control text-center"
+                    (click)="picker2.open()"
+                    maxlength="11"
+                    name="datepicker2"
+                    [matDatepicker]="picker2"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['registrationDate'].valid,
+                      'is-invalid':
+                        accountForm.controls['registrationDate'].invalid &&
+                        accountForm.controls['registrationDate'].touched
+                    }"
+                    formControlName="registrationDate"
+                  />
+                  <mat-datepicker #picker2></mat-datepicker>
+                </div>
+
                   <div class="form-group col-6">
                     <label><strong>شماره ثبت</strong></label>
-                    <input type="text" class="form-control" placeholder="">
+                    <input formControlName="name" maxlength="15" minlength="1" type="text" class="form-control" placeholder="">
                   </div>
-  
-  
-  
+
+
+
                   <div class="align-items-center col-6">
-                    <label class="mb-1 text-right"><strong>سرپرست</strong></label>
+                    <label class="mb-1 text-right"><strong>مدیرعامل</strong></label>
                     <div class="input-group mb-3" dir="ltr">
                       <div class="input-group-prepend">
-                        <button class="btn btn-primary h-100" type="button">
-                          <i class="flaticon-381-add-1"></i>
+                        <button class="btn btn-primary h-100" type="button" (click)="opemPersonFilter()">
+                          <i class="flaticon-381-menu-1"></i>
                         </button>
                       </div>
-                      <input  type="text" class="form-control text-right" placeholder="">
-  
+                      <input formControlName="cEOName"  type="text" class="form-control text-right" placeholder="">
+
                     </div>
                   </div>
-  
+
                   <div class="form-group col-6">
                     <label><strong>نماینده</strong></label>
-                    <input disabled type="text" class="form-control" placeholder="">
+                    <input disabled ormControlName="representativeName"  type="text" class="form-control" placeholder="">
                   </div>
-  
-  
+
+
                   <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -82,7 +107,7 @@
                                     </ng-template>
                                 </p-table>
                                 </div>
-      
+
                               </fieldset>
                             </form>
                           </div>
@@ -94,7 +119,7 @@
                     <button type="submit" (click)="goToLogin()" pButton pRipple class="p-button-danger">انصراف</button>
                   </div>
                 </form>
-  
+
               </div>
             </div>
           </div>
@@ -102,4 +127,3 @@
       </div>
     </div>
   </div>
-  

@@ -41,7 +41,7 @@ export class OwnersEditComponent  implements OnInit {
 
 
   loadById(id:number|string) {
-    let res = this.roleService.getById(id).subscribe({
+    let res = this.roleService.readById(id).subscribe({
       next:(result)=>{
         this.setDataToForm(result);
       },
@@ -63,7 +63,7 @@ export class OwnersEditComponent  implements OnInit {
     this.disableButton = true;
 
     if (this.editForm.valid) {
-      let rest = this.updateMode?this.roleService.insert(this.editForm.value) : this.roleService.update(this.editForm.value.id,this.editForm.value);
+      let rest = !this.updateMode?this.roleService.create(this.editForm.value) : this.roleService.update(this.editForm.value.id,this.editForm.value);
       let restSub =rest.subscribe({
         next: (result) => {
           this.disableButton = false;

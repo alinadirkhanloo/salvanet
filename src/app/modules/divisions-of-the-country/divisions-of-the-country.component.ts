@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.interface';
 import { SelectionMode } from 'app/core/enums/dynamic-tree.enum';
+import { CommonService } from 'app/core/services/common/common.service';
+import { SharedService } from 'app/shared/services/shared.service';
+import { TreeNode, ConfirmationService } from 'primeng/api';
 import { ReplaySubject, Subscription } from 'rxjs';
 import { DivisionsOfTheCountryService } from './divisions-of-the-country.service';
 
@@ -15,10 +18,13 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
   private subscription = new Subscription();
   public baseInfoTreeConfig: IDynamicTree;
   visibilityOfEditeOption = false;
+  treeData:any = [];
+  load=false;
 
   constructor(
     private dcService: DivisionsOfTheCountryService,
-    private router:Router
+    private commonService: CommonService,private confirmationService: ConfirmationService,
+    private router:Router, private shService:SharedService
     ) {
 
     }
@@ -33,30 +39,34 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
 
   initialTree() {
 
-    this.baseInfoTreeConfig = {
+        this.baseInfoTreeConfig = {
 
-      treeNodes$: this.dcService.mockData$,
-
-      onNodeContextMenuSelect: new ReplaySubject<any>(1),
-      onNodeSelect: new ReplaySubject<any>(1),
-
-      lazyUrl: [
-        `api/app/base-information-header`,
-        'tree',
-      ],
-      contextMenuItems: this.getContextMenu(),
-
-      selectionMode: SelectionMode.SINGLE_SELECT
-    };
-
-    this.subscribeEvents();
-
+          treeNodes$: this.commonService.getTree('countryDivision'),
+    
+          onNodeContextMenuSelect: new ReplaySubject<any>(1),
+          onNodeSelect: new ReplaySubject<any>(1),
+    
+          lazyUrl: [
+            `countryDivision/countryDivisionSubDivisions`,
+            '',
+          ],
+          contextMenuItems: this.getContextMenu(),
+    
+          selectionMode: SelectionMode.SINGLE_SELECT
+        };
+        this.subscribeEvents();
+        setTimeout(() => {
+          this.load=true;
+        }, 500);
+      
   }
+
 
   addNewNode(event) {
     let selectedNode = this.baseInfoTreeConfig.selectedFile;
     this.router.navigateByUrl('pages/divisions-of-the-country/new',
-    { state:
+    { 
+      state:
       {
         node: selectedNode
       }
@@ -74,7 +84,33 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
   }
 
   deleteNode(event) {
-    console.log(this.baseInfoTreeConfig.selectedFile);
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'کاربر گرامی، آیا قصد حذف مقدار انتخاب شده را دارید؟',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel:'بله',
+      rejectLabel:'خیر',
+      acceptButtonStyleClass:'mx-2',
+      accept: () => {
+        //confirm action
+        this.subscription.add(
+          this.dcService.delete((this.baseInfoTreeConfig.selectedFile as TreeNode).data).subscribe({
+            next:(result)=>{
+              this.shService.showSuccess('حذف شد');
+            },
+            error:(err)=>{
+              this.shService.showSuccess('خطای سرور');
+            }
+          })
+        );
+
+        
+      },
+      reject: () => {
+        //reject action
+      }
+    });
+
   }
 
   getContextMenu() {
@@ -87,8 +123,7 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
       {
         label: 'ویرایش',
         icon: 'flaticon-381-edit text-warning',
-        command: event => this.editNode(event),
-        visible: this.visibilityOfEditeOption
+        command: event => this.editNode(event)
       },
       {
         label: 'حذف',

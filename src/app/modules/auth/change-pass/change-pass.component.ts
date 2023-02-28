@@ -1,33 +1,48 @@
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'app/core/services/auth/auth.service';
+import { SharedService } from 'app/shared/services/shared.service';
 
 @Component({
   selector: 'app-change-pass',
   templateUrl: './change-pass.component.html',
   styleUrls: ['./change-pass.component.css']
 })
-export class ChangePassComponent {
+export class ChangePassComponent implements OnInit{
 
 passForm :FormGroup;
 disableSubmitButton = false;
 disableActiveationButton = false;
+constructor(private router:Router,
+  private route: ActivatedRoute,private _formBuilder:FormBuilder,private auth:AuthService,private shService:SharedService){
 
-constructor(private router:Router,private _formBuilder:FormBuilder,private auth:AuthService){
   this.passForm = this._formBuilder.group({
-    pass: ['', [Validators.required]],
-    repPass: ['', [Validators.required]]
+    pass: ['', [Validators.required,Validators.pattern('^(?=.*?[a-z])(.{36,}|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,36})$')]],
+    repPass: ['', [Validators.required,Validators.pattern('^(?=.*?[a-z])(.{36,}|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,36})$')]],
   });
+
+}
+ngOnInit(): void {
+  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+  //Add 'implements OnInit' to the class.
+  if (!this.auth.getUsername()) {
+    this.goToLogin();
+  }
 }
 
 submit(){
+  this.disableSubmitButton = true;
+
   if (this.passForm.valid) {
-    this.auth.changePassword(this.passForm.value.pass).subscribe({
+    this.auth.changePassword(this.auth.getUsername(),this.passForm.value.pass).subscribe({
       next:()=>{
+        this.shService.showSuccess();
         this.goToLogin();
       },
       error:()=>{
+        this.shService.showError();
+        this.disableSubmitButton = false;
         return
       }
     });
@@ -36,5 +51,9 @@ submit(){
 
 goToLogin(){
   this.router.navigate(['/'])
+}
+
+get isSame(){
+  return this.passForm.value.pass !== this.passForm.value.repPass
 }
 }

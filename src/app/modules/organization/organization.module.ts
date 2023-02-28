@@ -11,7 +11,7 @@ import { PositionIncumbentComponent } from './position-incumbent/position-incumb
 
 const routes: Routes = [
   {
-    path: '', component:OrganizationComponent,
+    path: '', component:OrganizationComponent
   },
   {
     path: 'edit/:id',component:OrganizationEditComponent

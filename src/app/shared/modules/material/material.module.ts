@@ -15,7 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
+import { DateAdapter, MatNativeDateModule, MatRippleModule, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
@@ -34,6 +34,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
+import { JalaliMomentDateAdapter } from 'app/core/utiles/jalali-moment-date-adapter';
+import { JALALI_MOMENT_FORMATS } from 'app/core/utiles/jalali_moment_formats';
 
 
 
@@ -114,6 +116,10 @@ import { MatTreeModule } from '@angular/material/tree';
     MatTableModule,
     MatTooltipModule,
     MatTreeModule
+  ],
+  providers: [
+    { provide: DateAdapter, useClass: JalaliMomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+    { provide: MAT_DATE_FORMATS, useValue: JALALI_MOMENT_FORMATS },
   ]
 })
 export class AllMaterialModule { }

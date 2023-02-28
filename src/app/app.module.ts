@@ -1,9 +1,10 @@
+import { ErrorInterceptor } from './core/interceptors/error/error.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -16,6 +17,9 @@ import { RouterModule } from '@angular/router';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { MetismenuAngularModule } from '@metismenu/angular';
 
+import { ToastrModule } from 'ngx-toastr';
+import { JwtInterceptor } from './core/interceptors/jwt/jwt.interceptor';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,10 +35,12 @@ import { MetismenuAngularModule } from '@metismenu/angular';
     HttpClientModule,
     RouterModule,
     PerfectScrollbarModule,
-    MetismenuAngularModule
+    MetismenuAngularModule,ToastrModule.forRoot()
   ],
   providers: [
-    SharedService
+    SharedService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

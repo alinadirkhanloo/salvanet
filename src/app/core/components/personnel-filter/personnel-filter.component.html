@@ -1,0 +1,207 @@
+
+
+<div class="modal-header">
+  <h4 class="modal-title">فیلتر اشخاص حقیقی</h4>
+  <button type="button" class="btn-close" aria-label="Close" ></button>
+</div>
+<div class="modal-body">
+  <div class="basic-form">
+    <!-- [formGroup]="personnelFilterForm" -->
+    <form
+      [formGroup]="filtersForm">
+
+      <div class="form-row">
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <input
+            formControlName='NationalCode'
+            type="text"
+            class="form-control"
+            placeholder="شماره ملی / گذرنامه"
+            id="national-code"
+          />
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="نام"
+            formControlName='FirstName'
+            id="first-name" />
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="نام خانوادگی"
+            formControlName='LastName'
+            id="last-name" />
+        </div>
+
+              <!-- ******************** -->
+              <div class="form-group col-lg-2 col-md-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="تلفن اضطراری"
+                  formControlName='HomePhone'
+                  id="home-phone" />
+              </div>
+
+              <!-- ******************** -->
+              <div class="form-group col-lg-2 col-md-2">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="تلفن همراه"
+                  formControlName='CellPhone'
+                  id="cell-phone" />
+              </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <p-dropdown
+            [options]="citizenships"
+            formControlName='IsInternal'
+            optionLabel="key"
+            optionValue="value"
+            placeholder="تابعیت">
+          </p-dropdown>
+          <!-- <select class="form-control default-select">
+            <option selected>تابعیت</option>
+            <option value="true">ایرانی</option>
+            <option value="false">غیر ایرانی</option>
+          </select> -->
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="genderSelectorConfig"
+            formControlName='GenderBaseInformationId'>
+          </app-dynamic-select>
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="religionSelectorConfig"
+            formControlName='ReligionBaseInformationId'
+            [id]="'religionSelectorConfig'">
+          </app-dynamic-select>
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="sectSelectorConfig"
+            formControlName='FaithBaseInformationId'
+            [id]="'sectSelectorConfig'"
+            (ngModelChange)="_onSectSelectorChanged($event)">
+          </app-dynamic-select>
+        </div>
+
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="countrySelectorConfig"
+            formControlName='CountryBaseInformationId'
+            [id]="'countrySelectorConfig'"
+            (ngModelChange)="_onCountrySelectorChanged($event)">
+          </app-dynamic-select>
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="stateSelectorConfig"
+            formControlName='ProvinceBaseInformationId'
+            [id]="'stateSelectorConfig'"
+            (ngModelChange)="_onStateSelectorChanged($event)">
+          </app-dynamic-select>
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="townshipSelectorConfig"
+            [id]="'townshipSelector'"
+            formControlName='CityBaseInformationId'
+            (ngModelChange)="_onTownshipSelectorChanged($event)">
+          </app-dynamic-select>
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <app-dynamic-select
+            [selectionConfig]="citySelectorConfig"
+            formControlName='CountyBaseInformationId'
+            [id]="'citySelector'"
+            (ngModelChange)="_onCitySelectorChanged($event)">
+          </app-dynamic-select>
+        </div>
+
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <!-- <input type="text" class="form-control" placeholder="تاریخ ثبت از" id="secondTopic" /> -->
+          <app-date-picker dir="ltr"
+            formControlName='MinCreationDate'
+            id="min-creation-date">
+          </app-date-picker>
+        </div>
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <!-- <input type="text" class="form-control" placeholder="تاریخ ثبت تا" id="secondTopic" /> -->
+          <app-date-picker dir="ltr"
+            formControlName='MaxCreationDate'
+            id="max-creation-date">
+          </app-date-picker>
+        </div>
+
+        <!-- ******************** -->
+        <div class="form-group col-lg-2 col-md-2">
+          <!-- <input type="number" placeholder="تاریخ تولد از" class="form-control" id="code" /> -->
+          <app-date-picker dir="ltr"
+            formControlName='MinBirthDate'
+            id="min-birthdate">
+          </app-date-picker>
+        </div>
+
+        <div class="form-group col-lg-2 col-md-2">
+          <!-- <input type="number" placeholder="تاریخ تولد تا" class="form-control" id="code" /> -->
+          <app-date-picker dir="ltr"
+            formControlName='MaxBirthDate'
+            id="max-birthdate">
+          </app-date-picker>
+        </div>
+      </div>
+
+      <!-- <button
+        type="submit"
+        class="btn btn-primary mx-2"
+        [disabled]="BaseInfoForm.invalid || disableLoginButton"
+        (click.stop)="submit()"
+      >
+        <span *appSpinOn="disableLoginButton; color: 'warn'"></span>
+        تایید
+      </button>
+      <button type="submit" class="btn btn-danger" (click.stop)="cancle()">انصراف</button> -->
+      <div class='d-flex justify-content-md-end'>
+        <button class="btn btn-primary flex-grow-1 flex-md-grow-0"
+                type="button" (click)="search()" >
+          جست‌وجو
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>
+<div class="modal-footer">
+  <!-- <button type="button" class="btn btn-light" >Close</button> -->
+</div>

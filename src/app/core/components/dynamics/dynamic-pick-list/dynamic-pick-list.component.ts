@@ -39,7 +39,7 @@ export class DynamicPickListComponent implements OnDestroy
   @Input()
   public configs: IDynamicPickList;
 
-  public subscription: Subscription;
+  public subscription = new Subscription;
 
   constructor()
   {

@@ -10,12 +10,7 @@ import { environment } from 'environment/environment';
 export class AgriculturalExperiencesService extends GenericApiService<any> {
 
   constructor(http:HttpClient) {
-    super(http,'baseInformation')
-   }
-
-
-   get agriculturalExperience$():Observable<any>{
-    return this.http.get<any>(`${environment.baseUrl}/farmer/agricultural-experience`);
+    super(http,'agriculturalExperience')
    }
 
 }

@@ -1,0 +1,56 @@
+
+<div class="container">
+    <div class="auth-form">
+        <h2 class="text-center mb-4">مشخصات محصول</h2>
+        <form [formGroup]="editForm" class="row mx-0 px-0">
+
+            <div class="form-group col-12">
+                <input type="text" class="form-control text-left"
+                maxlength="32" minlength="2" required
+                    [ngClass]="{
+                'is-valid':editForm.controls['name'].valid,
+                'is-invalid':editForm.controls['name'].invalid && editForm.controls['name'].touched}"
+                    formControlName="name" placeholder="نام">
+                    <div *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].dirty || editForm.controls['name'].touched)" class="text-danger fs-13 mt-1">
+													
+                        <div *ngIf="editForm.controls['name'].errors.required">
+                            نام الزامی است
+                        </div>
+                    </div>
+            </div>
+
+            <div class="input-group col-lg-12 mb-3" dir="ltr">
+                <div class="input-group-prepend">
+                    <button class="btn btn-primary" type="button" style="height: 56px;" 
+                    (click)="openFindBox('locatedInId','locatedInLabel','countryDivision','انتخاب محل استقرار دانشگاه')">
+                        <i class="flaticon-381-menu-1"></i>
+                    </button>
+                </div>
+                <input type="text" class="form-control text-left" readonly
+                    [ngClass]="{
+                'is-valid':editForm.controls['locatedInLabel'].valid,
+                'is-invalid':editForm.controls['locatedInLabel'].invalid && editForm.controls['locatedInLabel'].touched}"
+                    formControlName="locatedInLabel" placeholder="محل استقرار">
+                    <div *ngIf="editForm.controls['locatedInLabel'].invalid && (editForm.controls['locatedInLabel'].dirty || editForm.controls['name'].touched)" 
+                    class="text-danger fs-13 mt-1 w-100">
+													
+                        <div *ngIf="editForm.controls['locatedInLabel'].errors.required">
+                            محل استقرار الزامی است
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col-12 text-center">
+                <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                    (click)="submit()" class="p-button-success mx-2">
+                    <span *appSpinOn="disableButton; color: 'warn';"></span>
+                    تایید
+                </button>
+                <button type="submit" pButton pRipple 
+                    (click)="close()" class="p-button-danger">
+                    انصراف
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

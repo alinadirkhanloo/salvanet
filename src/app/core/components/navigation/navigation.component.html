@@ -1,169 +1,244 @@
 <div class="deznav">
-    <div class="deznav-scroll" [perfectScrollbar]>
-
-        <ul class="metismenu" id="menu" metis-menu>
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-user-7"></i>
-                    <span class="nav-text"> کشاورز </span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/farmer/interests-workplace']">علاقمندی های محل کار </a> </li>
-                    <li><a [routerLink]="['/pages/farmer/agricultural-experiences']">  تجارب کشاورزی</a> </li>
-                    <li><a [routerLink]="['/pages/farmer/agricultural-interests']"> علاقه مندی های کشاورزی</a> </li>
-                </ul>
-
-            </li>
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking"></i>
-                    <span class="nav-text"> مالک زمین </span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/land-owner/product-unit']">واحد تولیدی</a> </li>
-                </ul>
-
-            </li>
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-user-2"></i>
-                    <span class="nav-text"> مربی </span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/case-history/education-records']">سوابق تحصیلی </a> </li>
-                    <li><a [routerLink]="['/pages/case-history/job-records']"> سوابق شغلی</a> </li>
-                    <li><a [routerLink]="['/pages/case-history/job-records']"> سوابق پژوهشی</a>
-                        <ul aria-expanded="false" >
-                            <li><a [routerLink]="['/pages/case-history/research-activities/thesis']">پایان نامه ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/article']"> مقاله ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/book']"> کتاب ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/teaching']"> سوابق تدریس </a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/invention']"> اختراع ها </a> </li>
-                        </ul>
-                    </li>
-                    <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
-                    <li><a [routerLink]="['/pages/case-history/courses']"> سایر دوره ها </a> </li>
-                </ul>
-
-            </li>
-
-
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-user-3"></i>
-                    <span class="nav-text">دیده بان امنیت غذایی</span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/case-history/job-records']"> سوابق شغلی</a> </li>
-                    <li><a [routerLink]="['/pages/case-history/job-records']"> سوابق پژوهشی</a>
-                        <ul aria-expanded="false" >
-                            <li><a [routerLink]="['/pages/case-history/research-activities/thesis']">پایان نامه ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/article']"> مقاله ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/book']"> کتاب ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/teaching']"> سوابق تدریس </a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/invention']"> اختراع ها </a> </li>
-                        </ul>
-                    </li>
-                    <li><a [routerLink]="['/pages/case-history/courses']"> سایر دوره ها </a> </li>
-                </ul>
-
-            </li>
-
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-user-1"></i>
-                    <span class="nav-text"> دیده بان تولید </span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/case-history/job-records']"> سوابق شغلی</a> </li>
-                    <li><a [routerLink]="['/pages/case-history/job-records']"> سوابق پژوهشی</a>
-                        <ul aria-expanded="false" >
-                            <li><a [routerLink]="['/pages/case-history/research-activities/thesis']">پایان نامه ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/article']"> مقاله ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/book']"> کتاب ها</a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/teaching']"> سوابق تدریس </a> </li>
-                            <li><a [routerLink]="['/pages/case-history/research-activities/invention']"> اختراع ها </a> </li>
-                        </ul>
-                    </li>
-                    <li><a [routerLink]="['/pages/case-history/courses']"> سایر دوره ها </a></li>
-                </ul>
-
-            </li>
-
-
-
-
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-route"></i>
-                    <span class="nav-text">تقسیمات کشوری</span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/divisions-of-the-country/tree']">درختواره </a> </li>
-                    <li><a [routerLink]="['/pages/divisions-of-the-country/upload']"> بارگذاری</a> </li>
-                </ul>
-
-            </li>
-
-            <li><a class="has-arrow ai-icon"
-                    href="javascript:void()" aria-expanded="false">
-                    <i class="flaticon-381-networking-1"></i>
-                    <span class="nav-text">سازمان</span>
-                </a>
-                <ul aria-expanded="false" >
-                    <li><a [routerLink]="['/pages/organization']">درختواره </a> </li>
-                    <li><a [routerLink]="['/pages/organization-positions']"> پست سازمانی</a> </li>
-                </ul>
-
-            </li>
-            <li><a class="has-arrow ai-icon"
-                href="javascript:void()" aria-expanded="false">
-                <i class="flaticon-381-user-8"></i>
-                <span class="nav-text">اشخاص</span>
-            </a>
-            <ul aria-expanded="false" >
-                <li><a [routerLink]="['/pages/persons/natural-persons']">حقیقی </a> </li>
-                <li><a [routerLink]="['/pages/persons/legal-persons']"> حقوقی</a> </li>
-            </ul>
-
-        </li>
-
-            <li>
-                <a class="ai-icon" [routerLink]="['/pages/persons']">
-                    <i class="flaticon-381-user"></i>
-                    <span class="nav-text">پرسنل</span>
-                </a>
-            </li>
-
-            <!-- <li>
-                <a class="ai-icon" [routerLink]="['/pages/accounts']">
-                    <i class="flaticon-381-networking"></i>
-                    <span class="nav-text">فراخوان</span>
-                </a>
-            </li> -->
-
-            <!-- <li>
-                <a class="ai-icon" [routerLink]="['/pages/accounts']">
-                    <i class="flaticon-381-networking"></i>
-                    <span class="nav-text">محصولات</span>
-                </a>
-            </li> -->
-
-            <li>
-                <a class="ai-icon" [routerLink]="['/pages/accounts']">
-                    <i class="flaticon-381-user-9"></i>
-                    <span class="nav-text">کاربران</span>
-                </a>
-            </li>
-
-
-
+  <div class="deznav-scroll" [perfectScrollbar]>
+    <ul class="metismenu" id="menu" metis-menu>
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-user-7"></i>
+          <span class="nav-text"> اطلاعات پایه </span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/base-information/product']"> محصولات </a></li>
+          <li>
+            <a [routerLink]="['/pages/base-information/product-classification']"> رقم محصولی </a>
+          </li>
+          <li><a [routerLink]="['/pages/base-information/university']"> دانشگاه </a></li>
+          <li>
+            <a [routerLink]="['/pages/base-information/study-filed']"> رشته | گرایش تحصیلی </a>
+          </li>
         </ul>
-    </div>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-route"></i>
+          <span class="nav-text">تقسیمات کشوری</span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/divisions-of-the-country/tree']">درختواره </a></li>
+          <li><a [routerLink]="['/pages/divisions-of-the-country/upload']"> بارگذاری</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-user-8"></i>
+          <span class="nav-text">اشخاص</span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/person']">حقیقی </a></li>
+          <li><a [routerLink]="['/pages/company']"> حقوقی</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-user-7"></i>
+          <span class="nav-text"> کشاورز </span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/farmer/interests-workplace']">علاقمندی های محل کار </a></li>
+          <li><a [routerLink]="['/pages/farmer/agricultural-experiences']"> تجارب کشاورزی</a></li>
+          <li>
+            <a [routerLink]="['/pages/farmer/agricultural-interests']"> علاقه مندی های کشاورزی</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-networking"></i>
+          <span class="nav-text"> مالک زمین </span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/land-owner/product-unit']">واحد تولیدی</a></li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-networking-1"></i>
+          <span class="nav-text">ساختار سازمان</span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/organization']">سازمان ها</a></li>
+          <li>
+            <a [routerLink]="['/pages/organization-positions/position-history']"> پست سازمانی</a>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-user-2"></i>
+          <span class="nav-text"> مربی </span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/coach/education-records']">سوابق تحصیلی </a></li>
+          <li><a [routerLink]="['/pages/coach/job-records']"> سوابق شغلی</a></li>
+          <li><a [routerLink]="['/pages/coach/social-skills']"> مهارت های اجتماعی</a></li>
+          <li><a [routerLink]="['/pages/coach/software-skills']"> مهارت های نرم افزاری</a></li>
+          <li><a [routerLink]="['/pages/coach/membership']"> عضویت در سازمان</a></li>
+          <li><a [routerLink]="['/pages/coach/courses']"> سایر مهارت ها</a></li>
+          <li>
+            <a class="has-arrow ai-icon" aria-expanded="true"> سوابق پژوهشی</a>
+            <ul >
+              <li>
+                <a [routerLink]="['/pages/coach/research-activities/thesis']"
+                  >پایان نامه ها</a
+                >
+              </li>
+              <li>
+                <a [routerLink]="['/pages/coach/research-activities/article']"> مقاله ها</a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/coach/research-activities/book']"> کتاب ها</a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/coach/research-activities/teaching']">
+                  سوابق تدریس
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/coach/research-activities/invention']">
+                  اختراع ها
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
+          <!-- <li><a [routerLink]="['/pages/coach/courses']"> سایر دوره ها </a> </li> -->
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-user-3"></i>
+          <span class="nav-text">دیده بان امنیت غذایی</span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/food-security-watch/education-records']">سوابق تحصیلی </a></li>
+          <li><a [routerLink]="['/pages/food-security-watch/job-records']"> سوابق شغلی</a></li>
+          <li><a [routerLink]="['/pages/food-security-watch/social-skills']"> مهارت های اجتماعی</a></li>
+          <li><a [routerLink]="['/pages/food-security-watch/software-skills']"> مهارت های نرم افزاری</a></li>
+          <li><a [routerLink]="['/pages/food-security-watch/membership']"> عضویت در سازمان</a></li>
+          <li><a [routerLink]="['/pages/food-security-watch/courses']"> سایر مهارت ها</a></li>
+          <li>
+            <a class="has-arrow ai-icon" aria-expanded="true"> سوابق پژوهشی</a>
+            <ul>
+              <li>
+                <a [routerLink]="['/pages/food-security-watch/research-activities/thesis']"
+                  >پایان نامه ها</a
+                >
+              </li>
+              <li>
+                <a [routerLink]="['/pages/food-security-watch/research-activities/article']"> مقاله ها</a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/food-security-watch/research-activities/book']"> کتاب ها</a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/food-security-watch/research-activities/teaching']">
+                  سوابق تدریس
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/food-security-watch/research-activities/invention']">
+                  اختراع ها
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
+          <!-- <li><a [routerLink]="['/pages/coach/courses']"> سایر دوره ها </a> </li> -->
+        </ul>
+      </li>
+
+      <li>
+        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+          <i class="flaticon-381-user-1"></i>
+          <span class="nav-text"> دیده بان تولید </span>
+        </a>
+        <ul aria-expanded="false">
+          <li><a [routerLink]="['/pages/production-watch/education-records']">سوابق تحصیلی </a></li>
+          <li><a [routerLink]="['/pages/production-watch/job-records']"> سوابق شغلی</a></li>
+          <li><a [routerLink]="['/pages/production-watch/social-skills']"> مهارت های اجتماعی</a></li>
+          <li><a [routerLink]="['/pages/production-watch/software-skills']"> مهارت های نرم افزاری</a></li>
+          <li><a [routerLink]="['/pages/production-watch/membership']"> عضویت در سازمان</a></li>
+          <li><a [routerLink]="['/pages/production-watch/courses']"> سایر مهارت ها</a></li>
+          <li>
+            <a class="has-arrow ai-icon" aria-expanded="true"> سوابق پژوهشی</a>
+            <ul>
+              <li>
+                <a [routerLink]="['/pages/production-watch/research-activities/thesis']"
+                  >پایان نامه ها</a
+                >
+              </li>
+              <li>
+                <a [routerLink]="['/pages/production-watch/research-activities/article']"> مقاله ها</a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/production-watch/research-activities/book']"> کتاب ها</a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/production-watch/research-activities/teaching']">
+                  سوابق تدریس
+                </a>
+              </li>
+              <li>
+                <a [routerLink]="['/pages/production-watch/research-activities/invention']">
+                  اختراع ها
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
+          <!-- <li><a [routerLink]="['/pages/coach/courses']"> سایر دوره ها </a> </li> -->
+        </ul>
+      </li>
+
+      <li>
+        <a class="ai-icon" [routerLink]="['/pages/registration-announcemen']">
+          <i class="flaticon-381-user"></i>
+          <span class="nav-text">فراخوان</span>
+        </a>
+      </li>
+      <li>
+        <a class="ai-icon" [routerLink]="['/pages/role-determination']">
+          <i class="flaticon-381-user"></i>
+          <span class="nav-text">نقش ها</span>
+        </a>
+      </li>
+
+      <li>
+        <a class="ai-icon" [routerLink]="['/pages/courses']">
+          <i class="flaticon-381-user"></i>
+          <span class="nav-text">نگهداشت دوره ها</span>
+        </a>
+      </li>
+
+      <li>
+        <a class="ai-icon" [routerLink]="['/pages/persons']">
+          <i class="flaticon-381-user"></i>
+          <span class="nav-text">پرسنل</span>
+        </a>
+      </li>
+
+      <!-- <li>
+        <a class="ai-icon" [routerLink]="['/pages/accounts']">
+          <i class="flaticon-381-user-9"></i>
+          <span class="nav-text">کاربران</span>
+        </a>
+      </li> -->
+    </ul>
+  </div>
 </div>

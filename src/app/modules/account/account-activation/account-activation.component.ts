@@ -31,7 +31,7 @@ export class AccountActivationComponent implements OnInit {
     this.disableButton = true;
 
     if (this.accountActivationForm.valid) {
-      let rest = this.auth.checkAndSendSms(this.accountActivationForm.value.idNumber, this.accountActivationForm.value.phoneNumber).subscribe({
+      let rest = this.auth.checkAndSendSms(this.accountActivationForm.value).subscribe({
         next: (result) => {
 
           if (result['userCkeck']=== true) {

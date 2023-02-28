@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { TreeNode } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'environment/environment';
@@ -16,8 +16,38 @@ export class CommonService
   {
   }
 
-  public getChild(url: string): Observable<TreeNode[]>
+  public getChild(url: string): Observable<any>
   {
-    return this.http.get<TreeNode[]>(`${environment.baseUrl}/${url}`);
+    return this.http.get<any>(`${environment.baseUrl}/${url}`).pipe(
+      map( data =>{
+        return this.convertToTree(data)
+      })
+      );
+  }
+
+  public getTree(url: string): Observable<any>
+  {
+    return this.http.get<any>(`${environment.baseUrl}/${url}`).pipe(
+      map( data =>{
+        return this.convertToTree(data)
+      })
+      );
+  }
+
+  convertToTree(data:any){
+    let treeData=[];
+    if (data) {
+      data.forEach(element => {
+        treeData.push(
+          {
+            label:element.name,
+            data:element.code,
+            leaf:element.typeId>3,
+            children:[]
+          }
+      );
+      });
+    }
+    return treeData;
   }
 }

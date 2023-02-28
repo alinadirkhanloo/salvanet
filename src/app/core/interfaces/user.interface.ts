@@ -1,6 +1,11 @@
 export interface User {
-  access_token: string; // auth token
-  refresh_token:string; // auth refresh token
-  id_token:string; // user info
+  accessKey: string; // auth token
+  idToken:string; // user info
   }
-  
+
+  export interface IDToken{
+    firstName:string;
+    lastName:string;
+    role:string;
+    permissions:string;
+    personPassword:boolean}

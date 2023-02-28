@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 import {CalendarModule} from 'primeng/calendar';
@@ -15,9 +16,27 @@ import {ConfirmPopupModule} from 'primeng/confirmpopup';
 import {ConfirmationService} from 'primeng/api';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import {StepsModule} from 'primeng/steps';
+import {ToggleButtonModule} from 'primeng/togglebutton';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {AvatarModule} from 'primeng/avatar';
+import {AvatarGroupModule} from 'primeng/avatargroup';
+import {TooltipModule} from 'primeng/tooltip';
+import {RadioButtonModule} from 'primeng/radiobutton';
+
+
 @NgModule({
   declarations: [],
   imports: [
+    AvatarGroupModule,
+    TooltipModule,
+    AvatarModule,
+    HttpClientModule,
+    StepsModule,
+    InputSwitchModule,
+    ToggleButtonModule,
+    FileUploadModule,
     DynamicDialogModule,
     ConfirmDialogModule,
     ConfirmPopupModule,
@@ -32,11 +51,18 @@ import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
     SliderModule,
     CalendarModule,
     ToastModule,
-    TableModule
+    TableModule,
+    RadioButtonModule
   ],
   exports: [
+    AvatarGroupModule,
+    AvatarModule,
+    TooltipModule,
     DynamicDialogModule,
     ConfirmDialogModule,
+    InputSwitchModule,
+    ToggleButtonModule,
+    StepsModule,
     ConfirmPopupModule,
     InputTextModule,
     ProgressBarModule,
@@ -49,7 +75,10 @@ import { DynamicDialogModule, DialogService } from 'primeng/dynamicdialog';
     SliderModule,
     CalendarModule,
     ToastModule,
-    TableModule
+    TableModule,
+    FileUploadModule,
+    HttpClientModule,
+    RadioButtonModule
   ],
   providers:[ConfirmationService,DialogService]
 })

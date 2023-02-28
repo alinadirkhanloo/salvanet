@@ -10,6 +10,11 @@ import { ChangePassComponent } from './change-pass/change-pass.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CompanyRegistrationComponent } from './company-registration/company-registration.component';
 import { UserActivationComponent } from './user-activation/user-activation.component';
+import { AllMaterialModule } from 'app/shared/modules/material/material.module';
+import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import { FindBoxModule } from 'app/core/components/find-box/find-box.module';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { PersonnelFilterModule } from 'app/core/components/personnel-filter/personnel-filter.module';
 
 
 const routes: Routes = [
@@ -49,9 +54,12 @@ const routes: Routes = [
         ,RegistrationComponent
     ,SignupTypeDialogComponent, CompanyRegistrationComponent, UserActivationComponent],
     imports: [
-        SharedModule,
-        RouterModule.forChild(routes)
+        SharedModule,AllMaterialModule,PrimeNgModule,FindBoxModule,
+        RouterModule.forChild(routes),NgbModule,PersonnelFilterModule
 
+    ],
+    providers: [
+      NgbActiveModal
     ]
 })
 export class AccountModule { }

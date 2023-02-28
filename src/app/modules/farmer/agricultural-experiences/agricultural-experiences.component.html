@@ -8,25 +8,25 @@
         </div>
     </div>
     <div class="justify-content-center align-items-center">
-        <div class="card">
+        <div class="card" *ngIf="getIntrests().length>25">
             <div class="card-header">
                 <h4 class="card-title">
                     تجربه کشاورزی
                 </h4>
                 <p class="m-0">
-                    <button type="submit" pButton pRipple  class="p-button-success mx-2"  [disabled]="disableButton">
+                    <button type="submit" (click)="submit()" pButton pRipple  class="p-button-success mx-2"  [disabled]="disableButton">
                         افزودن
                     </button>
-                    <button type="submit" pButton pRipple  class="p-button-danger">
+                    <button type="submit" (click)="clear()" pButton pRipple  class="p-button-danger">
                         انصراف
                     </button>
                 </p>
             </div>
-            
+
             <div class="card-body">
                 <div class="form-group mx-sm-3 mb-4">
-                    <input id="address" type="text" readonly class="form-control-plaintext form-control-lg"
-                    [value]="getIntrests()">
+                    <p  class="form-control-plaintext form-control-lg"
+                    >{{getIntrests()}}</p>
                 </div>
 
             </div>
@@ -42,7 +42,7 @@
                         <div class="form-group col-md-4">
                             <label>استان</label>
                             <app-dynamic-select
-                             [selectionConfig]="stateConfig" 
+                             [selectionConfig]="stateConfig"
                             [(ngModel)]="stateModel"
                             (ngModelChange)="_onStateChange($event)"
                             ></app-dynamic-select>
@@ -50,7 +50,7 @@
                         <div class="form-group col-md-4">
                             <label>شهرستان</label>
                             <app-dynamic-select
-                             [selectionConfig]="townShip" 
+                             [selectionConfig]="townShip"
                             [(ngModel)]="townShipModel"
                             (ngModelChange)="_onTownShipChange($event)"
                             ></app-dynamic-select>
@@ -59,7 +59,7 @@
                         <div class="form-group col-md-4">
                             <label>بخش / شهر</label>
                             <app-dynamic-select
-                             [selectionConfig]="city" 
+                             [selectionConfig]="city"
                             [(ngModel)]="cityModel"
                             (ngModelChange)="_onCityChange($event)"
                             ></app-dynamic-select>
@@ -68,7 +68,7 @@
                         <div class="form-group col-md-4">
                             <label>دهستان</label>
                             <app-dynamic-select
-                             [selectionConfig]="village" 
+                             [selectionConfig]="village"
                             [(ngModel)]="villageModel"
                             (ngModelChange)="_onVillageChange($event)"
                             ></app-dynamic-select>
@@ -77,7 +77,7 @@
                         <div class="form-group col-md-4">
                             <label>روستا</label>
                             <app-dynamic-select
-                             [selectionConfig]="villageShip" 
+                             [selectionConfig]="villageShip"
                             [(ngModel)]="villageShipModel"
                             ></app-dynamic-select>
                         </div>
@@ -125,15 +125,15 @@
                     تجارب کشاورزی
                 </h4>
             </div>
-            
+
             <div class="card-body">
-                
+
                 <p-table [value]="products">
                     <ng-template pTemplate="body" let-product>
                         <tr>
-                            <td>{{product.title}}</td>
+                            <td>{{product.topic}}</td>
                             <td>
-                                <button pButton type="button" class="p-button-danger" icon="pi pi-trash"></button>
+                                <button pButton type="button" class="p-button-danger float-left" icon="pi pi-trash"></button>
                             </td>
                         </tr>
                     </ng-template>

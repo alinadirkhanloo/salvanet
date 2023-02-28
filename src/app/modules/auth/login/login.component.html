@@ -1,71 +1,164 @@
 <div class="authincation h-100">
-    <div class="container vh-100">
-        <div class="row justify-content-center h-100 align-items-center">
-            <div class="col-lg-6 col-md-8">
-                <div class="authincation-content">
-                    <div class="row no-gutters">
-                        <div class="col-xl-12">
-                            <div class="auth-form">
-                                <div class="text-center mb-3">
-                                    <a [routerLink]="['/home']"><img src="assets/images/logo-full.png"
-                                            alt=""></a>
-                                </div>
-                                <h4 class="text-center mb-4">ورود به حساب کاربری</h4>
-                                <form [formGroup]="loginForm">
-                                    <div class="form-group">
-                                        <label class="mb-1"><strong>کد کاربری</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="36"
-                                            [ngClass]="{
-                                        'is-valid':loginForm.controls['username'].valid,
-                                        'is-invalid':loginForm.controls['username'].invalid && loginForm.controls['username'].touched}"
-                                            formControlName="username" placeholder="- - - - - - - - - -">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-1"><strong>کلمه عبور</strong></label>
-                                        <input type="password" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':loginForm.controls['password'].valid,
-                                        'is-invalid':loginForm.controls['password'].invalid && loginForm.controls['password'].touched}"
-                                            formControlName="password" placeholder="- - - - - - - - - -" >
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-1"><strong>کد امنیتی</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':loginForm.controls['code'].valid,
-                                        'is-invalid':loginForm.controls['code'].invalid && loginForm.controls['code'].touched}"
-                                            formControlName="code" placeholder="- - - - - - - - - -" >
-                                    </div>
-                                    <div class="form-row d-flex justify-content-between mt-4 mb-2">
-                                        <div class="form-group">
-                                            <a (click)="forgatenPass()">رمز عبور خود را فراموش کرده ام</a>
-                                        </div>
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" 
-                                            (click)="goToActivationtion()" class="btn btn-info mx-2">
-                                            <span ></span>
-                                            فعال سازی حساب کاربری
-                                        </button>
-                                        <button type="submit" [disabled]="!loginForm.valid || disableLoginButton"
-                                            (click)="login()" class="btn btn-primary">
-                                            <span *appSpinOn="disableLoginButton; color: 'warn';"></span>
-                                            ورود
-                                        </button>
-                                    </div>
-                                </form>
-                                <div class="new-account mt-3 text-center">
-                                    <p> آیا حساب کاربری دارید؟ <a class="text-primary"
-                                        (click)="signUp()"> ثبت نام  </a></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="container vh-100">
+    <div class="row justify-content-center h-100 align-items-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="authincation-content">
+          <div class="row no-gutters">
+            <div class="col-xl-12">
+              <div class="auth-form">
+                <div class="text-center mb-3">
+                  <a [routerLink]="['/']" class="brand-logo">
+                    <svg
+                      class="logo-abbr"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="51"
+                      height="51"
+                      fill="none"
+                    >
+                      <path
+                        class="svg-logo-pattern"
+                        d="M12.683 49.636c0 .488-.392.88-.877.88a.88.88 0 0 1-.88-.88v-6.827a.88.88 0 0 1 .88-.88.88.88 0 0 1 .877.88v6.827zm-11.757-10a.88.88 0 0 1-.88-.877.88.88 0 0 1 .88-.88h6.83a.88.88 0 0 1 .877.88c0 .485-.392.877-.877.877H.926zm0-26.999a.88.88 0 0 1-.88-.877.88.88 0 0 1 .88-.88h6.83c.485 0 .877.392.877.88s-.392.877-.877.877H.926zm0 6.751a.88.88 0 0 1-.88-.88.88.88 0 0 1 .88-.877h6.83c.485 0 .877.392.877.877s-.392.88-.877.88H.926zm0 6.751a.88.88 0 0 1-.88-.88.88.88 0 0 1 .88-.877h6.83c.485 0 .877.392.877.877a.88.88 0 0 1-.877.88H.926zm0 6.75a.88.88 0 1 1 0-1.761h6.83a.88.88 0 0 1 0 1.761H.926zM10.926.88a.88.88 0 0 1 .88-.88.88.88 0 0 1 .877.88v6.83c0 .485-.392.877-.877.877s-.88-.392-.88-.877V.88zm26.999 0a.88.88 0 0 1 .88-.88.88.88 0 0 1 .877.88v6.83c0 .485-.392.877-.877.877a.88.88 0 0 1-.88-.877V.88zm-6.751 0a.88.88 0 1 1 1.761 0v6.83a.88.88 0 1 1-1.761 0V.88zm-6.747 0a.88.88 0 0 1 .877-.88.88.88 0 0 1 .88.88v6.83a.88.88 0 0 1-.88.877c-.485 0-.877-.392-.877-.877V.88zm-6.751 0a.88.88 0 0 1 .877-.88.88.88 0 0 1 .88.88v6.83c0 .485-.392.877-.88.877s-.877-.392-.877-.877V.88zm32.005 36.998a.88.88 0 0 1 .881.88c0 .485-.392.877-.881.877h-6.827a.88.88 0 0 1-.88-.877.88.88 0 0 1 .88-.88h6.827zm0-26.999a.88.88 0 0 1 .881.88c0 .485-.392.877-.881.877h-6.827a.88.88 0 0 1-.88-.877.88.88 0 0 1 .88-.88h6.827zm0 6.751c.488 0 .881.392.881.877a.88.88 0 0 1-.881.88h-6.827a.88.88 0 0 1-.88-.88.88.88 0 0 1 .88-.877h6.827zm0 6.751c.488 0 .881.392.881.877a.88.88 0 0 1-.881.88h-6.827a.88.88 0 0 1-.88-.88.88.88 0 0 1 .88-.877h6.827zm0 6.747a.88.88 0 1 1 0 1.761h-6.827a.88.88 0 0 1 0-1.761h6.827zm-9.999 18.508c0 .488-.392.88-.877.88a.88.88 0 0 1-.88-.88v-6.827a.88.88 0 0 1 .88-.88.88.88 0 0 1 .877.88v6.827zm-6.747 0a.88.88 0 1 1-1.761 0v-6.827a.88.88 0 1 1 1.761 0v6.827zm-6.75 0a.88.88 0 0 1-.88.88c-.485 0-.877-.392-.877-.88v-6.827a.88.88 0 0 1 .877-.88.88.88 0 0 1 .88.88v6.827zm-6.75 0a.88.88 0 0 1-.88.88c-.485 0-.877-.392-.877-.88v-6.827a.88.88 0 0 1 .877-.88.88.88 0 0 1 .88.88v6.827z"
+                        fill="#363062"
+                      />
+                      <g fill-rule="evenodd">
+                        <path
+                          class="svg-logo-path"
+                          d="M11.806 7.711h26.999c2.226 0 4.05 1.821 4.05 4.05v26.999c0 2.226-1.824 4.05-4.05 4.05H11.806c-2.229 0-4.05-1.824-4.05-4.05V11.76a4.06 4.06 0 0 1 4.05-4.05z"
+                          fill="#4d4c7d"
+                        />
+                        <path
+                          class="svg-logo-path"
+                          d="M35.287 7.711h3.518c2.226 0 4.05 1.821 4.05 4.05v26.999c0 2.226-1.824 4.05-4.05 4.05h-3.518c2.229 0 4.053-1.824 4.053-4.05V11.76c0-2.229-1.824-4.05-4.053-4.05z"
+                          fill="#363062"
+                        />
+                        <path
+                          class="svg-bg-path"
+                          d="M14.733 13.75h21.142a.94.94 0 0 1 .937.937v21.142a.94.94 0 0 1-.937.937H14.733a.94.94 0 0 1-.937-.937V14.687a.94.94 0 0 1 .937-.937z"
+                          fill="#fff"
+                        />
+                        <path
+                          class="svg-bg-path"
+                          d="M32.36 13.75h3.515a.94.94 0 0 1 .937.937v21.142a.94.94 0 0 1-.937.937H32.36a.94.94 0 0 0 .937-.937V14.687a.94.94 0 0 0-.937-.937z"
+                          fill="#fff"
+                        />
+                      </g>
+                      <path
+                        class="svg-logo-path"
+                        d="M23.171 18.75v-1.153a.88.88 0 1 1 1.761 0v1.153h1.837v-1.153c0-.485.392-.877.88-.877s.877.392.877.877v1.259a3.75 3.75 0 0 1 1.741.977c.674.671 1.093 1.595 1.093 2.611a3.67 3.67 0 0 1-1.319 2.814c.834.701 1.319 1.724 1.319 2.817 0 1.013-.419 1.937-1.093 2.608-.475.472-1.073.817-1.741.98v1.256a.88.88 0 0 1-.877.88.88.88 0 0 1-.88-.88v-1.15h-1.837v1.15a.88.88 0 1 1-1.761 0v-1.15h-3.043a.88.88 0 0 1 0-1.761h.921v-9.501h-.921a.88.88 0 0 1-.88-.877.88.88 0 0 1 .88-.88h3.043zm4.478 7.388h-4.844v3.87h4.844c.538 0 1.026-.216 1.382-.568a1.92 1.92 0 0 0 .572-1.365 1.93 1.93 0 0 0-.572-1.369c-.355-.352-.844-.568-1.382-.568zm0-5.631h-4.844v3.874h4.844a1.96 1.96 0 0 0 1.382-.571 1.92 1.92 0 0 0 .572-1.366c0-.531-.219-1.017-.572-1.369a1.97 1.97 0 0 0-1.382-.568z"
+                        fill="#4d4c7d"
+                      />
+                    </svg>
+                    <strong
+                      class="brand-title text-primary"
+                      style="font-size: 1.4rem; min-width: 12rem"
+                    >
+                      سلوانت - SalvaNet
+                    </strong>
+                  </a>
                 </div>
+                <h4 class="text-center mb-4">ورود به حساب کاربری</h4>
+                <form [formGroup]="loginForm">
+                  <div class="form-group">
+                    <label for="username" class="mb-1"><strong>کد ملی</strong></label>
+                    <input
+                      type="text"
+                      id="username"
+                      class="form-control text-center"
+                      OnlyNumber="true"
+                      maxlength="10"
+                      minlength="10"
+                      [ngClass]="{
+                        'is-valid': loginForm.controls['username'].valid,
+                        'is-invalid':
+                          loginForm.controls['username'].invalid &&
+                          loginForm.controls['username'].touched
+                      }"
+                      formControlName="username"
+                      placeholder="- - - - - - - - - -"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="password" class="mb-1"><strong>کلمه عبور</strong></label>
+                    <input
+                      type="password"
+                      id="password"
+                      class="form-control text-center"
+                      maxlength="36"
+                      minlength="8"
+                      [pTooltip]="passTooltip"
+                      tooltipPosition="right"
+                      tooltipEvent="focus"
+                      [ngClass]="{
+                        'is-valid': loginForm.controls['password'].valid,
+                        'is-invalid':
+                          loginForm.controls['password'].invalid &&
+                          loginForm.controls['password'].touched
+                      }"
+                      formControlName="password"
+                      placeholder="- - - - - - - - - -"
+                    />
+                  </div>
+
+                  <div class="form-group text-center" (click)="getCaptcha()">
+                    <img
+                      [src]="'data:image/jpg;base64,' + captchaImage"
+                      alt="تصویر کد امنیتی"
+                      width="200px"
+                      height="50px"
+                    />
+                  </div>
+
+                  <div class="form-group mb-4">
+                    <label for="captcha" class="mb-1"><strong>کد امنیتی</strong></label>
+                    <input
+                      type="text"
+                      id="captcha"
+                      class="form-control text-center"
+                      maxlength="5"
+                      minlength="4"
+                      [ngClass]="{
+                        'is-valid': loginForm.controls['captcha'].valid,
+                        'is-invalid':
+                          loginForm.controls['captcha'].invalid &&
+                          loginForm.controls['captcha'].touched
+                      }"
+                      formControlName="captcha"
+                      placeholder="- - - - - - - - - -"
+                    />
+                  </div>
+
+                  <div class="text-center">
+                    <button type="submit" (click)="goToActivationtion()" class="btn btn-info mx-2">
+                      <span></span>
+                      فعال سازی حساب کاربری
+                    </button>
+                    <button
+                      type="submit"
+                      [disabled]="!loginForm.valid || disableLoginButton"
+                      (click)="login()"
+                      class="btn btn-primary"
+                    >
+                      <span *appSpinOn="disableLoginButton; color: 'warn'"></span>
+                      ورود
+                    </button>
+                  </div>
+                </form>
+                <div class="new-account mt-3 text-center">
+                  <p>
+                    آیا حساب کاربری دارید؟
+                    <a class="text-primary" role="button" (click)="signUp()"> ثبت نام </a>
+                  </p>
+                </div>
+                <div class="form-group text-center">
+                  <a (click)="forgatenPass()" class="fs-12 text-center" role="button"
+                    >رمز عبور خود را فراموش کرده ام</a
+                  >
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

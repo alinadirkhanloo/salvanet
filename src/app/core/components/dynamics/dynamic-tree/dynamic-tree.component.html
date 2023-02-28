@@ -1,7 +1,7 @@
 <ng-container
   *ngIf='isLoaded'>
 
-    <p-tree
+    <p-tree scrollHeight="380px"
       [value]='files'
       [selectionMode]="configs.selectionMode ?? 'checkbox'"
       (onNodeExpand)='nodeExpand($event)'

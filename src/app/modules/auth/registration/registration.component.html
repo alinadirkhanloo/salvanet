@@ -1,230 +1,402 @@
-
-    <div class="container-fluid vh-100 my-5">
-        <div class="row justify-content-center align-items-center">
-            <div class="col-lg-10 col-md-10">
-                <div class="authincation-content">
-                    <div class="row no-gutters">
-                        <div class="col-xl-12">
-                            <div class="auth-form">
-    
-                                <h2 class="text-center mb-4">ایجاد حساب کاربری</h2>
-                                <form [formGroup]="accountForm" class="row mx-0 px-0">
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>کد ملی</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="36"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['nationalId'].valid,
-                                        'is-invalid':accountForm.controls['nationalId'].invalid && accountForm.controls['nationalId'].touched}"
-                                            formControlName="nationalId" placeholder="">
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>نام</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="36"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['fName'].valid,
-                                        'is-invalid':accountForm.controls['fName'].invalid && accountForm.controls['fName'].touched}"
-                                            formControlName="fName" placeholder="">
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>نام خانوادگی</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['lName'].valid,
-                                        'is-invalid':accountForm.controls['lName'].invalid && accountForm.controls['lName'].touched}"
-                                            formControlName="lName" placeholder="" >
-                                    </div>
-
-                                    
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>شماره شناسنامه</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['idNumber'].valid,
-                                        'is-invalid':accountForm.controls['idNumber'].invalid && accountForm.controls['idNumber'].touched}"
-                                            formControlName="idNumber" placeholder="" >
-                                    </div>
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>جنسیت</strong></label>
-                                        <select id="inputState" formControlName="gender"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>مرد</option>
-                                            <option>زن</option>
-                                        </select>
-                                    </div>	
-                                                                
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong> تاریخ تولد</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['birthDate'].valid,
-                                        'is-invalid':accountForm.controls['birthDate'].invalid && accountForm.controls['birthDate'].touched}"
-                                            formControlName="birthDate" placeholder="" >
-                                    </div>
-                                    
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>محل تولد</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['birthLocation'].valid,
-                                        'is-invalid':accountForm.controls['birthLocation'].invalid && accountForm.controls['birthLocation'].touched}"
-                                            formControlName="birthLocation" placeholder="" >
-                                    </div>
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>محل صدور شناسنامه</strong></label>
-                                        <select id="inputState" formControlName="idNumberLocation"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>تهران</option>
-                                            <option>کرج</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>ملیت</strong></label>
-                                        <select id="inputState" formControlName="nationality"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>ایران</option>
-                                            <option>سایر</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>تابعیت</strong></label>
-                                        <select id="inputState" formControlName="country"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>ایران</option>
-                                            <option>سایر</option>
-                                        </select>
-                                    </div>	
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>دین</strong></label>
-                                        <select id="inputState" formControlName="religen"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>اسلام</option>
-                                            <option>مسیحیت</option>
-                                        </select>
-                                    </div>	
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>مذهب</strong></label>
-                                        <select id="inputState" formControlName="sect"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>شیعه</option>
-                                            <option>سنی</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت نظام وظیفه</strong></label>
-                                        <select id="inputState" formControlName="military"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>درحال خدمت</option>
-                                            <option>اتمام خدمت</option>
-                                            <option>مشمول</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت تاهل</strong></label>
-                                        <select id="inputState" formControlName="marrid"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>مجرد</option>
-                                            <option>متاهل</option>
-                                        </select>
-                                    </div>	
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong> تعداد فرزندان</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['childNum'].valid,
-                                        'is-invalid':accountForm.controls['childNum'].invalid && accountForm.controls['childNum'].touched}"
-                                            formControlName="childNum" placeholder="" >
-                                    </div>
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت اشتغال</strong></label>
-                                        <select id="inputState" formControlName="job"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>کارمند</option>
-                                            <option>آزاد</option>
-                                            <option>بیکار</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت تحصیلی</strong></label>
-                                        <select id="inputState" formControlName="edu"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>فارغ التحصیل</option>
-                                            <option>درحال تحصیل</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>سطح تحصیلات</strong></label>
-                                        <select id="inputState" formControlName="levelOfEdu"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>سیکل</option>
-                                            <option>دیپلم</option>
-                                            <option>لیسانس</option>
-                                        </select>
-                                    </div>	
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>محل سکونت</strong></label>
-                                        <select id="inputState" formControlName="home"
-                                            class="form-control default-select">
-                                            <option selected>...</option>
-                                            <option>تهران</option>
-                                            <option>کرج</option>
-                                        </select>
-                                    </div>	
-
-                                    <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong> آدرس</strong></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="24"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['address'].valid,
-                                        'is-invalid':accountForm.controls['address'].invalid && accountForm.controls['address'].touched}"
-                                            formControlName="address" placeholder="" >
-                                    </div>
-
-
-                                    
-                                    <div class="text-center col-12">
-                                        <button type="submit" pButton pRipple (click)="submit()"
-                                             class="p-button-success mx-2">
-                                            <span *appSpinOn="disableButton; color: 'warn';"></span>
-                                            بررسی و ثبت
-                                        </button>
-                                        <button type="submit" (click)="goToLogin()" pButton pRipple [disabled]="!accountForm.valid || disableButton"
-                                             class="p-button-danger">
-                                            <span *appSpinOn="disableButton; color: 'warn';"></span>
-                                            انصراف
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+<div class="container-fluid vh-100 my-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-10 col-md-10">
+      <div class="authincation-content">
+        <div class="row no-gutters">
+          <div class="col-xl-12">
+            <div class="auth-form">
+              <h2 class="text-center mb-4">ایجاد فرد جدید</h2>
+              <form [formGroup]="accountForm" class="row mx-0 px-0">
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>کد ملی</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"
+                    placeholder=""
+                    readonly
+                    maxlength="10"
+                    minlength="10"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['nationalCode'].valid,
+                      'is-invalid':
+                        accountForm.controls['nationalCode'].invalid &&
+                        accountForm.controls['nationalCode'].touched
+                    }"
+                    formControlName="nationalCode"
+                  />
                 </div>
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>نام</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"
+                    maxlength="64"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['firstName'].valid,
+                      'is-invalid':
+                        accountForm.controls['firstName'].invalid &&
+                        accountForm.controls['firstName'].touched
+                    }"
+                    formControlName="firstName"
+                    placeholder=""
+                  />
+                </div>
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>نام خانوادگی</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"
+                    maxlength="64"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['lastName'].valid,
+                      'is-invalid':
+                        accountForm.controls['lastName'].invalid &&
+                        accountForm.controls['lastName'].touched
+                    }"
+                    formControlName="lastName"
+                    placeholder=""
+                  />
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>شماره شناسنامه</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"
+                    maxlength="24"
+                    OnlyNumber="true"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['identityCardNumber'].valid,
+                      'is-invalid':
+                        accountForm.controls['identityCardNumber'].invalid &&
+                        accountForm.controls['identityCardNumber'].touched
+                    }"
+                    formControlName="identityCardNumber"
+                    placeholder=""
+                  />
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>محل صدور شناسنامه</small></label>
+
+                  <div class="input-group col-12" dir="ltr">
+                    <div class="input-group-prepend">
+                      <button
+                        class="btn btn-primary"
+                        type="button"
+                        style="height: 56px"
+                        (click)="
+                          openFindBox(
+                            'identityCardIssuingPlaceId',
+                            'identityCardIssuingPlaceTitle',
+                            'countryDivision/findBy/asd',
+                            'انتخاب محل'
+                          )
+                        "
+                      >
+                        <i class="flaticon-381-menu-1"></i>
+                      </button>
+                    </div>
+                    <input
+                      type="text" readonly
+                      class="form-control text-left"
+                      [ngClass]="{
+                        'is-valid': accountForm.controls['identityCardIssuingPlaceTitle'].valid,
+                        'is-invalid':
+                          accountForm.controls['identityCardIssuingPlaceTitle'].invalid &&
+                          accountForm.controls['identityCardIssuingPlaceTitle'].touched
+                      }"
+                      formControlName="identityCardIssuingPlaceTitle"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>جنسیت</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="gender"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>جنسیت</option>
+                    <option value="1">مرد</option>
+                    <option value="2">زن</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small> تاریخ تولد</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"
+                    (click)="picker1.open()"
+                    maxlength="11"
+                    name="datepicker1"
+                    [matDatepicker]="picker1"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['birthDate'].valid,
+                      'is-invalid':
+                        accountForm.controls['birthDate'].invalid &&
+                        accountForm.controls['birthDate'].touched
+                    }"
+                    formControlName="birthDate"
+                    placeholder=""
+                  />
+                  <mat-datepicker #picker1></mat-datepicker>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small> محل تولد</small></label>
+                  <div class="input-group col-12" dir="ltr">
+                    <div class="input-group-prepend">
+                      <button
+                        class="btn btn-primary"
+                        type="button"
+                        style="height: 56px"
+                        (click)="
+                          openFindBox(
+                            'birthPlaceId',
+                            'birthPlaceTitle',
+                            'countryDivision/findBy/asd',
+                            'انتخاب محل'
+                          )
+                        "
+                      >
+                        <i class="flaticon-381-menu-1"></i>
+                      </button>
+                    </div>
+                    <input
+                      type="text" readonly
+                      class="form-control text-left"
+                      [ngClass]="{
+                        'is-valid': accountForm.controls['birthPlaceTitle'].valid,
+                        'is-invalid':
+                          accountForm.controls['birthPlaceTitle'].invalid &&
+                          accountForm.controls['birthPlaceTitle'].touched
+                      }"
+                      formControlName="birthPlaceTitle"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small> ملیت </small></label>
+                  <select
+                    id="inputState"
+                    formControlName="nationalityId"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">ایرانی</option>
+                    <option value="2">غیر ایرانی</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>تابعیت</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="residencePlaceId"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option>ایران</option>
+                    <option>سایر</option>
+                  </select>
+                </div>
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>دین</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="religion"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">اسلام</option>
+                    <option value="2">مسیحیت</option>
+                    <option value="3">يهوديت</option>
+                    <option value="4">زردشت</option>
+                  </select>
+                </div>
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>مذهب</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="sect"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">شیعه</option>
+                    <option value="2">سنی</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>وضعیت نظام وظیفه</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="militaryStatus"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">انجام شده</option>
+                    <option value="2">مشمول</option>
+                    <option value="3">معاف</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>وضعیت تاهل</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="maritalStatus"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">مجرد</option>
+                    <option value="2">متاهل</option>
+                    <option value="3">متارکه</option>
+                  </select>
+                </div>
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small> تعداد فرزندان</small></label>
+                  <input
+                    type="number"
+                    class="form-control text-center"
+                    maxlength="2" max="20"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['numberOfChildren'].valid,
+                      'is-invalid':
+                        accountForm.controls['numberOfChildren'].invalid &&
+                        accountForm.controls['numberOfChildren'].touched
+                    }"
+                    formControlName="numberOfChildren"
+                    placeholder=""
+                  />
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>وضعیت اشتغال</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="employmentStatus"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">کارمند دولت</option>
+                    <option value="2">آزاد</option>
+                    <option value="3">دانش آموز</option>
+                    <option value="4">دانش جو</option>
+                    <option value="5">بیکار</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>وضعیت تحصیلی</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="studying"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="false">فارغ التحصیل</option>
+                    <option value="true">درحال تحصیل</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>سطح تحصیلات</small></label>
+                  <select
+                    id="inputState"
+                    formControlName="levelOfEducation"
+                    class="form-control default-select"
+                  >
+                    <option value="" disabled selected>...</option>
+                    <option value="1">بدون تحصيلات</option>
+                    <option value="2">نهضت</option>
+                    <option value="3">ابتدايي</option>
+                    <option value="4">راهنمايي | متوسطه اول</option>
+                    <option value="5">دبيرستان | متوسطه دوم</option>
+                    <option value="6">فوق ديپلم | سطح يک حوزوي</option>
+                    <option value="7">کارشناسي | سطح دو حوزوي</option>
+                    <option value="8">کارشناسي ارشد | خارج فقه و اصول حوزوي</option>
+                    <option value="9">دکترا | اجتهاد حوزوي</option>
+                    <option value="10">دکتراي تخصصي | فوق دکترا</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small> آدرس</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"
+                    maxlength="24"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['address'].valid,
+                      'is-invalid':
+                        accountForm.controls['address'].invalid &&
+                        accountForm.controls['address'].touched
+                    }"
+                    formControlName="address"
+                    placeholder=""
+                  />
+                </div>
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small>شماره سيم کارت</small></label>
+                  <input
+                    type="text"
+                    class="form-control text-center"  OnlyNumber="true"
+                    maxlength="11" minlength="11"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['simnumber'].valid,
+                      'is-invalid':
+                        accountForm.controls['simnumber'].invalid &&
+                        accountForm.controls['simnumber'].touched
+                    }"
+                    formControlName="simnumber"
+                    placeholder="- -  - -  - - -  - - 09"
+                  />
+                </div>
+
+                <div class="text-center col-12 pt-5">
+                  <button
+                    type="submit"
+                    pButton
+                    pRipple [disabled]="accountForm.invalid || disableButton"
+                    (click)="show()"
+                    class="p-button-success mx-2"
+                  >
+                    <span *appSpinOn="disableButton; color: 'warn'"></span>
+                    بررسی و ثبت
+                  </button>
+                  <button
+                    type="submit"
+                    (click)="goToLogin()"
+                    pButton
+                    pRipple
+                    class="p-button-danger"
+                  >
+                    انصراف
+                  </button>
+                </div>
+              </form>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+</div>
+
+<p-dialog header="ثبت نام به عنوان ..." [(visible)]="display" [style]="{width: '30vw'}">
+  <div class="text-center">
+    <div class="col-sm-12 mb-3">
+        <button type="submit" class="btn btn-primary" (click)="submitAsPerson()">ثبت نام به عنوان شخص حقیقی</button>
+    </div>
+    <div class="col-sm-12">
+        <button type="submit" class="btn btn-primary" (click)="submitAsCompany()">ثبت نام به عنوان شخص حقوقی</button>
+    </div>
+</div>
+</p-dialog>

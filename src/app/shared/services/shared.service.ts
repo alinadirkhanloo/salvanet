@@ -1,5 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
 import { Injectable, Output } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -8,17 +9,27 @@ export class SharedService {
 
   navSidebarClass: boolean = true;
   hamburgerClass: boolean = false;
-  returnUrl = new BehaviorSubject<string>('');
+  returnUrl = new BehaviorSubject<string>('pages');
 
-  constructor() { }
-  
+  constructor(private toastr: ToastrService) { }
+
+
+  showSuccess(str:string='اطلاعات ثبت شد') {
+    this.toastr.success('',str );
+  }
+
+  showError(str:string='خطا در ثبت اطلاعات') {
+    this.toastr.error('', str);
+  }
+
+
   toggleSidebarClass() {
 	return this.navSidebarClass = !this.navSidebarClass  ;
   }
   toggleHamburgerClass() {
 	return this.hamburgerClass = !this.hamburgerClass  ;
   }
- 
+
 
   public createLazyUrl(id: string, lazyUrl: string | [string, string]): string
   {
@@ -36,5 +47,5 @@ export class SharedService {
         .filter(([k]) => !keys.includes(k))
     );
   }
-  
+
 }

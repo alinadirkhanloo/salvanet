@@ -10,11 +10,6 @@ import { environment } from 'environment/environment';
 export class InterestsWorkplaceService extends GenericApiService<any> {
 
   constructor(http:HttpClient) {
-    super(http,'baseInformation')
+    super(http,'interestsWorkplace')
    }
-
-   get interestsWorkplaces$():Observable<any>{
-    return this.http.get<any>(`${environment.baseUrl}/farmer/interests-workplace`);
-   }
-
 }

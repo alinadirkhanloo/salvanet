@@ -16,7 +16,7 @@ export class UserVerificationComponent implements OnInit {
   // we can use this Validators.pattern(`^[0-9]{5}`)
   verificationForm = new FormGroup({
     verificationCode: new FormControl('',[Validators.required, Validators.maxLength(20)])
- }); 
+ });
 
   // timer parameters
   minutes = 0;
@@ -43,16 +43,11 @@ export class UserVerificationComponent implements OnInit {
       this.startTimer();
     }, 1000);
 
-    console.log(this.sharedService.returnUrl.value);
-    
-
   }
 
   submit() {
-    this.disableButton = true;
-    console.log(this.sharedService.returnUrl.value);
-    
-    this.router.navigate([this.sharedService.returnUrl.value]);
+    // this.disableButton = true;
+    this.router.navigate(['auth/login']);
     // if (this.verificationForm.controls['verificationCode'].invalid) return;
     // else {
     //   this.auth.verifyCode(this.verificationForm.controls['verificationCode'].value, this.phoneNumber).subscribe({
@@ -97,10 +92,10 @@ export class UserVerificationComponent implements OnInit {
   }
 
   resendVerificationCode() {
-    this.auth.resendSms(this.idNumber, this.phoneNumber, this.setTimerState).subscribe({
-      next: (result)=>{},
-      error: (err)=>{}
-    });
+    // this.auth.resendSms(this.idNumber, this.phoneNumber, this.setTimerState).subscribe({
+    //   next: (result)=>{},
+    //   error: (err)=>{}
+    // });
   }
 
   setTimerState = () => {

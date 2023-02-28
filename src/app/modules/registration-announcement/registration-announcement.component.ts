@@ -15,25 +15,19 @@ export class RegistrationAnnouncementComponent implements OnInit{
 
   gridHeaders:IGridHeader[] = [
     {title:'title',persianTitle:'عنوان',sortKey:'title'},
+    {title:'roleTitle',persianTitle:'نقش',sortKey:'roleTitle'},
     {title:'startDate',persianTitle:'تاريخ شروع',sortKey:'startDate'},
-    {title:'endDate',persianTitle:'تاريخ پايان',sortKey:'endDate'},
-    {title:'isActive',persianTitle:'فعال',sortKey:'isActive'},
-    {title:'description',persianTitle:'توصيفات',sortKey:'description'},
-    {title:'code',persianTitle:'کد',sortKey:'code'},
+    {title:'endDate',persianTitle:'تاريخ خاتمه',sortKey:'endDate'},
+    {title:'active',persianTitle:'فعال',sortKey:'active'}
   ];
-
-  // {colDef: 'title', title:'عنوان'},
-	// {colDef: 'startDate', title:'تاريخ شروع'},
-	// {colDef: 'endDate', title:'تاريخ پايان'},
-	// {colDef: 'code', title:'کد'},
-	// {colDef: 'description', title:'توصيفات'},
-	// {colDef: 'isActive', title:'فعال است'}
-
 
   dataGrid = new GenericGrid(this.router,this.gridHeaders);
 
   dataSource: IRegistrationAnnouncement[]=[];
   selectedList: IRegistrationAnnouncement[]=[];
+  lazyLoadvent!:LazyLoadEvent;
+  first = 0;
+  rows = 10;
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -48,13 +42,17 @@ export class RegistrationAnnouncementComponent implements OnInit{
   }
 
   loadDataSource(event: LazyLoadEvent) {
-    this.registrationAnnouncementService.getList().subscribe({
-      next:(list)=>{
-        this.dataGrid.onLazyLoad(event,list);
-        this.dataSource=list.data;
-        console.log(this.dataSource);
-      }
-    });
+    if (event) {
+      this.registrationAnnouncementService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
+        next:(list)=>{
+          if (list) {
+            this.dataGrid.onLazyLoad(event,list);
+            this.dataSource=list;
+          }
+
+        }
+      });
+    }
   }
 
   onSelectAllChange(event) {
@@ -96,5 +94,22 @@ export class RegistrationAnnouncementComponent implements OnInit{
     });
   }
 
+ confirmAccountActivation(event: any,entity:any) {
 
+    this.confirmationService.confirm({
+      target: event.target,
+      message: `کاربر گرامی، آیا قصد ${event.checked?'فعال سازی':'غیر فعال سازی'} حساب های انتخاب شده را دارید؟`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel:'بله',
+      rejectLabel:'خیر',
+      acceptButtonStyleClass:'mx-2',
+      accept: () => {
+        //confirm action
+      },
+      reject: () => {
+        entity.active = !entity.active;
+        //reject action
+      }
+    });
+  }
 }

@@ -39,10 +39,10 @@ export class CoursesComponent implements OnInit {
   }
 
   loadDataSource(event: LazyLoadEvent) {
-    this.fileService.getList().subscribe({
+    this.fileService.readList().subscribe({
       next:(list)=>{
         this.dataGrid.onLazyLoad(event,list);
-        this.dataSource=list.data;
+        this.dataSource=list;
         console.log(this.dataSource);
       }
     });

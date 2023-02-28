@@ -396,7 +396,7 @@ abbr[data-original-title] {
   border-bottom: 0;
   text-decoration-skip-ink: none; }
 
-address {
+address,option {
   margin-bottom: 1rem;
   font-style: normal;
   line-height: inherit; }
@@ -4665,7 +4665,7 @@ a.close.disabled {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: unset;
     margin: 1.75rem auto; }
 
   .modal-dialog-scrollable {
@@ -42413,7 +42413,6 @@ table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.
     box-shadow: none; }
 
 .welcome-content {
-  background: url("./../images/1.jpg");
   background-size: cover;
   background-position: center;
   height: 100%;
@@ -48219,11 +48218,11 @@ text-align: right;
 
 .pi-angle-right::before {
   content: "\e931";
- 
+
 }
 .pi-angle-double-right::before {
   content: "\e92d";
-  
+
 }
 
 
@@ -48261,9 +48260,39 @@ direction: ltr;
 }
 
 .p-dropdown{
-width: 100%;}
+width: 100%;
+border-radius: 0.75rem;
+}
 
 .p-dropdown-panel .p-dropdown-header .p-dropdown-filter {
   padding-right: 1.75rem;
   margin-left: 1.75rem;
+  margin-right: 0;
+}
+
+.p-dropdown .p-dropdown-clear-icon {
+  right: unset;
+  left: 3rem;
+}
+.mat-calendar-body-cellو.mdc-button .mdc-button__label span,.mdc-button__label,.mat-calendar-body-cell-content, .mat-calendar-body-cell-content *{font-family: IRANSansfanum;}
+
+.mat-stepper-vertical, .mat-stepper-horizontal {
+ font-family: IRANSansfanum;
+}
+.form-check-label {
+  margin-right: 1.5rem;
+  margin-top: 0px;
+}
+.p-paginator-rpp-options .p-dropdown .p-component{
+  text-align: end;
+}
+
+.p-tree .p-treenode-children {
+  padding:0 1rem 0 0;
+}
+
+.p-paginator .p-dropdown .p-dropdown-label {
+  padding-left: 0;
+  padding-right: unset;
+  text-align: end;
 }

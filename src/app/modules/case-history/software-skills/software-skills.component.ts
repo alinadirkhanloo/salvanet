@@ -1,3 +1,8 @@
+import { IJob } from 'app/core/interfaces/job.interface';
+import { DialogService } from 'primeng/dynamicdialog';
+import { Router } from '@angular/router';
+import { JobService } from './../job/job.service';
+import { LazyLoadEvent, ConfirmationService } from 'primeng/api';
 import { GenericGrid } from 'app/core/interfaces/grid.interface';
 import { IGridHeader } from 'core/interfaces/grid.interface';
 import { Component, OnInit } from '@angular/core';
@@ -34,10 +39,10 @@ export class SoftwareSkillsComponent implements OnInit{
   }
 
   loadDataSource(event: LazyLoadEvent) {
-    this.jobService.getList().subscribe({
+    this.jobService.readList().subscribe({
       next:(list)=>{
         this.jobGrid.onLazyLoad(event,list);
-        this.jobList=list.data;
+        this.jobList=list;
       }
     });
   }

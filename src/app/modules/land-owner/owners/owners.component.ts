@@ -40,10 +40,10 @@ export class OwnersComponent implements OnInit{
   }
 
   loadDataSource(event: LazyLoadEvent) {
-    this.roleService.getList().subscribe({
+    this.roleService.readList().subscribe({
       next:(list)=>{
         this.dataGrid.onLazyLoad(event,list);
-        this.dataSource=list.data;
+        this.dataSource=list;
         console.log(this.dataSource);
       }
     });

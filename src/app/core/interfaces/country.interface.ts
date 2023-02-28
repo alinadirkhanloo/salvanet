@@ -3,8 +3,12 @@ export interface ICountryDivisionType extends ICountryDivision{
 }
 
 export interface ICountryDivision extends ICountry{
-	code: number;
+	code: string;
 	id: number;
+	typeId:number;
+	superDivisionLabel:string;
+	superDivisionId:number;
+	fullAddress:string
 }
 
 export interface ICountry{

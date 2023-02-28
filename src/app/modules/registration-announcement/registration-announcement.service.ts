@@ -1,14 +1,22 @@
+import { GenericApiService } from 'app/core/services/generic-api/generic-api.service';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { GenericApi } from 'app/core/interfaces/generic-api.interface';
+import { environment } from 'environment/environment';
 
 @Injectable({
     providedIn: 'root',
 })
-export class RegistrationAnnouncementService extends GenericApi {
+export class RegistrationAnnouncementService extends GenericApiService<any>{
+
     constructor(http: HttpClient) {
-        super(http,'registration-announcement');
+      super(http , 'registrationAnnouncement' )
     }
+  
+    
+    get roles$(): Observable<any>{
+        return this.http.get(`${environment.baseUrl}/role`);
+      }
 }
 
 

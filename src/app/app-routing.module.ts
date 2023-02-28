@@ -17,8 +17,8 @@ const routes: Routes = [
   {
     path: 'pages',
     loadChildren: () => import('./modules/page-container/page-container.module')
-      .then(m => m.PageContainerModule)/*, canActivate: [AccountGuard]*/
-  },
+      .then(m => m.PageContainerModule),
+  },// canActivate: [AccountGuard]
   {
     path: 'not-found',
     component: Error404Component

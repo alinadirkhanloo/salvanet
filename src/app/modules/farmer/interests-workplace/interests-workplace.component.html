@@ -8,30 +8,7 @@
         </div>
     </div>
     <div class="justify-content-center align-items-center">
-        <div class="card" *ngIf="getAddress().length>15">
-            <div class="card-header">
-                <h4 class="card-title">
-                    محل مورد علاقه
-                </h4>
-                <p class="m-0">
-                    <button type="submit" pButton pRipple  class="p-button-success mx-2" [disabled]="disableButton">
-                        افزودن
-                    </button>
-                    <button type="submit" pButton pRipple  class="p-button-danger">
-                        انصراف
-                    </button>
-                </p>
-            </div>
-            
-            <div class="card-body">
-                <div class="form-group mx-sm-3 mb-4">
-                    <input id="address" type="text" [value]="getAddress()" readonly class="form-control-plaintext form-control-lg"
-                        >
-                </div>
-
-            </div>
-        </div>
-
+        
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">انتخاب محل</h4>
@@ -87,6 +64,31 @@
             </div>
         </div>
 
+        <div class="card" *ngIf="getAddress().length>15">
+            <div class="card-header">
+                <h4 class="card-title">
+                    محل مورد علاقه
+                </h4>
+                <p class="m-0">
+                    <button type="submit" pButton pRipple (click)="submit()"
+                      class="p-button-success mx-2" [disabled]="disableButton">
+                        افزودن
+                    </button>
+                    <button type="submit" pButton pRipple  class="p-button-danger">
+                        انصراف
+                    </button>
+                </p>
+            </div>
+            
+            <div class="card-body">
+                <div class="form-group mx-sm-3 mb-4" *ngIf="getAddress().length>2">
+                    <input id="address" type="text" [value]="getAddress()" readonly class="form-control-plaintext form-control-lg"
+                        >
+                </div>
+
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 <h4 class="card-title">
@@ -96,16 +98,19 @@
             
             <div class="card-body">
                 <p-confirmDialog></p-confirmDialog>
-                <p-table [value]="products">
+                <p-table [value]="products" *ngIf="products;else nothing">
                     <ng-template pTemplate="body" let-product>
                         <tr>
                             <td>{{product.topic}}</td>
                             <td class="">
-                                <button (click)="confirmDelete(event,product.id)" pButton type="button" class="p-button-danger float-left" icon="pi pi-trash"></button>
+                                <button (click)="confirmDelete($event,product.id)" pButton type="button" class="p-button-danger float-left" icon="pi pi-trash"></button>
                             </td>
                         </tr>
                     </ng-template>
                 </p-table>
+                <ng-template #nothing>
+                    <p>هیچ محلی انتخاب نشده است</p>
+                </ng-template>
             </div>
         </div>
 

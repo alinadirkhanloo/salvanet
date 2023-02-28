@@ -1,11 +1,11 @@
-import { GenericApi } from 'core/interfaces/generic-api.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { GenericApiService } from 'app/core/services/generic-api/generic-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class OwnersService extends GenericApi {
+export class OwnersService extends GenericApiService<any> {
   constructor(http: HttpClient) {
       super(http,'owners');
   }

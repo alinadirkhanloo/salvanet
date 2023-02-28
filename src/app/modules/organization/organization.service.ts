@@ -8,19 +8,10 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class OrganizationService extends GenericApiService<TreeNode>{
+export class OrganizationService extends GenericApiService<any>{
 
   constructor(http: HttpClient) {
-    super(http , 'api/app/base-information-header' )
-  }
-
-
-  get mockData$(): Observable<TreeNode[]>{
-    return this.http.get<TreeNode[]>(`${environment.baseUrl}/tree`);
-  }
-
-  getLists$(): Observable<any>{
-    return this.http.get<any>(`${environment.baseUrl}/organization/position-history`);
+    super(http , 'organization' )
   }
 
 }

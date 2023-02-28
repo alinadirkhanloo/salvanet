@@ -1,5 +1,5 @@
 import { CoursesService } from './../courses.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ICource } from 'app/core/interfaces/course.interface';
@@ -19,7 +19,7 @@ export class CoursesEditComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private courseService: CoursesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private router:Router
   ) {
 
     this.editForm = this._formBuilder.group({
@@ -42,7 +42,7 @@ export class CoursesEditComponent implements OnInit {
 
 
   loadById(id:number|string) {
-    let res = this.courseService.getById(id).subscribe({
+    let res = this.courseService.readById(id).subscribe({
       next:(result)=>{
         this.setDataToForm(result);
       },
@@ -64,7 +64,7 @@ export class CoursesEditComponent implements OnInit {
     this.disableButton = true;
 
     if (this.editForm.valid) {
-      let rest = this.updateMode?this.courseService.insert(this.editForm.value) : this.courseService.update(this.editForm.value.id,this.editForm.value);
+      let rest = !this.updateMode?this.courseService.create(this.editForm.value) : this.courseService.update(this.editForm.value.id,this.editForm.value);
       let restSub =rest.subscribe({
         next: (result) => {
           this.disableButton = false;
@@ -79,7 +79,9 @@ export class CoursesEditComponent implements OnInit {
     }
   }
 
-  cancle(){}
+  cancle(){
+    this.router.navigate(['pages/case-history/education-records']);
+  }
 
 
 }

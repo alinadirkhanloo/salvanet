@@ -15,28 +15,34 @@
                 <div class="row no-gutters">
                     <div class="col-xl-12">
                         <div class="auth-form">
-                            <h2 class="text-center mb-4">تعریف|ویرایش|حذف منطقه</h2>
+                            <h2 class="text-center mb-4">تعریف منطقه</h2>
 
                             <form>								
-								<div class="form-group col-md-6">
-                                    <label>نام منطقه</label>
-                                    <input type="text" class="form-control" placeholder="1234 Main St">
+								<div class="input-group mb-3" dir="ltr">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-primary h-100" type="button">
+                                            <i class="flaticon-381-add-1"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control text-left"
+                                        placeholder="عنوان">
+                
                                 </div>
 									
 								<div class="form-group">
 									<p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
                                         <ng-template pTemplate="header">
                                             <tr>
-                                                <th colspan="2" class="text-center">نقش های مرتبط با نوع ساختار</th>
+                                                <th colspan="2" class="text-center">استان های زیرمجموعه</th>
                                             </tr>
                                             <tr>
-                                                <th>عنوان نقش</th>
-                                                <th style="min-width: 2rem;">حداکثر تعداد پست قابل ایجاد بر روی نقش</th>
+                                                <th>ردیف</th>
+                                                <th style="min-width: 2rem;">عنوان</th>
                                             </tr>
                                         </ng-template>
                                         <ng-template pTemplate="body" let-product let-i="rowIndex">
                                             <tr>
-                                                <td>نقش {{i}}</td>
+                                                <td>{{i}}</td>
                                                 <td>{{product.name}}</td>
                                             </tr>
                                         </ng-template>
@@ -44,7 +50,7 @@
 								</div>
 								<div class="form-group">
                                     <button type="submit" pButton pRipple class="p-button-success mx-2">ایجاد</button>
-                                    <button type="submit" pButton pRipple class="p-button-danger">انصراف</button>
+                                    <button type="submit" pButton pRipple class="p-button-danger" (click)="cancle()">انصراف</button>
                                 </div>
 							</form>
 						

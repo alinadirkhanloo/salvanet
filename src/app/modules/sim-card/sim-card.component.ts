@@ -38,10 +38,10 @@ export class SimCardComponent {
   }
 
   loadDataSource(event: LazyLoadEvent) {
-    this.simCardService.getList().subscribe({
+    this.simCardService.readList().subscribe({
       next:(list)=>{
         this.simCardGrid.onLazyLoad(event,list);
-        this.simCardList=list.data;
+        this.simCardList=list;
       }
     });
   }

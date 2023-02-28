@@ -1,3 +1,4 @@
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { GenericGrid } from 'app/core/interfaces/grid.interface';
 import { IGridHeader } from 'app/core/interfaces/grid.interface';
@@ -21,11 +22,20 @@ export class AccountComponent implements OnInit {
     {title:'username',persianTitle:'کد کاربری ',sortKey:'username'},
     {title:'isActive',persianTitle:'فعال',sortKey:'isActive'}
   ];
+
+
+  lazyLoadvent!:LazyLoadEvent;
+  first = 0;
+  rows = 10;
+
+
   accountGrid = new GenericGrid(this.router,this.theachingHeaders);
 
   accountList: IAccount[]=[];
   accountSelectedList: IAccount[]=[];
   selectedAccounts: IAccount[]=[];
+
+  private sub = new Subscription();
 
   constructor(
     private confirmationService: ConfirmationService,
@@ -34,19 +44,29 @@ export class AccountComponent implements OnInit {
     private accountService:AccountService
     ) {}
 
-  ngOnInit() {
-    this.accountGrid.loading = true;
-    this.loadDataSource(null)
-  }
-
-  loadDataSource(event: LazyLoadEvent) {
-    this.accountService.getList().subscribe({
-      next:(list)=>{
-        this.accountGrid.onLazyLoad(event,list);
-        this.accountList=list.data;
+    ngOnInit() {
+      this.loadAll(null);
+    }
+  
+    loadAll(event){
+      this.accountGrid.loading = true;
+      this.loadDataSource(event);
+    }
+  
+    loadDataSource(event: LazyLoadEvent) {
+      if (event !== null) {
+        this.lazyLoadvent = event;
+        this.sub.add(
+          this.accountService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
+            next:(list:any)=>{
+              this.accountGrid.onLazyLoad(event,list);
+              this.accountList=list;
+            }
+          })
+          );
       }
-    });
-  }
+    }
+  
 
   onSelectAllChange(event) {
     this.accountSelectedList = this.accountGrid.selectAllChange(event,this.accountList);
@@ -96,10 +116,11 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  confirmAccountActivation(event: Event) {
+  confirmAccountActivation(event: any,entity:any) {
+
     this.confirmationService.confirm({
       target: event.target,
-      message: 'کاربر گرامی، آیا قصد فعال سازی حساب های انتخاب شده را دارید؟',
+      message: `کاربر گرامی، آیا قصد ${event.checked?'فعال سازی':'غیر فعال سازی'} حساب های انتخاب شده را دارید؟`,
       icon: 'pi pi-exclamation-triangle',
       acceptLabel:'بله',
       rejectLabel:'خیر',
@@ -108,9 +129,18 @@ export class AccountComponent implements OnInit {
         //confirm action
       },
       reject: () => {
+        entity.isActive = !entity.isActive;
         //reject action
       }
     });
+  }
+
+  get accountListLength():boolean{
+    return this.accountList.length>0;
+  }
+
+  get disableButtons():boolean{
+    return this.accountSelectedList.length>0;
   }
 
 }

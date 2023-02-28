@@ -1,3 +1,4 @@
+import { SharedService } from 'app/shared/services/shared.service';
 import { AgriculturalInterestsService } from './agricultural-interests.service';
 import { ConfirmationService } from 'primeng/api';
 import { Observable, Subscription } from 'rxjs';
@@ -13,6 +14,7 @@ import { Component, OnInit } from '@angular/core';
 export class AgriculturalInterestsComponent implements OnInit {
   private subscription = new Subscription();
   disableButton = true;
+  private sub = new Subscription();
 
   productConfig !: IDynamicSelect;
   digitConfig !: IDynamicSelect;
@@ -24,7 +26,8 @@ export class AgriculturalInterestsComponent implements OnInit {
   products = []
 
   constructor(private aiService:AgriculturalInterestsService ,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private shService: SharedService) { }
 
   ngOnInit(): void {
     this.initialSelections();
@@ -32,12 +35,12 @@ export class AgriculturalInterestsComponent implements OnInit {
   }
 
   loadData(){
-    this.subscription.add(this.aiService.agriculturalInterests$.subscribe({
+    this.subscription.add(this.aiService.readList().subscribe({
       next:(result)=>{
         this.products = result;
       },
       error:(err)=>{
-        
+
       }
     })
     )
@@ -49,6 +52,7 @@ export class AgriculturalInterestsComponent implements OnInit {
       selectId: 'product',
       placeholder: '...',
       filter: true,
+      showClear:true,
       emptyFilterMessage: 'موردی یافت نشد',
       emptyMessage: 'موردی یافت نشد'
     }
@@ -57,10 +61,11 @@ export class AgriculturalInterestsComponent implements OnInit {
       selectId: 'digit',
       placeholder: '...',
       filter: true,
+      showClear:true,
       emptyFilterMessage: 'موردی یافت نشد',
       emptyMessage: 'موردی یافت نشد'
     }
-    
+
   }
 
   _onProductChange(event) {
@@ -84,19 +89,29 @@ export class AgriculturalInterestsComponent implements OnInit {
 
   }
   getIntrests(): string {
-    return `${this.productModel?this.productModel.topic:''} - ${this.digitModel?this.digitModel.topic:''}`
+    return `${this.productModel?this.productModel.title:''} - ${this.digitModel?this.digitModel.title:''}`
   }
 
-  confirmDelete(event: Event, id: string) {
+  confirmDelete(event: Event, id: string | number) {
     this.confirmationService.confirm({
       target: event.target,
-      message: `کاربر گرامی، آیا قصد حذف این فیلد را دارید؟`,
+      message: `کاربر گرامی، آیا قصد حذف محل کار را دارید؟`,
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel:'بله',
-      rejectLabel:'خیر',
-      acceptButtonStyleClass:'mx-2',
+      acceptLabel: 'بله',
+      rejectLabel: 'خیر',
+      acceptButtonStyleClass: 'mx-2',
       accept: () => {
         //confirm action
+        this.sub.add(
+          this.aiService.delete(id).subscribe({
+            next: (res) => {
+              this.shService.showSuccess();
+            },
+            error: (err) => {
+              this.shService.showError();
+            }
+          })
+        )
       },
       reject: () => {
         //reject action

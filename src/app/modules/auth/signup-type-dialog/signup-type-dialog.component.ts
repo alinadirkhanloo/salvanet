@@ -1,5 +1,6 @@
-import { Router } from '@angular/router';
+
 import { Component } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-signup-type-dialog',
@@ -8,14 +9,10 @@ import { Component } from '@angular/core';
 })
 export class SignupTypeDialogComponent {
 
-  constructor(private router:Router){}
+  constructor(private activeModal:NgbActiveModal){}
 
-  goToLogin(){
-    this.router.navigate(['/']);
-  }
-
-  goToCompany(){
-    this.router.navigate(['/auth/company-registration']);
+  submit(flag) {
+    this.activeModal.close(flag)
   }
 
 }

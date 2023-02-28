@@ -11,39 +11,34 @@ const routes: Routes = [
     path: '', component: PageContainerComponent,
     children:[
       {
+        path: 'base-information',
+        loadChildren: () => import('modules/base-information/base-information.module')
+          .then(m => m.BaseInformationModule)
+      },
+      {
         path: 'farmer',
         loadChildren: () => import('modules/farmer/farmer.module')
           .then(m => m.FarmerModule)
       },
       {
-        path: 'land-owner',
-        loadChildren: () => import('modules/land-owner/land-owner.module')
-          .then(m => m.LandOwnerModule)
+        path: 'company',
+        loadChildren: () => import('app/modules/people/company/company.module')
+          .then(m => m.CompanyModule)
       },
       {
-        path: 'case-history',
-        loadChildren: () => import('modules/case-history/case-history.module')
-          .then(m => m.CaseHistoryModule)
+        path: 'person',
+        loadChildren: () => import('app/modules/people/person/person.module')
+          .then(m => m.PersonModule)
       },
       {
-        path: 'accounts',
+        path: 'users',
         loadChildren: () => import('modules/account/account.module')
           .then(m => m.AccountModule)
       },
       {
-        path: 'sim-cards',
-        loadChildren: () => import('modules/sim-card/sim-card.module')
-          .then(m => m.SimCardModule)
-      },
-      {
-        path: 'persons',
-        loadChildren: () => import('modules/person/person.module')
-          .then(m => m.PersonModule)
-      },
-      {
-        path: 'divisions-of-the-country',
-        loadChildren: () => import('modules/divisions-of-the-country/divisions-of-the-country.module')
-          .then(m => m.DivisionsOfTheCountryModule)
+        path: 'role-determination',
+        loadChildren: () => import('modules/role/role.module')
+          .then(m => m.ServerModule)
       },
       {
         path: 'organization',
@@ -51,13 +46,58 @@ const routes: Routes = [
           .then(m => m.OrganizationModule)
       },
       {
+        path: 'registration-announcemen',
+        loadChildren: () => import('app/modules/registration-announcement/registration-announcement.module')
+          .then(m => m.RegistrationAnnouncementModule)
+      },
+
+      {
+        path: 'courses',
+        loadChildren: () => import('modules/cources/cources.module')
+          .then(m => m.CourcesModule)
+      },
+
+
+      {
+        path: 'land-owner',
+        loadChildren: () => import('modules/land-owner/land-owner.module')
+          .then(m => m.LandOwnerModule)
+      },
+      {
+        path: 'coach',
+        loadChildren: () => import('modules/coach/coach.module')
+          .then(m => m.CoachModule)
+      },
+      {
+        path: 'food-security-watch',
+        loadChildren: () => import('modules/food-security-watch/food-security-watch.module')
+          .then(m => m.FoodSecurityWatchModule)
+      },
+      {
+        path: 'production-watch',
+        loadChildren: () => import('modules/production-watch/production-watch.module')
+          .then(m => m.ProductionWatchModule)
+      },
+
+      {
+        path: 'sim-cards',
+        loadChildren: () => import('modules/sim-card/sim-card.module')
+          .then(m => m.SimCardModule)
+      },
+      {
+        path: 'divisions-of-the-country',
+        loadChildren: () => import('modules/divisions-of-the-country/divisions-of-the-country.module')
+          .then(m => m.DivisionsOfTheCountryModule)
+      },
+
+      {
         path: 'organization-positions',
         loadChildren: () =>  import('modules/organization/organization.module')
         .then(m => m.OrganizationModule)
       },
       {
         path: 'company',
-        loadChildren: () => import('modules/company/company.module')
+        loadChildren: () => import('app/modules/people/company/company.module')
           .then(m => m.CompanyModule)
       },
       {
@@ -66,20 +106,10 @@ const routes: Routes = [
           .then(m => m.JihadiGroupModule)
       },
       {
-        path: 'persons',
-        loadChildren: () => import('modules/person/person.module')
-          .then(m => m.PersonModule)
+        path: 'registration-announcement',
+        loadChildren: () => import('modules/registration-announcement/registration-announcement.module')
+          .then(m => m.RegistrationAnnouncementModule)
       }
-      // {
-      //   path: 'teaching',
-      //   loadChildren: () => import('modules/teaching/teaching.module')
-      //     .then(m => m.TeachingModule)
-      // },
-      // {
-      //   path: 'book',
-      //   loadChildren: () => import('modules/book/book.module')
-      //     .then(m => m.BookModule)
-      // }
     ]
   },
 

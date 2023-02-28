@@ -1,0 +1,24 @@
+<div class="card mb-0">
+  <div class="card-header">
+    <h4 class="card-title">{{title}}</h4>
+  </div>
+  <div class="card-body">
+    <div class="form-group">
+      <app-dynamic-tree [configs]="treeConfigs"> </app-dynamic-tree>
+    </div>
+    <div class="form-group">
+      <button type="submit" (click)="submit()" class="btn btn-info mx-2">
+        تایید
+      </button>
+      <button
+        type="submit"
+        (click)="cancle()"
+        class="btn btn-primary"
+      >
+        انصراف
+      </button>
+    </div>
+  </div>
+</div>
+
+

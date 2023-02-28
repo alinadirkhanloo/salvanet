@@ -1,20 +1,20 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
 import { SpinOnModule } from './../directives/spin-on-directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ToastrModule } from 'ngx-toastr';
+import { OnlyNumberModule } from '../directives/only-number.directive';
 @NgModule({
     imports: [
       CommonModule,
-      FormsModule, ReactiveFormsModule,
-      SpinOnModule,PrimeNgModule,ToastrModule.forRoot()
+      FormsModule, ReactiveFormsModule,NgbModule,
+      SpinOnModule,PrimeNgModule,OnlyNumberModule
     ],
     exports: [
-      CommonModule,
+      CommonModule,NgbModule,
       FormsModule, ReactiveFormsModule,
-      SpinOnModule,PrimeNgModule
+      SpinOnModule,PrimeNgModule,OnlyNumberModule
     ]
   })
   export class SharedModule { }
-  

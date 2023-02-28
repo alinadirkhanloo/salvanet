@@ -45,10 +45,9 @@ export class GenericGrid {
     }
 
     public onLazyLoad(event: LazyLoadEvent, dataSource: any): any {
-        console.log({lazyEvent: JSON.stringify(event)});
         this.loading = true;
         let gridData = [];
-            gridData = dataSource.data;
+            gridData = dataSource?dataSource:[];
             this.totalRecords = gridData.length;
             this.loading = false;
         return gridData;
@@ -62,7 +61,7 @@ export class GenericGrid {
     constructor(private router: Router, tableHeaerFields: IGridHeader[]) {
         this.position = 'top';
         this.lazy = true;
-        this.selectionMode = true;
+        this.selectionMode = false;
         this.customTableStyle = { 'min-width': '75rem' };
         this.selectedData = [];
         this.paginator = true;

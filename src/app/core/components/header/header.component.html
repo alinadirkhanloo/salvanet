@@ -14,99 +14,9 @@
                 <ul class="navbar-nav header-right">
 
                     <li class="nav-item dropdown notification_dropdown  dropdown-no-icon" ngbDropdown>
-                        <!-- <a class="nav-link" role="button" data-toggle="dropdown"
-                            ngbDropdownToggle>
-                            <i class="flaticon-381-ring"></i>
-                            <div class="pulse-css"></div>
-                        </a>
-                        <div class="dropdown-menu" ngbDropdownMenu>
-                            <a  class="dropdown-item">
-                                <span class="col-auto"(click)="themeSettings('direction','rtl')" >فارسی </span>
-                            </a>
-                            <a  class="dropdown-item">
-                                <span class="col-auto"(click)="themeSettings('direction','ltr')" >English </span>
-                            </a>
-                            <a  class="dropdown-item">
-                                <span class="col-auto" (click)="themeSettings('direction','rtl')">العربی </span>
-                            </a>
-                        </div> -->
-                        <!-- <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                            <div id="DZ_W_Notification1" class="widget-media dz-scroll p-3" style="height:380px;"
-                                [perfectScrollbar]>
-                                <ul class="timeline">
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media mr-2">
-                                                <img alt="image" width="50" src="assets/images/avatar/1.jpg">
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media mr-2 media-info">
-                                                KG
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Resport created successfully</h6>
-                                                <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media mr-2 media-success">
-                                                <i class="fa fa-home"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media mr-2">
-                                                <img alt="image" width="50" src="assets/images/avatar/1.jpg">
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Dr sultads Send you Photo</h6>
-                                                <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media mr-2 media-danger">
-                                                KG
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Resport created successfully</h6>
-                                                <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="timeline-panel">
-                                            <div class="media mr-2 media-primary">
-                                                <i class="fa fa-home"></i>
-                                            </div>
-                                            <div class="media-body">
-                                                <h6 class="mb-1">Reminder : Treatment Time!</h6>
-                                                <small class="d-block">29 July 2020 - 02:26 PM</small>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <a class="all-notification" href="#">See all notifications <i
-                                    class="ti-arrow-right"></i></a>
-                        </div> -->
+
                     </li>
-                
+
                     <!-----<li class="nav-item dropdown notification_dropdown dropdown-no-icon" ngbDropdown>
                         <a class="nav-link" href="javascript:void(0);" data-toggle="dropdown" ngbDropdownToggle>
                             <i class="flaticon-381-gift"></i>
@@ -174,15 +84,16 @@
                     </li>--->
                     <li class="nav-item dropdown header-profile dropdown-no-icon" ngbDropdown>
                         <a class="nav-link" role="button" data-toggle="dropdown" ngbDropdownToggle>
-                            <img src="assets/images/avatar/1.png" width="20" alt=""/>
-                            <div class="header-info">
-                                <span>علی ندیرخانلو</span>
+                            <!-- <img src="assets/images/avatar/1.png" width="20" alt=""/> -->
+                            <p-avatar [label]="avatarLable" styleClass="mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
+                            <div class="header-info" *ngIf="user">
+                                <span>{{user.firstName}} {{user.lastName}}</span>
                                 <small>ادمین</small>
                             </div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" ngbDropdownMenu>
-                            <a href="./app-profile.html" class="dropdown-item ai-icon">
-                                <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18"
+                        <div class="dropdown-menu dropdown-menu-right text-left" ngbDropdownMenu>
+                            <a [routerLink]="['/']" class="dropdown-item ai-icon">
+                                <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary ml-2" width="18"
                                     height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
@@ -190,8 +101,8 @@
                                 </svg>
                                 <span class="ml-2">پروفایل </span>
                             </a>
-                            <a href="./page-login.html" class="dropdown-item ai-icon">
-                                <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18"
+                            <a [routerLink]="['/']" routerLinkActive="router-link-active"  class="dropdown-item ai-icon" (click)="logout()">
+                                <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger ml-2" width="18"
                                     height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                                     stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -201,7 +112,7 @@
                                 <span class="ml-2">خروج </span>
                             </a>
                         </div>
-                    </li> 
+                    </li>
                 </ul>
             </div>
         </nav>

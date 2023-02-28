@@ -43,13 +43,20 @@ export class ProductUnitComponent implements OnInit{
   }
 
   loadDataSource(event: LazyLoadEvent) {
-    this.productUnitService.getList().subscribe({
+    this.productUnitService.readList().subscribe({
       next:(list)=>{
         this.dataGrid.onLazyLoad(event,list);
-        this.dataSource=list.data;
-        console.log(this.dataSource);
+        this.dataSource=list;
       }
     });
+  }
+
+  newProductUnit(){
+    this.router.navigate(['pages/land-owner/product-unit/new']);
+  }
+
+  editProductUnit(id:string){
+    this.router.navigate(['pages/land-owner/product-unit/edit/'+ id]);
   }
 
   onSelectAllChange(event) {

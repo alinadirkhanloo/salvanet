@@ -3,11 +3,11 @@ import { Observable, ReplaySubject } from 'rxjs';
 export interface IDynamicSelect {
 
   options$?: Observable<IDynamicSelectItem[]>;
-  
+  optionValue?:string;
   items?: IDynamicSelectItem[];
-  selectdItems?: IDynamicSelectItem[];
-  emptyFilterMessage: 'موردی یافت نشد',
-  emptyMessage: 'موردی یافت نشد',
+  selectdItems?: any;
+  emptyFilterMessage?: 'موردی یافت نشد',
+  emptyMessage?: 'موردی یافت نشد',
   optionLabel?: string;
   filter?: boolean;
   filterBy?: string;
@@ -51,6 +51,6 @@ export interface IDynamicSelect {
 }
 
 export interface IDynamicSelectItem {
-  topic: string;
+  title: string;
   id: string | number;
 }

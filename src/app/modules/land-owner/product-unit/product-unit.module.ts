@@ -1,3 +1,5 @@
+import { DynamicSelectModule } from 'core/components/dynamics/dynamic-select/dynamic-select.module';
+import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
 import { SharedModule } from 'app/shared/modules/shared.module';
 import { ProductUnitEditComponent } from './product-unit-edit/product-unit-edit.component';
 import { Routes, RouterModule } from '@angular/router';
@@ -21,7 +23,7 @@ const routes: Routes = [
     ProductUnitComponent,ProductUnitEditComponent
   ],
   imports: [
-    SharedModule,
+    SharedModule,PrimeNgModule,DynamicSelectModule,
     RouterModule.forChild(routes)
   ]
 })

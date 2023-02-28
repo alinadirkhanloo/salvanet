@@ -1,7 +1,7 @@
+import { AllMaterialModule } from '../../../../shared/modules/material/material.module';
 import { NgModule } from '@angular/core';
 import { DatePickerComponent } from './date-picker.component';
-import { MaterialModule } from 'app/shared/modules/material/material.module';
-import { RahianSharedModule } from 'app/shared/modules/rahian/shared.module';
+import { SharedModule } from 'app/shared/modules/shared.module';
 
 
 
@@ -10,7 +10,7 @@ import { RahianSharedModule } from 'app/shared/modules/rahian/shared.module';
     DatePickerComponent
   ],
   imports: [
-    RahianSharedModule,MaterialModule
+    SharedModule,AllMaterialModule
   ],
   exports:[DatePickerComponent]
 })

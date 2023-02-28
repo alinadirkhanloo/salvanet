@@ -1,136 +1,131 @@
-import { IOrganization } from './../../core/interfaces/organization.interface';
-import { OrganizationService } from './organization.service';
+import { OrganizationEditComponent } from './organization-edit/organization-edit.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IOrganization } from './organization.interface';
 import { Router } from '@angular/router';
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { IGridHeader, GenericGrid } from 'app/core/interfaces/grid.interface';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SelectionMode } from 'app/core/enums/dynamic-tree.enum';
-import { ReplaySubject, Subscription } from 'rxjs';
-import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.interface';
+import { Subscription } from 'rxjs';
+import { OrganizationService } from './organization.service';
+import { SharedService } from 'app/shared/services/shared.service';
 
 @Component({
   selector: 'app-organization',
   templateUrl: './organization.component.html',
   styleUrls: ['./organization.component.css']
 })
-export class OrganizationComponent implements OnInit, OnDestroy {
+export class OrganizationComponent implements OnInit{
+  private sub = new Subscription();
+  gridHeaders:IGridHeader[] = [
+    {title:'name',persianTitle:'عنوان',sortKey:'name'},
+    {title:'isActive',persianTitle:'فعال',sortKey:'isActive'}
+  ];
 
-  private subscription = new Subscription();
-  public baseInfoTreeConfig: IDynamicTree;
-  visibilityOfEditeOption = false;
+  dataGrid = new GenericGrid(this.router,this.gridHeaders);
 
+  dataSource: IOrganization[]=[];
+  selectedList: IOrganization[]=[];
+  
+  first = 0;
+  rows = 10;
+  lazyLoadvent!:LazyLoadEvent;
   constructor(
-    private dcService: OrganizationService,
-    private router:Router
-    ) {
+    private confirmationService: ConfirmationService,
+    public dialogService: DialogService,
+    private router:Router,
+    private productService:OrganizationService,
+    private modalService:NgbModal,
+    private shService:SharedService
+    ) {}
 
+  ngOnInit() {
+    this.loadAll(null);
+  }
+
+  loadAll(event){
+    this.dataGrid.loading = true;
+    this.loadDataSource(event);
+  }
+
+  loadDataSource(event: LazyLoadEvent) {
+    if (event !== null) {
+      this.lazyLoadvent = event;
+      this.sub.add(
+        this.productService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
+          next:(list:any)=>{
+            this.dataGrid.onLazyLoad(event,list);
+            this.dataSource=list;
+          }
+        })
+        );
     }
-
-  ngOnInit(): void {
-    this.initialTree();
   }
 
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
-
-  initialTree() {
-
-    this.baseInfoTreeConfig = {
-
-      treeNodes$: this.dcService.mockData$,
-
-      onNodeContextMenuSelect: new ReplaySubject<any>(1),
-      onNodeSelect: new ReplaySubject<any>(1),
-
-      lazyUrl: [
-        `api/app/base-information-header`,
-        'tree',
-      ],
-      contextMenuItems: this.getContextMenu(),
-
-      selectionMode: SelectionMode.SINGLE_SELECT
-    };
-
-    this.subscribeEvents();
-
-  }
-
-  addNewNode(event) {
-    let selectedNode = this.baseInfoTreeConfig.selectedFile;
-    this.router.navigateByUrl('pages/organization/new',
-    { state:
-      {
-        node: selectedNode
+  openProductForm(){
+    let modalRef = this.modalService.open(OrganizationEditComponent);
+    modalRef.componentInstance.updateMode=false;
+    modalRef.componentInstance.id=0;
+    modalRef.result?.then(result=>{
+      if (result) {
+        this.loadAll(this.lazyLoadvent);
       }
-    });
+    }).catch(a=>{})
   }
-  addRigen(event) {
-    let selectedNode = this.baseInfoTreeConfig.selectedFile;
-    this.router.navigateByUrl('pages/organization/region/new',
-    { state:
-      {
-        node: selectedNode
-      }
-    });
+
+  openProductEditForm(product:IOrganization){
+    let modalRef = this.modalService.open(OrganizationEditComponent);
+    modalRef.componentInstance.updateMode=true;
+    modalRef.componentInstance.product=product;
   }
-  editNode(event) {
-    let selectedNode = this.baseInfoTreeConfig.selectedFile;
-    this.router.navigateByUrl('pages/organization/edit',
-    { state:
-      {
-        node: selectedNode
+
+  onSelectAllChange(event) {
+    this.selectedList = this.dataGrid.selectAllChange(event,this.dataSource);
+  }
+
+
+  confirmSelectdThesisDelete(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'کاربر گرامی، آیا قصد حذف محصولات انتخاب شده را دارید؟',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel:'بله',
+      rejectLabel:'خیر',
+      acceptButtonStyleClass:'mx-2',
+      accept: () => {
+        //confirm action
+      },
+      reject: () => {
+        //reject action
       }
     });
   }
 
-  deleteNode(event) {
-    console.log(this.baseInfoTreeConfig.selectedFile);
-  }
-
-  getContextMenu() {
-    return [
-      {
-        label: 'ایجاد منطقه',
-        icon: 'flaticon-381-add-2 text-info',
-        command: event => this.addRigen(event),
+  confirmThesisDelete(event: Event, id: string|number) {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: `کاربر گرامی، آیا قصد حذف محصول را دارید؟`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel:'بله',
+      rejectLabel:'خیر',
+      acceptButtonStyleClass:'mx-2',
+      accept: () => {
+        //confirm action
+        this.sub.add(
+          this.productService.delete(id).subscribe({
+            next:(res)=>{
+              this.shService.showSuccess();
+            },
+            error:(err)=>{
+              this.shService.showError();
+            }
+          })
+        )
       },
-      {
-        label: 'درج',
-        icon: 'flaticon-381-add-2 text-info',
-        command: event => this.addNewNode(event),
-      },
-      {
-        label: 'ویرایش',
-        icon: 'flaticon-381-edit text-warning',
-        command: event => this.editNode(event),
-        visible: this.visibilityOfEditeOption
-      },
-      {
-        label: 'حذف',
-        icon: 'flaticon-381-trash-2 text-danger',
-        command: event => this.deleteNode(event)
+      reject: () => {
+        //reject action
       }
-    ]
-  }
-
-  subscribeEvents(){
-
-    this.subscription.add(
-      this.baseInfoTreeConfig.onNodeSelect.subscribe(node=>{
-        // this.baseInfoTreeConfig.selectionMode = 'checkbox';
-      })
-    );
-
-
-    this.subscription.add(
-      this.baseInfoTreeConfig.onNodeContextMenuSelect.subscribe(val => {
-        this.visibilityOfEditeOption = !(val.node.parent === undefined);
-        this.baseInfoTreeConfig.contextMenuItems = this.getContextMenu();
-
-      })
-    );
+    });
   }
 
 
