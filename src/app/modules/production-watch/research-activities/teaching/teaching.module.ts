@@ -10,7 +10,10 @@ import { AllMaterialModule } from 'app/shared/modules/material/material.module';
 
 const routes: Routes = [
   {
-    path: '', component:TeachingComponent,
+    path:'',component:TeachingEditComponent
+  },
+  {
+    path: 'grid', component:TeachingComponent,
   },
   {
     path: 'edit/:id',component:TeachingEditComponent

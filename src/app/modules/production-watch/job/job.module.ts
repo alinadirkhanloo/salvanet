@@ -10,7 +10,10 @@ import { AllMaterialModule } from 'app/shared/modules/material/material.module';
 
 const routes: Routes = [
   {
-    path: '', component:JobComponent,
+    path:'',component:JobEditComponent
+  },
+  {
+    path: 'grid', component:JobComponent,
   },
   {
     path: 'edit/:id',component:JobEditComponent

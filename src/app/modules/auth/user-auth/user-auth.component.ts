@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SharedService } from 'app/shared/services/shared.service';
-import { GenericClass } from 'app/core/genericClass.model';
+import { GenericClass } from 'app/core/models/genericClass.model';
 
 @Component({
   selector: 'app-user-auth',

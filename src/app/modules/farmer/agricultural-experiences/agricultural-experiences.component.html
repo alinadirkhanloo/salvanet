@@ -1,145 +1,89 @@
-<div class="container">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">کشاورز</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">تجارب کشاورزی</a></li>
-            </ol>
-        </div>
+<div class="justify-content-center align-items-center">
+  <div class="card">
+    <div class="card-body">
+      <div class="basic-form">
+        <form [formGroup]="formGroup" class="form-row">
+          <div class="form-group col-sm-6">
+            <label class="mb-1">انتخاب محل</label>
+
+            <div class="input-group col-12" dir="ltr">
+              <div class="input-group-prepend">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  style="max-height: 56px; height: 100%"
+                  (click)="
+                    openFindBox(
+                      'divisionCountryId',
+                      'divisionCountryTitle',
+                      'countryDivision/countryDivisionSubDivisions',
+                      'انتخاب محل'
+                    )
+                  "
+                >
+                  <i class="flaticon-381-menu-1"></i>
+                </button>
+              </div>
+              <input
+                type="text"
+                readonly
+                class="form-control text-left col-12"
+                formControlName="divisionCountryTitle"
+                placeholder=""
+              />
+            </div>
+          </div>
+
+          <div class="form-group col-sm-3">
+            <label>محصول</label>
+            <app-dynamic-select
+              [selectionConfig]="caltivarConfig"
+              formControlName="productTitle"
+            ></app-dynamic-select>
+          </div>
+
+          <div class="form-group col-sm-3">
+            <label>رقم</label>
+            <app-dynamic-select
+              [selectionConfig]="caltivarConfig"
+              formControlName="caltivarTitle"
+            ></app-dynamic-select>
+          </div>
+
+          <div class="form-group col-sm-4 pt-4">
+            <button
+              type="submit"
+              pButton
+              pRipple
+              (click)="submit()"
+              class="p-button-success mx-2"
+              [disabled]="formGroup.invalid"
+            >
+              افزودن
+            </button>
+            <button type="button" (click)="reset()" pButton pRipple class="p-button-danger">
+              انصراف
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="justify-content-center align-items-center">
-        <div class="card" *ngIf="getIntrests().length>25">
-            <div class="card-header">
-                <h4 class="card-title">
-                    تجربه کشاورزی
-                </h4>
-                <p class="m-0">
-                    <button type="submit" (click)="submit()" pButton pRipple  class="p-button-success mx-2"  [disabled]="disableButton">
-                        افزودن
-                    </button>
-                    <button type="submit" (click)="clear()" pButton pRipple  class="p-button-danger">
-                        انصراف
-                    </button>
-                </p>
-            </div>
+  </div>
 
-            <div class="card-body">
-                <div class="form-group mx-sm-3 mb-4">
-                    <p  class="form-control-plaintext form-control-lg"
-                    >{{getIntrests()}}</p>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">انتخاب محل کار</h4>
-            </div>
-            <div class="card-body">
-                <div class="basic-form">
-                    <form class="form-row">
-                        <div class="form-group col-md-4">
-                            <label>استان</label>
-                            <app-dynamic-select
-                             [selectionConfig]="stateConfig"
-                            [(ngModel)]="stateModel"
-                            (ngModelChange)="_onStateChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label>شهرستان</label>
-                            <app-dynamic-select
-                             [selectionConfig]="townShip"
-                            [(ngModel)]="townShipModel"
-                            (ngModelChange)="_onTownShipChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>بخش / شهر</label>
-                            <app-dynamic-select
-                             [selectionConfig]="city"
-                            [(ngModel)]="cityModel"
-                            (ngModelChange)="_onCityChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>دهستان</label>
-                            <app-dynamic-select
-                             [selectionConfig]="village"
-                            [(ngModel)]="villageModel"
-                            (ngModelChange)="_onVillageChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>روستا</label>
-                            <app-dynamic-select
-                             [selectionConfig]="villageShip"
-                            [(ngModel)]="villageShipModel"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>محصول</label>
-                            <select id="inputState2" class="form-control">
-                                <option selected>...</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>رقم</label>
-                            <select id="inputState2" class="form-control">
-                                <option selected>...</option>
-                                <option>Option 1</option>
-                                <option>Option 2</option>
-                                <option>Option 3</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>محصول</label>
-                            <app-dynamic-select [selectionConfig]="productConfig" [(ngModel)]="productModel"
-                                (ngModelChange)="_onProductChange($event)"></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>رقم</label>
-                            <app-dynamic-select [selectionConfig]="digitConfig" [(ngModel)]="digitModel"
-                                (ngModelChange)="_onDigitChange($event)"></app-dynamic-select>
-                        </div>
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">
-                    تجارب کشاورزی
-                </h4>
-            </div>
-
-            <div class="card-body">
-
-                <p-table [value]="products">
-                    <ng-template pTemplate="body" let-product>
-                        <tr>
-                            <td>{{product.topic}}</td>
-                            <td>
-                                <button pButton type="button" class="p-button-danger float-left" icon="pi pi-trash"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </div>
-        </div>
-
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">تجارب کشاورزی</h4>
     </div>
+
+    <div class="card-body">
+      <p-table [value]="experiences">
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td>{{ item.address }}</td>
+            <td>{{ item.product }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
 </div>

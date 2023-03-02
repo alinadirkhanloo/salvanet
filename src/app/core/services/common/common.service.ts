@@ -41,7 +41,7 @@ export class CommonService
         treeData.push(
           {
             label:element.name,
-            data:element.code,
+            data:element.id,
             leaf:element.typeId>3,
             children:[]
           }

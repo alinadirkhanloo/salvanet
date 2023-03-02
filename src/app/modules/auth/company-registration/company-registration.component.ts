@@ -7,7 +7,7 @@ import { CommonService } from 'app/core/services/common/common.service';
 import { AuthService } from 'app/core/services/auth/auth.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PersonnelFilterComponent } from 'app/core/components/personnel-filter/personnel-filter.component';
-import { GenericClass } from 'app/core/genericClass.model';
+import { GenericClass } from 'app/core/models/genericClass.model';
 
 @Component({
   selector: 'app-company-registration',

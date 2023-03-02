@@ -7,7 +7,6 @@ import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SignupTypeDialogComponent } from '../signup-type-dialog/signup-type-dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
 import { SelectionMode } from 'app/core/enums/dynamic-tree.enum';
@@ -70,8 +69,6 @@ export class RegistrationComponent implements OnInit,OnDestroy{
 
 
   openFindBox(idControlName:string,titleControlname:string,url,title:string) {
-    this.commonService.getTree(url).subscribe(res=>console.log(res));
-
     this.treeConfig = {
 
           treeNodes$: this.commonService.getTree(url),
@@ -81,7 +78,7 @@ export class RegistrationComponent implements OnInit,OnDestroy{
 
           lazyUrl: [
             `${url}`,
-            '',
+            ``,
           ],
 
           selectionMode: SelectionMode.SINGLE_SELECT
@@ -92,9 +89,11 @@ export class RegistrationComponent implements OnInit,OnDestroy{
         modalRef.componentInstance.title = title;
         modalRef.result.then((result) => {
           // this.closeResult = `Closed with: ${result}`;
-            console.log(result);
-            this.accountForm.controls[idControlName].setValue(result.data);
+            if (result) {
+              this.accountForm.controls[idControlName].setValue(result.data);
             this.accountForm.controls[titleControlname].setValue(result.label);
+            }
+            
         }, (reason) => {
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 

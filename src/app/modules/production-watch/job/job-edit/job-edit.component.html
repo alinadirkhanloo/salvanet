@@ -1,79 +1,117 @@
 <div class="container-fluid h-100v">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">مربی</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">سوابق شغلی</a></li>
-            </ol>
-        </div>
-    </div>
-<div class=" vh-100">
+  <div class="vh-100">
     <div class="row justify-content-center align-items-center">
-        <div class="col-lg-10 col-md-11">
-            <div class="authincation-content">
-                <div class="row no-gutters">
-                    <div class="col-xl-12">
-                        <div class="auth-form">
-                            <h2 class="text-center mb-4">مشخصات شغل</h2>
-                            <form [formGroup]="editForm" class="row mx-0 px-0">
-                                <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>محل خدمت</strong></label>
-                                    <input type="text" class="form-control text-center"
-                                    maxlength="36"
-                                        [ngClass]="{
-                                    'is-valid':editForm.controls['workPlace'].valid,
-                                    'is-invalid':editForm.controls['workPlace'].invalid && editForm.controls['workPlace'].touched}"
-                                        formControlName="workPlace" placeholder="">
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>سمت</strong></label>
-                                    <input type="text" class="form-control text-center"
-                                    maxlength="36"
-                                        [ngClass]="{
-                                    'is-valid':editForm.controls['position'].valid,
-                                    'is-invalid':editForm.controls['position'].invalid && editForm.controls['position'].touched}"
-                                        formControlName="position" placeholder="">
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>تاریخ شروع</strong></label>
-                                        <input type="text" class="form-control text-center" (click)="picker1.open()"
-                                        maxlength="11" name="datepicker1" [matDatepicker]="picker1"
-                                            [ngClass]="{
-                                        'is-valid':editForm.controls['startDate'].valid,
-                                        'is-invalid':editForm.controls['startDate'].invalid && editForm.controls['startDate'].touched}"
-                                            formControlName="startDate" placeholder="">
-                                            
-                                        <mat-datepicker #picker1></mat-datepicker>
-                                </div>
-                                <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>تاریخ پایان</strong></label>
-                                        <input type="text" class="form-control text-center" (click)="picker2.open()"
-                                        maxlength="11" name="datepicker2" [matDatepicker]="picker2"
-                                            [ngClass]="{
-                                        'is-valid':editForm.controls['endDate'].valid,
-                                        'is-invalid':editForm.controls['endDate'].invalid && editForm.controls['endDate'].touched}"
-                                            formControlName="endDate" placeholder="">
-                                            <mat-datepicker #picker2></mat-datepicker>
-                                </div>
-                                
-                                <div class="text-center">
-                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
-                                        (click)="submit()" class="p-button-success mx-2">
-                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
-                                        تایید
-                                    </button>
-                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
-                                        (click)="cancle()" class="p-button-danger">
-                                        <span *appSpinOn="disableButton; color: 'warn';"></span>
-                                        انصراف
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+      <div class="col-lg-10 col-md-11">
+        <div class="authincation-content">
+          <div class="row no-gutters">
+            <div class="col-xl-12">
+              <div class="auth-form">
+                <h2 class="text-center mb-4">مشخصات شغل</h2>
+                <form [formGroup]="editForm" class="row mx-0 px-0">
+                  <div class="form-group col-lg-6">
+                    <label class="mb-1"><strong>محل خدمت</strong></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      maxlength="36"
+                      [ngClass]="{
+                        'is-valid': editForm.controls['workPlace'].valid,
+                        'is-invalid':
+                          editForm.controls['workPlace'].invalid &&
+                          editForm.controls['workPlace'].touched
+                      }"
+                      formControlName="workPlace"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label class="mb-1"><strong>سمت</strong></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      maxlength="36"
+                      [ngClass]="{
+                        'is-valid': editForm.controls['position'].valid,
+                        'is-invalid':
+                          editForm.controls['position'].invalid &&
+                          editForm.controls['position'].touched
+                      }"
+                      formControlName="position"
+                      placeholder=""
+                    />
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label class="mb-1"><strong>تاریخ شروع</strong></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      (click)="picker1.open()"
+                      maxlength="11"
+                      name="datepicker1"
+                      [matDatepicker]="picker1"
+                      [ngClass]="{
+                        'is-valid': editForm.controls['startDate'].valid,
+                        'is-invalid':
+                          editForm.controls['startDate'].invalid &&
+                          editForm.controls['startDate'].touched
+                      }"
+                      formControlName="startDate"
+                      placeholder=""
+                    />
+
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </div>
+                  <div class="form-group col-lg-6">
+                    <label class="mb-1"><strong>تاریخ پایان</strong></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      (click)="picker2.open()"
+                      maxlength="11"
+                      name="datepicker2"
+                      [matDatepicker]="picker2"
+                      [ngClass]="{
+                        'is-valid': editForm.controls['endDate'].valid,
+                        'is-invalid':
+                          editForm.controls['endDate'].invalid &&
+                          editForm.controls['endDate'].touched
+                      }"
+                      formControlName="endDate"
+                      placeholder=""
+                    />
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </div>
+
+                  <div class="text-center">
+                    <button
+                      type="submit"
+                      pButton
+                      pRipple
+                      [disabled]="!editForm.valid || disableButton"
+                      (click)="submit()"
+                      class="p-button-success mx-2"
+                    >
+                      <span *appSpinOn="disableButton; color: 'warn'"></span>
+                      تایید
+                    </button>
+                    <button
+                      type="submit"
+                      pButton
+                      pRipple
+                      [disabled]="!editForm.valid || disableButton"
+                      (click)="cancle()"
+                      class="p-button-danger"
+                    >
+                      <span *appSpinOn="disableButton; color: 'warn'"></span>
+                      انصراف
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
+  </div>
 </div>

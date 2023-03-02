@@ -20,6 +20,8 @@ import { MetismenuAngularModule } from '@metismenu/angular';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './core/interceptors/jwt/jwt.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {ToastModule} from 'primeng/toast';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +37,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
     HttpClientModule,
     RouterModule,
     PerfectScrollbarModule,
-    MetismenuAngularModule,ToastrModule.forRoot()
+    MetismenuAngularModule,ToastrModule.forRoot(),
+    
   ],
   providers: [
     SharedService,

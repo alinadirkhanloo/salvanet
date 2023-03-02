@@ -1,4 +1,4 @@
-<div class="container-fluid vh-100 my-5">
+<div class="container-fluid h-100 my-5">
   <div class="row justify-content-center align-items-center">
     <div class="col-lg-10 col-md-10">
       <div class="authincation-content">
@@ -84,12 +84,14 @@
                       <button
                         class="btn btn-primary"
                         type="button"
-                        style="height: 56px"
+                        style="max-height: 56px;
+                        height: 100%;
+                        "
                         (click)="
                           openFindBox(
                             'identityCardIssuingPlaceId',
                             'identityCardIssuingPlaceTitle',
-                            'countryDivision/findBy/asd',
+                            'countryDivision/countryDivisionSubDivisions',
                             'انتخاب محل'
                           )
                         "
@@ -153,12 +155,14 @@
                       <button
                         class="btn btn-primary"
                         type="button"
-                        style="height: 56px"
+                        style="max-height: 56px;
+                        height: 100%;
+                        "
                         (click)="
                           openFindBox(
                             'birthPlaceId',
                             'birthPlaceTitle',
-                            'countryDivision/findBy/asd',
+                            'countryDivision',
                             'انتخاب محل'
                           )
                         "

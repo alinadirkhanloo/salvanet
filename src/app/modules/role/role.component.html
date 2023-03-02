@@ -1,5 +1,5 @@
-<div class="container">
-    <p-card class="">
+<div class="container h-100">
+    <p-card>
         <div class="form-row">
             
         <div class="form-group col-lg-4">
@@ -11,6 +11,7 @@
 
         <div class="form-group col-lg-4">
             <p-toggleButton [(ngModel)]="productOwner" [onLabel]="'ثبت نام مالکیت واحد تولیدی'"
+            (onChange)="goToProductUnitSignUpForm($event)"
                 [offLabel]="'ثبت نام مالکیت واحد تولیدی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
                 [style]="{'width': '100%'}">
             </p-toggleButton>
@@ -18,6 +19,7 @@
 
         <div class="form-group col-lg-4">
             <p-toggleButton [(ngModel)]="coach" [onLabel]="'ثبت نام مربی'"
+            (onChange)="goToCouchSignUpForm($event)"
                 [offLabel]="'ثبت نام مربی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
                 [style]="{'width': '100%'}">
             </p-toggleButton>
@@ -25,6 +27,7 @@
 
         <div class="form-group col-lg-4">
             <p-toggleButton [(ngModel)]="productSentinel" [onLabel]="'ثبت نام دیده بان تولید'" 
+            (onChange)="goToProductWatchreSignUpForm($event)"
                 [offLabel]="'ثبت نام دیده بان تولید'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
                 [style]="{'width': '100%'}">
             </p-toggleButton>
@@ -32,6 +35,7 @@
 
         <div class="form-group col-lg-4">
             <p-toggleButton [(ngModel)]="foodSecuritySentinel" [onLabel]="'ثبت نام دیده بان امنیت غذایی'"
+            (onChange)="goToSecWatcherSignUpForm($event)"
                 [offLabel]="'ثبت نام دیده بان امنیت غذایی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
                 [style]="{'width': '100%'}">
             </p-toggleButton>

@@ -87,8 +87,7 @@ export class DynamicTreeComponent implements OnInit, OnDestroy
 
   public nodeExpand(event: { node: TreeNode, originalEvent: unknown }): void
   {
-    console.log(event.node);
-    
+
     const lazyUrl = this.sharedService.createLazyUrl(
       event.node.data,
       this.configs.lazyUrl

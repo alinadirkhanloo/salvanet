@@ -16,7 +16,7 @@ const routes: Routes = [
           .then(m => m.BaseInformationModule)
       },
       {
-        path: 'farmer',
+        path: 'farmer-registration',
         loadChildren: () => import('modules/farmer/farmer.module')
           .then(m => m.FarmerModule)
       },
@@ -26,7 +26,7 @@ const routes: Routes = [
           .then(m => m.CompanyModule)
       },
       {
-        path: 'person',
+        path: 'personnl',
         loadChildren: () => import('app/modules/people/person/person.module')
           .then(m => m.PersonModule)
       },
@@ -57,26 +57,23 @@ const routes: Routes = [
           .then(m => m.CourcesModule)
       },
 
-
       {
         path: 'land-owner',
         loadChildren: () => import('modules/land-owner/land-owner.module')
           .then(m => m.LandOwnerModule)
       },
       {
-        path: 'coach',
-        loadChildren: () => import('modules/coach/coach.module')
-          .then(m => m.CoachModule)
+        path: 'coach-registration',loadChildren: () =>  import('app/modules/whatcher/whatcher.module')
+        .then(m => m.WhatcherModule)
       },
       {
-        path: 'food-security-watch',
-        loadChildren: () => import('modules/food-security-watch/food-security-watch.module')
-          .then(m => m.FoodSecurityWatchModule)
+        path: 'food-security-watch-registration',loadChildren: () => import('app/modules/whatcher/whatcher.module')
+        .then(m => m.WhatcherModule)
       },
       {
-        path: 'production-watch',
-        loadChildren: () => import('modules/production-watch/production-watch.module')
-          .then(m => m.ProductionWatchModule)
+        path: 'production-watch-registration',
+        loadChildren: () =>  import('app/modules/whatcher/whatcher.module')
+        .then(m => m.WhatcherModule)
       },
 
       {

@@ -10,6 +10,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonService } from 'app/core/services/common/common.service';
 import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
 import { PersonnelService } from '../personnel.service';
+import { GenericClass } from 'app/core/models/genericClass.model';
+import { SharedService } from 'app/shared/services/shared.service';
 
 
 @Component({
@@ -17,11 +19,11 @@ import { PersonnelService } from '../personnel.service';
   templateUrl: './personnel-form.component.html',
   styleUrls: ['./personnel-form.component.css']
 })
-export class PersonnelFormComponent implements OnInit,OnDestroy{
+export class PersonnelFormComponent extends GenericClass implements OnInit,OnDestroy{
 
   updateMode = false;
   routeSub=null;
-  loading = false;
+  loading = true;
   accountForm: FormGroup;
   disableButton = false;
   disableActiveationButton = false;
@@ -31,9 +33,11 @@ export class PersonnelFormComponent implements OnInit,OnDestroy{
   constructor(
     private _formBuilder: FormBuilder, private modalService: NgbModal,
     private pService:PersonnelService,private route: ActivatedRoute,
+    private shService:SharedService,
     private router: Router,private commonService:CommonService,
     public dialogService: DialogService
   ) {
+    super();
     this.accountForm = this._formBuilder.group({
       nationalCode: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
@@ -68,6 +72,8 @@ export class PersonnelFormComponent implements OnInit,OnDestroy{
       if (params['id']) {
         this.updateMode = true;
         this.loadById(params['id']);
+      }else {
+        this.loading = false;
       }
     });
   }
@@ -75,6 +81,7 @@ export class PersonnelFormComponent implements OnInit,OnDestroy{
   loadById(id:number|string) {
     let res = this.pService.readById(id).subscribe({
       next:(result)=>{
+        this.loading = false;
         this.setDataToForm(result);
       },
       error(err) {},
@@ -89,51 +96,58 @@ export class PersonnelFormComponent implements OnInit,OnDestroy{
   }
   
   openFindBox(idControlName:string,titleControlname:string,url,title:string) {
-    this.commonService.getTree(url).subscribe(res=>console.log(res));
-    
     this.treeConfig = {
 
           treeNodes$: this.commonService.getTree(url),
-    
+
           onNodeContextMenuSelect: new ReplaySubject<any>(1),
           onNodeSelect: new ReplaySubject<any>(1),
-    
+
           lazyUrl: [
             `${url}`,
             '',
           ],
-    
+
           selectionMode: SelectionMode.SINGLE_SELECT
         };
-        
-        const modalRef = this.modalService.open(FindBoxComponent, { size: 'lg' }); 
-        modalRef.componentInstance.treeConfig = this.treeConfig; 
-        modalRef.componentInstance.title = title; 
-        modalRef.result.then((result) => {          
-          // this.closeResult = `Closed with: ${result}`;        
+
+        const modalRef = this.modalService.open(FindBoxComponent, { size: 'lg' });
+        modalRef.componentInstance.treeConfig = this.treeConfig;
+        modalRef.componentInstance.title = title;
+        modalRef.result.then((result) => {
+          // this.closeResult = `Closed with: ${result}`;
             console.log(result);
             this.accountForm.controls[idControlName].setValue(result.data);
             this.accountForm.controls[titleControlname].setValue(result.label);
-        }, (reason) => {        
+        }, (reason) => {
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-                    console.log(reason);
+
         },);
   }
 
-
-
-  submit() {
-   
+  submitPerson(){
+    return  this.pService.create(this.accountForm.value)
   }
+
+  submitAsPerson() {
+   this.subscription= this.submitPerson().subscribe({
+              next: (res) => {
+                this.router.navigate(['/role-determination']);
+                this.shService.showSuccess();
+              },error:(err)=>{
+              }
+            });
+  }
+
 
   goToLogin() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/pages/personnel']);
   }
-
-
 
 
   ngOnDestroy() {
+
+    this.unsubscription();
     if (this.ref) {
       this.ref.close();
     }

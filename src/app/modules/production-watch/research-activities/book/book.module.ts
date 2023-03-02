@@ -7,7 +7,10 @@ import { AllMaterialModule } from 'app/shared/modules/material/material.module';
 
 const routes: Routes = [
   {
-    path: '', component:BookComponent,
+    path:'',component:BookEditComponent
+  },
+  {
+    path: 'grid', component:BookComponent,
   },
   {
     path: 'edit/:id',component:BookEditComponent

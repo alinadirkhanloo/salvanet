@@ -26,7 +26,6 @@ export class RoleComponent implements OnInit {
 
 
   constructor(
-    private confirmationService: ConfirmationService,
     public dialogService: DialogService,
     private router: Router,
     private roleService: RoleService
@@ -38,7 +37,7 @@ export class RoleComponent implements OnInit {
 
   goToFarmerSignUpForm(event){
     if (event?.checked) {
-      this.router.navigate(['farmer']);
+      this.router.navigate(['/pages/farmer-registration']);
     }
   }
 

@@ -135,9 +135,7 @@ export class DivisionsOfTheCountryFormComponent implements OnInit {
   }
 
   cancle(){
-    console.log(this.editForm.valid,this.editForm.value);
-    
-    // this.router.navigate(['pages/divisions-of-the-country/tree']);
+    this.router.navigate(['pages/divisions-of-the-country/tree']);
   }
 
 

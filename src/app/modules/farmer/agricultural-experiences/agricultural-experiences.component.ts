@@ -1,121 +1,87 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from 'app/shared/services/shared.service';
-import { Subscription, Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { IDynamicSelect, IDynamicSelectItem } from 'core/components/dynamics/dynamic-select/dynamic-select.interface';
-import { ConfirmationService } from 'primeng/api';
 import { AgriculturalExperiencesService } from './agricultural-experiences.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { GenericClass } from 'app/core/models/genericClass.model';
+import { CommonService } from 'app/core/services/common/common.service';
+import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.interface';
+import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
+import { SelectionMode } from 'app/core/enums/dynamic-tree.enum';
 
 @Component({
   selector: 'app-agricultural-experiences',
   templateUrl: './agricultural-experiences.component.html',
   styleUrls: ['./agricultural-experiences.component.css']
 })
-export class AgriculturalExperiencesComponent implements OnInit {
-  private subscription = new Subscription();
+export class AgriculturalExperiencesComponent extends GenericClass implements OnInit,OnDestroy {
   disableButton = true;
+  formGroup:FormGroup;
+  myProductConfig !: IDynamicSelect;
+  caltivarConfig !: IDynamicSelect;
+  public treeConfig: IDynamicTree;
+  experiences = []
 
-  productConfig !: IDynamicSelect;
-  digitConfig !: IDynamicSelect;
-  stateConfig !: IDynamicSelect;
-  townShip !: IDynamicSelect;
-  city !: IDynamicSelect;
-  village !: IDynamicSelect;
-  villageShip !: IDynamicSelect;
-  private sub = new Subscription();
-
-  address = '';
-  stateModel : IDynamicSelectItem;
-  townShipModel : IDynamicSelectItem ;
-  cityModel : IDynamicSelectItem;
-  villageModel : IDynamicSelectItem;
-  villageShipModel : IDynamicSelectItem;
-
-  intrest = '';
-  productModel : IDynamicSelectItem;
-  digitModel : IDynamicSelectItem ;
-
-  products = []
-
-  constructor(private aeService:AgriculturalExperiencesService,
-    private confirmationService: ConfirmationService,
-    private shService: SharedService) { }
+  constructor(
+    private aeService:AgriculturalExperiencesService,
+    private _fb:FormBuilder,
+    private commonService: CommonService,
+    private modalService: NgbModal,
+    private shService: SharedService) { 
+      super();
+      this.formGroup =  this._fb.group(
+        {
+          divisionCountryId:[-1,[Validators.required]],
+          divisionCountryTitle:['',[Validators.required]],
+          productTitle:[-1,[Validators.required]],
+          productId:['',[Validators.required]],
+          caltivarTitle:['',[Validators.required]],
+          caltivarId:[-1,[Validators.required]]
+        }
+      );
+    }
+  ngOnDestroy(): void {
+    this.unsubscription();
+  }
 
   ngOnInit(): void {
     this.initialSelections();
-    this.loadData();
+    // this.loadData();
   }
 
-  loadData(){
-    this.subscription.add(this.aeService.readList().subscribe({
-      next:(result)=>{
-        this.products = result;
-      },
-      error:(err)=>{
+  // loadData(){
+  //   this.subscription.add(this.aeService.readList().subscribe({
+  //     next:(result)=>{
+  //       this.experiences = result;
+  //     },
+  //     error:(err)=>{
 
-      }
-    })
-    )
-  }
+  //     }
+  //   })
+  //   )
+  // }
 
   initialSelections() {
-    this.productConfig = {
-      options$: this.aeService.readList('products'),
-      selectId: 'product',
+
+    
+    this.caltivarConfig = {
+      options$: this.aeService.readList('caltivar'),
+      selectId: 'caltivarSelector',
       placeholder: '...',
+      optionValue:'id',
       filter: true,
       showClear:true,
       emptyFilterMessage: 'موردی یافت نشد',
       emptyMessage: 'موردی یافت نشد'
     }
-    this.digitConfig = {
-      options$: new Observable<IDynamicSelectItem[]>(null),
-      selectId: 'digit',
+
+    this.myProductConfig = {
+      options$: this.aeService.readList('product'),
+      selectId: 'caltivarSelector',
       placeholder: '...',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.stateConfig = {
-      options$: this.aeService.readList('states'),
-      selectId: 'state',
-      placeholder: '...',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.townShip = {
-      options$: new Observable<IDynamicSelectItem[]>(null),
-      selectId: 'townShip',
-      placeholder: '...',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.city = {
-      options$: new Observable<IDynamicSelectItem[]>(null),
-      selectId: 'city',
-      placeholder: '...',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.village = {
-      options$:new Observable<IDynamicSelectItem[]>(null),
-      selectId: 'village',
-      placeholder: '...',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.villageShip = {
-      options$: new Observable<IDynamicSelectItem[]>(null),
-      selectId: 'villageShip',
-      placeholder: '...',
+      optionValue:'id',
       filter: true,
       showClear:true,
       emptyFilterMessage: 'موردی یافت نشد',
@@ -124,40 +90,6 @@ export class AgriculturalExperiencesComponent implements OnInit {
 
   }
 
-
-
-  _onProductChange(event) {
-    if (this.productModel) {
-      this.getList( this.aeService.readById(this.productModel.id, 'digits'),this.digitConfig)
-    }
-  }
-  _onDigitChange(event) {
-    if (this.digitModel) {
-      this.disableButton = false;
-    }
-  }
-
-
-  _onStateChange(event) {
-    if (this.stateModel) {
-      this.getList( this.aeService.readById(this.stateModel.id, 'townships'),this.townShip)
-    }
-  }
-  _onTownShipChange(event) {
-    if (this.townShipModel) {
-      this.getList( this.aeService.readById(this.townShipModel.id, 'cities'),this.city)
-    }
-  }
-  _onCityChange(event) {
-    if (this.cityModel) {
-      this.getList( this.aeService.readById(this.cityModel.id, 'villages'),this.village);
-    }
-  }
-  _onVillageChange(event) {
-    if (this.villageModel) {
-      this.getList( this.aeService.readById(this.villageModel.id, 'villageships'),this.villageShip)
-    }
-  }
 
   getList(res:Observable<any>,selectConfig:IDynamicSelect){
     this.subscription.add(
@@ -167,71 +99,58 @@ export class AgriculturalExperiencesComponent implements OnInit {
     )
 
   }
-  getIntrests(): string {
-    return `${this.getIntrestStrign()}${this.getDigitStrign()}$`
-  }
-  getAddress(): string {
-    return `${this.getStateStrign()}${this.getTownStrign()}${this.getCityStrign()}${this.getVillageStrign()}${this.getVillageShipStrign()}`
-  }
+  
 
-  getIntrestStrign(): string {
-    return this.productModel ? `${this.productModel.title} - ` : '';
-  }
-  getDigitStrign(): string {
-    return this.digitModel ? `${this.digitModel.title} - ` : '';
-  }
-  getStateStrign(): string {
-    return this.stateModel ? `${this.stateModel.title} - ` : '';
-  }
-  getTownStrign(): string {
-    return this.townShipModel ? `${this.townShipModel.title} - ` : '';
-    // return `${this.townShipModel?this.townShipModel.title:''} - `;
-  }
-  getCityStrign(): string {
-    return this.cityModel ? `${this.cityModel.title} - ` : '';
-    // return `${this.cityModel?this.cityModel.title:''} - `;
-  }
-  getVillageStrign(): string {
-    return this.villageModel ? `${this.villageModel.title} - ` : '';
-    // return `${this.villageModel?this.villageModel.title:''} - `;
-  }
-  getVillageShipStrign(): string {
-    return this.villageShipModel ? `${this.villageShipModel.title}` : '';
-    // return `${this.villageShipModel?this.villageShipModel.title:''} - `;
-  }
-  confirmDelete(event: Event, id: string) {
-    this.confirmationService.confirm({
-      target: event.target,
-      message: `کاربر گرامی، آیا قصد حذف  تجربه کار را دارید؟`,
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'بله',
-      rejectLabel: 'خیر',
-      acceptButtonStyleClass: 'mx-2',
-      accept: () => {
-        //confirm action
-        this.sub.add(
-          this.aeService.delete(id).subscribe({
-            next: (res) => {
-              this.shService.showSuccess();
-            },
-            error: (err) => {
-              this.shService.showError();
-            }
-          })
-        )
-      },
-      reject: () => {
-        //reject action
+  openFindBox(idControlName:string,titleControlname:string,url, title: string) {
+    this.treeConfig = {
+
+      treeNodes$: this.commonService.getTree(url),
+
+      onNodeContextMenuSelect: new ReplaySubject<any>(1),
+      onNodeSelect: new ReplaySubject<any>(1),
+
+      lazyUrl: [
+        `${url}`,
+        ``,
+      ],
+
+      selectionMode: SelectionMode.SINGLE_SELECT
+    };
+
+    const modalRef = this.modalService.open(FindBoxComponent, { size: 'lg' });
+    modalRef.componentInstance.treeConfig = this.treeConfig;
+    modalRef.componentInstance.title = title;
+    modalRef.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+      if (result) {
+        this.formGroup.controls[idControlName].setValue(result.data);
+      this.formGroup.controls[titleControlname].setValue(result.label);
       }
-    });
+
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+
+    },);
   }
 
 
-  clear(){
-
+  reset(){
+    this.formGroup.reset();
   }
 
   submit(){
-
+    this.disableButton = true;
+    this.subscription =
+      this.aeService.create({}, `${this.shService.getProfile().id}/${this.formGroup.value.divisionCountryId}`).subscribe({
+        next: (res) => {
+          this.experiences.push({address:this.formGroup.value.divisionCountryTitle,product:this.formGroup.value.productTitle});
+          this.reset();
+          this.shService.showSuccess();
+        },
+        error: (err) => {
+          this.shService.showError();
+          this.disableButton = false;
+        }
+      });
   }
 }

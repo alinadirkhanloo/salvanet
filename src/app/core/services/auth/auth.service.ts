@@ -101,7 +101,7 @@ export class AuthService {
 
     accountActivation(username: string, password: string) {
         let userTemp = { ownerId: -1, userName: username, password: password };
-        return this.http.put(`${environment.baseUrl}/account/activateUser`, userTemp);
+        return this.http.put(`${environment.baseUrl}/account/activate`, userTemp);
     }
 
     // remove user from localstorage and set our user observable to null

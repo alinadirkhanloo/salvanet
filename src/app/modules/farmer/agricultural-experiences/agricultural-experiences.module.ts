@@ -4,6 +4,8 @@ import { AgriculturalExperiencesComponent } from './agricultural-experiences.com
 import { SharedModule } from 'app/shared/modules/shared.module';
 import { RouterModule } from '@angular/router';
 import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import { FindBoxModule } from 'app/core/components/find-box/find-box.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -13,7 +15,7 @@ import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
   ],
   imports: [
     PrimeNgModule,
-    DynamicSelectModule,
+    DynamicSelectModule,NgbModule,FindBoxModule,
     SharedModule,RouterModule.forChild([{path:'',component:AgriculturalExperiencesComponent}])
   ]
 })

@@ -8,7 +8,10 @@ import { EducationalRecordsEditComponent } from './educational-records-edit/educ
 
 const routes: Routes = [
   {
-    path: '', component:EducationalRecordsComponent,
+    path: '',component:EducationalRecordsEditComponent
+  },
+  {
+    path: 'grid', component:EducationalRecordsComponent,
   },
   {
     path: 'edit/:id',component:EducationalRecordsEditComponent

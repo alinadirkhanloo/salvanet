@@ -16,7 +16,7 @@ export class AgriculturalInterestsComponent implements OnInit {
   disableButton = true;
   private sub = new Subscription();
 
-  productConfig !: IDynamicSelect;
+  myProductConfig !: IDynamicSelect;
   digitConfig !: IDynamicSelect;
 
   intrest = '';
@@ -47,7 +47,7 @@ export class AgriculturalInterestsComponent implements OnInit {
   }
 
   initialSelections() {
-    this.productConfig = {
+    this.myProductConfig = {
       options$: this.aiService.readList('products'),
       selectId: 'product',
       placeholder: '...',

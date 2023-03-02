@@ -1,4 +1,5 @@
-import { BehaviorSubject } from 'rxjs';
+import { IProfile } from './../../core/interfaces/profile.interface';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 
@@ -11,7 +12,20 @@ export class SharedService {
   hamburgerClass: boolean = false;
   returnUrl = new BehaviorSubject<string>('pages');
 
-  constructor(private toastr: ToastrService) { }
+  private profileSubject:BehaviorSubject<IProfile> =  new BehaviorSubject<IProfile>(null);
+  profile$!:Observable<IProfile>;
+
+  constructor(private toastr: ToastrService) {
+    this.profile$ = this.profileSubject.asObservable();
+   }
+
+  getProfile():IProfile{
+    return this.profileSubject.value;
+  }
+
+  setProfile(profile:IProfile) {
+    this.profileSubject.next(profile);
+  }
 
 
   showSuccess(str:string='اطلاعات ثبت شد') {

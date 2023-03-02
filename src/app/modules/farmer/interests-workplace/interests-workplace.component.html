@@ -1,118 +1,73 @@
-<div class="container">
-    <div class="row page-titles mx-0">
-        <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)">کشاورز</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">علاقه مندی های محل کار</a></li>
-            </ol>
-        </div>
-    </div>
-    <div class="justify-content-center align-items-center">
+<div class="justify-content-center align-items-center">
         
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">انتخاب محل</h4>
-            </div>
-            <div class="card-body" *ngIf="stateConfig">
-                <div class="basic-form">
-                    <form class="form-row">
-                        <div class="form-group col-md-4">
-                            <label>استان</label>
-                            <app-dynamic-select
-                             [selectionConfig]="stateConfig" 
-                            [(ngModel)]="stateModel"
-                            (ngModelChange)="_onStateChange($event)"
-                            ></app-dynamic-select>
+    <div class="card">
+        <div class="card-body">
+            <div class="basic-form">
+                <form class="form-row">
+                    <div class="form-group col-sm-8">
+                        <label class="mb-1"><small>محل </small></label>
+      
+                        <div class="input-group col-12" dir="ltr">
+                          <div class="input-group-prepend">
+                            <button
+                              class="btn btn-primary"
+                              type="button"
+                              style="max-height: 56px;
+                              height: 100%;
+                              "
+                              (click)="
+                                openFindBox(
+                                  'countryDivision/countryDivisionSubDivisions',
+                                  'انتخاب محل'
+                                )
+                              "
+                            >
+                              <i class="flaticon-381-menu-1"></i>
+                            </button>
+                          </div>
+                          <input
+                            type="text" readonly
+                            class="form-control text-left col-12"
+                            [(ngModel)]="divisionCountryTitle"
+                            placeholder=""
+                          />
                         </div>
-                        <div class="form-group col-md-4">
-                            <label>شهرستان</label>
-                            <app-dynamic-select
-                             [selectionConfig]="townShip" 
-                            [(ngModel)]="townShipModel"
-                            (ngModelChange)="_onTownShipChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>بخش / شهر</label>
-                            <app-dynamic-select
-                             [selectionConfig]="city" 
-                            [(ngModel)]="cityModel"
-                            (ngModelChange)="_onCityChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>دهستان</label>
-                            <app-dynamic-select
-                             [selectionConfig]="village" 
-                            [(ngModel)]="villageModel"
-                            (ngModelChange)="_onVillageChange($event)"
-                            ></app-dynamic-select>
-                        </div>
-
-                        <div class="form-group col-md-4">
-                            <label>روستا</label>
-                            <app-dynamic-select
-                             [selectionConfig]="villageShip" 
-                            [(ngModel)]="villageShipModel"
-                            ></app-dynamic-select>
-                        </div>
-
-                    </form>
-                </div>
+                        
+                      </div>
+                      <div class="form-group col-sm-4 text-center pt-4">
+                        <button type="submit" pButton pRipple  (click)="submit()"
+                          class="p-button-success mx-2" [disabled]="divisionCountryTitle">
+                            افزودن
+                        </button>
+                        <button type="button" (click)="reset()" pButton pRipple  class="p-button-danger">
+                            انصراف
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <div class="card" *ngIf="getAddress().length>15">
-            <div class="card-header">
-                <h4 class="card-title">
-                    محل مورد علاقه
-                </h4>
-                <p class="m-0">
-                    <button type="submit" pButton pRipple (click)="submit()"
-                      class="p-button-success mx-2" [disabled]="disableButton">
-                        افزودن
-                    </button>
-                    <button type="submit" pButton pRipple  class="p-button-danger">
-                        انصراف
-                    </button>
-                </p>
-            </div>
-            
-            <div class="card-body">
-                <div class="form-group mx-sm-3 mb-4" *ngIf="getAddress().length>2">
-                    <input id="address" type="text" [value]="getAddress()" readonly class="form-control-plaintext form-control-lg"
-                        >
-                </div>
-
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                <h4 class="card-title">
-                    محل های انتخاب شده
-                </h4>
-            </div>
-            
-            <div class="card-body">
-                <p-confirmDialog></p-confirmDialog>
-                <p-table [value]="products" *ngIf="products;else nothing">
-                    <ng-template pTemplate="body" let-product>
-                        <tr>
-                            <td>{{product.topic}}</td>
-                            <td class="">
-                                <button (click)="confirmDelete($event,product.id)" pButton type="button" class="p-button-danger float-left" icon="pi pi-trash"></button>
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-                <ng-template #nothing>
-                    <p>هیچ محلی انتخاب نشده است</p>
-                </ng-template>
-            </div>
-        </div>
-
     </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">
+                محل های انتخاب شده
+            </h4>
+        </div>
+        
+        <div class="card-body">
+            <p-confirmDialog></p-confirmDialog>
+            <p-table [value]="products" *ngIf="workPlaces;else nothing">
+                <ng-template pTemplate="body" let-product>
+                    <tr>
+                        <td>{{product}}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+            <ng-template #nothing>
+                <p>هیچ محلی انتخاب نشده است</p>
+            </ng-template>
+        </div>
+    </div>
+
 </div>

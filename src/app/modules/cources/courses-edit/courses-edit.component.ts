@@ -1,32 +1,41 @@
+import { Observable } from 'rxjs';
+import { GenericClass } from 'app/core/models/genericClass.model';
+import { IDropdown } from 'core/interfaces/dropdown/dropdonw.interface';
 import { IDynamicSelect } from 'core/components/dynamics/dynamic-select/dynamic-select.interface';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ICource } from 'app/core/interfaces/course.interface';
 import { CourseService } from '../cources.service';
+import { SharedService } from 'app/shared/services/shared.service';
+import { IProfile } from 'app/core/interfaces/profile.interface';
 
 @Component({
   selector: 'app-courses-edit',
   templateUrl: './courses-edit.component.html',
   styleUrls: ['./courses-edit.component.css']
 })
-export class CoursesEditComponent implements OnInit {
+export class CoursesEditComponent extends GenericClass implements OnInit,OnDestroy {
 
   editForm: FormGroup;
   disableButton = false;
   updateMode = false;
   routeSub=null;
-  public typeSelectorConfig!: IDynamicSelect;
-  public userSelectorConfig!: IDynamicSelect;
-
+  profile$!:Observable<IProfile>;
+  types: IDropdown[] = [
+    {key:'فرهنگي و تربيتی',value:1},
+    {key:'بصيرتي و سياسي',value:2},
+    {key:'ساير',value:3}
+  ];
 
   constructor(
     private _formBuilder: FormBuilder,
     private courseService: CourseService,
+    private shService:SharedService,
     private route: ActivatedRoute, private router:Router
   ) {
-
+    super();
     this.editForm = this._formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(36)]],
       executor: ['', [Validators.required, Validators.maxLength(36)]],
@@ -34,38 +43,17 @@ export class CoursesEditComponent implements OnInit {
       year : ['', [Validators.required, Validators.maxLength(36)]],
       type: ['', [Validators.required, Validators.maxLength(36)]],
       degreeYear:['', [Validators.required, Validators.maxLength(36)]],
-      id:-1
+      id:-1,
+      profileId:-1
     });
+    this.profile$ = this.shService.profile$;
   }
+
+  ngOnDestroy(): void {}
 
   ngOnInit(): void { 
 
-    this.typeSelectorConfig = {
-      options$: this.courseService.readList(),
-      optionLabel: 'title',
-      filterBy: 'title',
-      placeholder: '...',
-      emptyFilterMessage:'موردی یافت نشد',
-      emptyMessage:'موردی یافت نشد',
-      showClear: true,
-      filter: true,
-      selectdItems: []
-    };
-
-    this.userSelectorConfig = {
-      options$: this.courseService.readList(),
-      optionLabel: 'title',
-      filterBy: 'title',
-      placeholder: '...',
-      emptyFilterMessage:'موردی یافت نشد',
-      emptyMessage:'موردی یافت نشد',
-      showClear: true,
-      filter: true,
-      selectdItems: []
-    };
-
-
-    this.routeSub = this.route.params.subscribe(params => {
+    this.subscription = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
         this.loadById(params['id']);
@@ -75,16 +63,13 @@ export class CoursesEditComponent implements OnInit {
 
 
   loadById(id:number|string) {
-    let res = this.courseService.readById(id).subscribe({
+    this.subscription = this.courseService.readById(id).subscribe({
       next:(result)=>{
         this.setDataToForm(result);
       },
-      error(err) {
-        
-      },
-      complete() {
-        res.unsubscribe();
-      },
+      error:(err)=> {
+        this.shService.showError();
+      }
     });
   }
 
@@ -92,28 +77,27 @@ export class CoursesEditComponent implements OnInit {
     this.editForm.setValue(entityData as ICource[]);
   }
 
-  submit() {
+  submit(profileId:number) {
 
     this.disableButton = true;
 
     if (this.editForm.valid) {
-      let rest = !this.updateMode?this.courseService.create(this.editForm.value) : this.courseService.update(this.editForm.value.id,this.editForm.value);
-      let restSub =rest.subscribe({
+      this.editForm.controls['profileId'].setValue(profileId);
+      let rest$ = !this.updateMode?this.courseService.create(this.editForm.value) : this.courseService.update(this.editForm.value.id,this.editForm.value);
+      this.subscription =rest$.subscribe({
         next: (result) => {
+          this.shService.showError();
           this.disableButton = false;
         },
         error: (error) => {
             this.disableButton = false;
-        },
-        complete() {
-          restSub.unsubscribe();
         }
       });
     }
   }
 
   cancle(){
-    this.router.navigate(['pages/case-history/education-records']);
+    this.router.navigate(['pages/cources']);
   }
 
 

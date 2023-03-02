@@ -1,8 +1,13 @@
+import { ProductionWatchComponent } from './production-watch.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {
+  {path:'',component:ProductionWatchComponent,
+children:[
+  
+    {path:'',pathMatch:'full',redirectTo:'education-records'},
+    {
     path:'education-records',
     loadChildren: () => import('./education/education.module')
       .then(m => m.EducationModule),
@@ -37,6 +42,7 @@ const routes: Routes = [
     loadChildren: () => import('./membership/membership.module')
       .then(m => m.MembershipModule)
   }
+]}
 ];
 
 @NgModule({

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'app/core/interfaces/user.interface';
-import { GenericClass } from 'app/core/genericClass.model';
+import { GenericClass } from 'app/core/models/genericClass.model';
 
 @Component({
   selector: 'app-login',
@@ -55,7 +55,7 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
           if (result) {
             // id number and phone number is correct
             this.auth.setUsername(this.loginForm.value.username);
-            if (!JSON.parse(result.idToken).personPassword)
+            if (!JSON.parse(result.idToken).activated)
               this.router.navigate(['auth/change-password']);
             else this.router.navigate([`${this.sharedService.returnUrl.value}`]);
             this.auth.setUser(result as User);

@@ -1,13 +1,19 @@
+import { DynamicSelectModule } from 'app/core/components/dynamics/dynamic-select/dynamic-select.module';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { ProductionWatchRoutingModule } from './production-watch-routing.module';
+import { ProductionWatchComponent } from './production-watch.component';
+import { SharedModule } from 'app/shared/modules/shared.module';
+import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ProductionWatchComponent
+  ],
   imports: [
-    CommonModule,
+    SharedModule,PrimeNgModule,
+    DynamicSelectModule,
     ProductionWatchRoutingModule
   ]
 })

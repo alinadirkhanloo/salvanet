@@ -11,17 +11,18 @@ import { CommonService } from 'app/core/services/common/common.service';
 import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
 import { PersonService } from '../person.service';
 import { SharedService } from 'app/shared/services/shared.service';
+import { GenericClass } from 'app/core/models/genericClass.model';
 
 @Component({
   selector: 'app-person-edit',
   templateUrl: './person-edit.component.html',
   styleUrls: ['./person-edit.component.css']
 })
-export class PersonEditComponent implements OnInit,OnDestroy{
+export class PersonEditComponent extends GenericClass implements OnInit,OnDestroy{
 
   updateMode = false;
   routeSub=null;
-  loading = false;
+  loading = true;
   accountForm: FormGroup;
   disableButton = false;
   disableActiveationButton = false;
@@ -31,9 +32,11 @@ export class PersonEditComponent implements OnInit,OnDestroy{
   constructor(
     private _formBuilder: FormBuilder, private modalService: NgbModal,
     private pService:PersonService,private route: ActivatedRoute,
-    private router: Router,private commonService:CommonService,private _sh:SharedService,
+    private shService:SharedService,
+    private router: Router,private commonService:CommonService,
     public dialogService: DialogService
   ) {
+    super();
     this.accountForm = this._formBuilder.group({
       nationalCode: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
@@ -62,20 +65,23 @@ export class PersonEditComponent implements OnInit,OnDestroy{
       profileId: -1
     });
   }
-
-  ngOnInit(): void {
+  
+  ngOnInit(): void { 
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
         this.loadById(params['id']);
-      }else this.loading = true;
+      }else {
+        this.loading = false;
+      }
     });
   }
-
+  
   loadById(id:number|string) {
     let res = this.pService.readById(id).subscribe({
       next:(result)=>{
         this.setDataToForm(result);
+        this.loading = false;
       },
       error(err) {},
       complete() {
@@ -87,10 +93,8 @@ export class PersonEditComponent implements OnInit,OnDestroy{
   setDataToForm(entityData:any) {
     this.accountForm.setValue(entityData as IPerson[]);
   }
-
+  
   openFindBox(idControlName:string,titleControlname:string,url,title:string) {
-    this.commonService.getTree(url).subscribe(res=>console.log(res));
-
     this.treeConfig = {
 
           treeNodes$: this.commonService.getTree(url),
@@ -116,35 +120,33 @@ export class PersonEditComponent implements OnInit,OnDestroy{
             this.accountForm.controls[titleControlname].setValue(result.label);
         }, (reason) => {
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-                    console.log(reason);
+
         },);
   }
-
-
 
   submitPerson(){
     return  this.pService.create(this.accountForm.value)
   }
 
-  submit() {
-   this.submitPerson().subscribe({
+  submitAsPerson() {
+   this.subscription= this.submitPerson().subscribe({
               next: (res) => {
-                this.router.navigate(['/pages/person']);
-                this._sh.showSuccess();
+                this.router.navigate(['/role-determination']);
+                this.shService.showSuccess();
               },error:(err)=>{
-                this._sh.showSuccess();
               }
             });
   }
 
+
   goToLogin() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/pages/personnel']);
   }
 
 
-
-
   ngOnDestroy() {
+
+    this.unsubscription();
     if (this.ref) {
       this.ref.close();
     }

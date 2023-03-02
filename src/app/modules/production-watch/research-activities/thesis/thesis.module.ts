@@ -8,6 +8,9 @@ import { ThesisEditComponent } from './thesis-edit/thesis-edit.component';
 
 const routes: Routes = [
   {
+    path:'',component:ThesisEditComponent
+  },
+  {
     path: '', component:ThesisComponent,
   },
   {

@@ -7,7 +7,10 @@ import { InventionEditComponent } from './invention-edit/invention-edit.componen
 
 const routes: Routes = [
   {
-    path: '', component:InventionComponent,
+    path:'',component:InventionEditComponent
+  },
+  {
+    path: 'grid', component:InventionComponent,
   },
   {
     path: 'edit/:id',component:InventionEditComponent
