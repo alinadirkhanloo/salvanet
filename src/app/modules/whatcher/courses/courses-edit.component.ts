@@ -20,7 +20,7 @@ export class CoursesEditComponent extends GenericClass implements OnInit, OnDest
   routeSub=null;
   public typeSelectorConfig!: IDynamicSelect;
   public userSelectorConfig!: IDynamicSelect;
-
+  colapsed=true;
   records=[];
 
   constructor(

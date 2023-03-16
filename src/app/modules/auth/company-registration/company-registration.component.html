@@ -9,12 +9,12 @@
                 <form [formGroup]="accountForm" class="form-row">
 
                   <div class="form-group col-6">
-                    <label><strong>نام</strong></label>
+                    <label><small>نام</small></label>
                     <input formControlName="name" maxlength="64" minlength="3" type="text" class="form-control" placeholder="">
                   </div>
 
                   <div class="form-group col-6">
-                    <label><strong>تاریخ تاسیس</strong></label>
+                    <label><small>تاریخ تاسیس</small></label>
                     <input
                     type="text"
                     class="form-control text-center"
@@ -34,7 +34,7 @@
                 </div>
 
                   <div class="form-group col-6">
-                    <label><strong>تاریخ ثبت</strong></label>
+                    <label><small>تاریخ ثبت</small></label>
                     <input
                     type="text"
                     class="form-control text-center"
@@ -54,18 +54,18 @@
                 </div>
 
                   <div class="form-group col-6">
-                    <label><strong>شماره ثبت</strong></label>
+                    <label><small>شماره ثبت</small></label>
                     <input formControlName="name" maxlength="15" minlength="1" type="text" class="form-control" placeholder="">
                   </div>
 
 
 
                   <div class="align-items-center col-6">
-                    <label class="mb-1 text-right"><strong>مدیرعامل</strong></label>
+                    <label class="mb-1 text-right"><small>مدیرعامل</small></label>
                     <div class="input-group mb-3" dir="ltr">
                       <div class="input-group-prepend">
                         <button class="btn btn-primary h-100" type="button" (click)="opemPersonFilter()">
-                          <i class="flaticon-381-menu-1"></i>
+                          <i class="las la-bars"></i>
                         </button>
                       </div>
                       <input formControlName="cEOName"  type="text" class="form-control text-right" placeholder="">
@@ -74,7 +74,7 @@
                   </div>
 
                   <div class="form-group col-6">
-                    <label><strong>نماینده</strong></label>
+                    <label><small>نماینده</small></label>
                     <input disabled ormControlName="representativeName"  type="text" class="form-control" placeholder="">
                   </div>
 

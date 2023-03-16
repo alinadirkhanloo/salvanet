@@ -20,17 +20,17 @@ export class PositionHistoryComponent implements OnInit{
     private sub = new Subscription();
 
     gridHeaders:IGridHeader[] = [
-      {title:'roleId',persianTitle:'عنوان سمت',sortKey:'roleId'},
+      {title:'title',persianTitle:'عنوان سمت',sortKey:'title'},
       {title:'holdsById',persianTitle:'کد ملی متصدی',sortKey:'holdsById'},
       {title:'organizationUnitId',persianTitle:'نام و نام خانوادگی متصدی',sortKey:'organizationUnitId'}
     ];
 
-  
+
     dataGrid = new GenericGrid(this.router,this.gridHeaders);
-  
+
     dataSource: IPosition[]=[];
     selectedList: IPosition[]=[];
-    
+
     first = 0;
     rows = 10;
     lazyLoadvent!:LazyLoadEvent;
@@ -42,30 +42,35 @@ export class PositionHistoryComponent implements OnInit{
       private modalService:NgbModal,
       private shService:SharedService
       ) {}
-  
+
     ngOnInit() {
       this.loadAll(null);
     }
-  
+
     loadAll(event){
       this.dataGrid.loading = true;
       this.loadDataSource(event);
+
+
     }
-  
+
     loadDataSource(event: LazyLoadEvent) {
       if (event !== null) {
         this.lazyLoadvent = event;
-        this.sub.add(
-          this.pService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
-            next:(list:any)=>{
+        console.log('x');
+        // this.sub.add(
+          this.pService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe(
+            list =>{
+              console.log(list);
+
               this.dataGrid.onLazyLoad(event,list);
               this.dataSource=list;
             }
-          })
-          );
+          )
+          // );
       }
     }
-  
+
     openProductForm(){
       let modalRef = this.modalService.open(PositionIncumbentComponent);
       modalRef.componentInstance.updateMode=false;
@@ -76,18 +81,18 @@ export class PositionHistoryComponent implements OnInit{
         }
       }).catch(a=>{})
     }
-  
+
     openProductEditForm(product:IPosition){
       let modalRef = this.modalService.open(PositionStatusComponent);
       modalRef.componentInstance.updateMode=true;
       modalRef.componentInstance.product=product;
     }
-  
+
     onSelectAllChange(event) {
       this.selectedList = this.dataGrid.selectAllChange(event,this.dataSource);
     }
-  
-  
+
+
     confirmSelectdThesisDelete(event: Event) {
       this.confirmationService.confirm({
         target: event.target,
@@ -104,7 +109,7 @@ export class PositionHistoryComponent implements OnInit{
         }
       });
     }
-  
+
     confirmThesisDelete(event: Event, id: string|number) {
       this.confirmationService.confirm({
         target: event.target,
@@ -131,7 +136,6 @@ export class PositionHistoryComponent implements OnInit{
         }
       });
     }
-  
-  
+
+
   }
-  

@@ -10,6 +10,6 @@ import { environment } from 'environment/environment';
 export class InterestsWorkplaceService extends GenericApiService<any> {
 
   constructor(http:HttpClient) {
-    super(http,'profile')
+    super(http,'profile/assignFavoriteWorkplaces')
    }
 }

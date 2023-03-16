@@ -23,7 +23,7 @@ export class MembershipEditComponent extends GenericClass implements OnInit, OnD
   public SelectorConfig3!: IDynamicSelect;
   public SelectorConfig4!: IDynamicSelect;
   public records = [];
-  
+  colapsed=true;
   constructor(
     private watcherService: WatcherService,private sharedSeravice:SharedService,
     private _formBuilder: FormBuilder

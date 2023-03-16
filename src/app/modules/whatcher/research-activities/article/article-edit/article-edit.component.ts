@@ -18,7 +18,7 @@ export class ArticleEditComponent {
   disableButton = false;
   updateMode = false;
   routeSub=null;
-
+  colapsed=true;
   records=[]
 
   constructor(

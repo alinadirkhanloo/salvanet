@@ -19,7 +19,7 @@ export class JobEditComponent extends GenericClass implements OnInit, OnDestroy{
   updateMode = false;
   routeSub=null;
   records=[];
-
+  colapsed=true;
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,

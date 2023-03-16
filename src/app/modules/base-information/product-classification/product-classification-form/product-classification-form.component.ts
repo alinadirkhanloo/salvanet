@@ -11,7 +11,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
   templateUrl: './product-classification-form.component.html',
   styleUrls: ['./product-classification-form.component.css']
 })
-export class ProductClassificationFormComponent  implements OnInit, OnDestroy{
+export class ProductClassificationFormComponent implements OnInit, OnDestroy{
 
   editForm:FormGroup;
   disableButton = false;
@@ -34,7 +34,7 @@ export class ProductClassificationFormComponent  implements OnInit, OnDestroy{
         code:['',[Validators.required,Validators.maxLength(4),Validators.minLength(2)]],
         name:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
         description:['',[Validators.required,Validators.maxLength(512)]],
-        parentId:0
+        parentId:-1
         
       })
   }

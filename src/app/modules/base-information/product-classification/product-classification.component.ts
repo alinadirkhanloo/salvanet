@@ -63,7 +63,7 @@ export class ProductClassificationComponent  implements OnInit{
   }
 
   openProductForm(){
-    let modalRef = this.modalService.open(ProductClassificationFormComponent);
+    let modalRef = this.modalService.open(ProductClassificationFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode=false;
     modalRef.componentInstance.id=0;
     modalRef.result?.then(result=>{
@@ -74,7 +74,7 @@ export class ProductClassificationComponent  implements OnInit{
   }
 
   openProductEditForm(product:IProductClassification){
-    let modalRef = this.modalService.open(ProductClassificationFormComponent);
+    let modalRef = this.modalService.open(ProductClassificationFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode=true;
     modalRef.componentInstance.product=product;
   }
@@ -84,22 +84,22 @@ export class ProductClassificationComponent  implements OnInit{
   }
 
 
-  confirmSelectdThesisDelete(event: Event) {
-    this.confirmationService.confirm({
-      target: event.target,
-      message: 'کاربر گرامی، آیا قصد حذف محصولات انتخاب شده را دارید؟',
-      icon: 'pi pi-exclamation-triangle',
-      acceptLabel:'بله',
-      rejectLabel:'خیر',
-      acceptButtonStyleClass:'mx-2',
-      accept: () => {
-        //confirm action
-      },
-      reject: () => {
-        //reject action
-      }
-    });
-  }
+  // confirmSelectdThesisDelete(event: Event) {
+  //   this.confirmationService.confirm({
+  //     target: event.target,
+  //     message: 'کاربر گرامی، آیا قصد حذف محصولات انتخاب شده را دارید؟',
+  //     icon: 'pi pi-exclamation-triangle',
+  //     acceptLabel:'بله',
+  //     rejectLabel:'خیر',
+  //     acceptButtonStyleClass:'mx-2',
+  //     accept: () => {
+  //       //confirm action
+  //     },
+  //     reject: () => {
+  //       //reject action
+  //     }
+  //   });
+  // }
 
   confirmThesisDelete(event: Event, id: string|number) {
     this.confirmationService.confirm({
@@ -114,6 +114,7 @@ export class ProductClassificationComponent  implements OnInit{
         this.sub.add(
           this.pcService.delete(id).subscribe({
             next:(res)=>{
+              this.loadAll(this.lazyLoadvent);
               this.shService.showSuccess();
             },
             error:(err)=>{

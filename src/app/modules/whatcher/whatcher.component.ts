@@ -5,45 +5,50 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-whatcher',
   templateUrl: './whatcher.component.html',
-  styleUrls: ['./whatcher.component.css']
+  styleUrls: ['./whatcher.component.css'],
 })
-export class WhatcherComponent  extends GenericClass implements OnInit, OnDestroy {
-
+export class WhatcherComponent extends GenericClass implements OnInit, OnDestroy {
   items: MenuItem[];
 
-
-  constructor() { super(); }
+  constructor() {
+    super();
+  }
 
   ngOnInit() {
-    this.items = [{
-      label: 'سوابق تحصیلی',
-      routerLink: 'education-records'
-    },
-    {
-      label: 'سوابق شغلی',
-      routerLink: 'job-records'
-    },
-    {
-      label: 'مهارت های نرم افزاری',
-      routerLink: 'software-skills'
-    },
-    {
-      label: 'مهارت های اجتماعی',
-      routerLink: 'social-skills'
-    },
-    {
-      label: 'عضویت در سازمان ها',
-      routerLink: 'membership'
-    },
-    {
-      label: 'دوره ها و مهارت ها',
-      routerLink: 'courses'
-    },
-    {
-      label: 'سوابق پژوهشی',
-      routerLink: 'research-activities'
-    }
- 
+    this.items = [
+      {
+        label: 'مهارت های نرم افزاری',
+        routerLink: 'software-skills',
+      },
+      {
+        label: 'مهارت های اجتماعی',
+        routerLink: 'social-skills',
+      },
+      {
+        label: 'سوابق تحصیلی',
+        routerLink: 'education-records',
+      },
+      {
+        label: 'سوابق شغلی',
+        routerLink: 'job-records',
+      },
+
+      {
+        label: 'عضویت در سازمان ها',
+        routerLink: 'membership',
+      },
+      {
+        label: 'دوره ها و مهارت ها',
+        routerLink: 'courses',
+      },
+      {
+        label: 'سوابق پژوهشی',
+        routerLink: 'research-activities',
+      },
+      {
+        label: 'تکمیل پروفایل',
+        routerLink: 'confirmation',
+      },
     ];
   }
 

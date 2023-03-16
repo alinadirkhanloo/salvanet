@@ -1,21 +1,25 @@
 export interface IPerson{
+	id?:number;
+	nationalCode?:string;
 	firstName: string;
 	lastName: string;
 	gender: number;
 	identityCardNumber: number;
 	birthDate: string;
+	birthPlaceId?:string;
 	religion: number;
 	sect: number;
 	militaryStatus: number;
 	maritalStatus: number;
 	employmentStatus: number;
 	numberOfChildren: number;
-	isStudying:boolean;
+	studying:boolean;
 	levelOfEducation: number;
 	address: string;
 	identityCardIssuingPlaceId: number;
 	nationalityId: number;
 	residencePlaceId: number;
+	simnumber?:string;
 }
 
 // {

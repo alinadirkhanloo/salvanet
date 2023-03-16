@@ -17,15 +17,17 @@ export class AgriculturalInterestsComponent implements OnInit {
   private sub = new Subscription();
 
   myProductConfig !: IDynamicSelect;
-  digitConfig !: IDynamicSelect;
 
   intrest = '';
-  productModel : IDynamicSelectItem;
-  digitModel : IDynamicSelectItem ;
+  productModel: IDynamicSelectItem;
 
-  products = []
 
-  constructor(private aiService:AgriculturalInterestsService ,
+  updateMode = false;
+  routeSub=null;
+  records =[];
+  colapsed=true
+
+  constructor(private aiService: AgriculturalInterestsService,
     private confirmationService: ConfirmationService,
     private shService: SharedService) { }
 
@@ -34,14 +36,12 @@ export class AgriculturalInterestsComponent implements OnInit {
     this.loadData();
   }
 
-  loadData(){
+  loadData() {
     this.subscription.add(this.aiService.readList().subscribe({
-      next:(result)=>{
-        this.products = result;
+      next: (result) => {
+        this.records = result;
       },
-      error:(err)=>{
-
-      }
+      error: (err) => {}
     })
     )
   }
@@ -51,45 +51,54 @@ export class AgriculturalInterestsComponent implements OnInit {
       options$: this.aiService.readList('products'),
       selectId: 'product',
       placeholder: '...',
+      optionValue:'id',
       filter: true,
-      showClear:true,
+      showClear: true,
       emptyFilterMessage: 'موردی یافت نشد',
       emptyMessage: 'موردی یافت نشد'
     }
-    this.digitConfig = {
-      options$: new Observable<IDynamicSelectItem[]>(null),
-      selectId: 'digit',
-      placeholder: '...',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
+
 
   }
 
   _onProductChange(event) {
     if (this.productModel) {
-      this.getList( this.aiService.readById(this.productModel.id, 'digits'),this.digitConfig)
-    }
-  }
-  _onDigitChange(event) {
-    if (this.digitModel) {
-      this.disableButton = false;
+      this.getList(this.aiService.readById(this.productModel.id, 'digits'), this.myProductConfig)
     }
   }
 
 
-  getList(res:Observable<any>,selectConfig:IDynamicSelect){
+  getList(res: Observable<any>, selectConfig: IDynamicSelect) {
     this.subscription.add(
-      res.subscribe(result=>{
-        selectConfig.items=result;
+      res.subscribe(result => {
+        selectConfig.items = result;
       })
     )
 
   }
+
   getIntrests(): string {
-    return `${this.productModel?this.productModel.title:''} - ${this.digitModel?this.digitModel.title:''}`
+    return `${this.productModel ? this.productModel.title : ''}`
+  }
+
+  reset() {
+    this.productModel = null;
+  }
+
+  submit() {
+    this.disableButton = true;
+    this.subscription =
+      this.aiService.create({}, `${this.shService.getProfile().id}/${this.productModel.id}`).subscribe({
+        next: (res) => {
+          this.records.push({ topic: this.productModel.title });
+          this.reset();
+          this.shService.showSuccess();
+        },
+        error: (err) => {
+          this.shService.showError();
+          this.disableButton = false;
+        }
+      });
   }
 
   confirmDelete(event: Event, id: string | number) {

@@ -43,7 +43,10 @@ export class UserAuthComponent extends GenericClass implements OnInit,OnDestroy 
   ngOnInit(): void {
     this.getCaptcha();
     let a = this.sharedService.returnUrl.value;
-    this.accountForm.controls['action'].setValue(this.conditions[a]);
+    if (a) {
+      this.accountForm.controls['action'].setValue(this.conditions[a]);
+    }else this.router.navigate(['/']);
+    
   }
 
   getCaptcha(){
@@ -63,6 +66,7 @@ export class UserAuthComponent extends GenericClass implements OnInit,OnDestroy 
 
           if (result=== true) {
             // id number and phone number is correct
+            sessionStorage.setItem('phoneNumber',this.accountForm.value.mobile);
             this.router.navigate(['/auth/login']);
           } else {
             this.disableButton = false;

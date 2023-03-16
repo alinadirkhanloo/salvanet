@@ -5,7 +5,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { SharedService } from 'app/shared/services/shared.service';
 import { IMajorStudyField, IStudyFiled } from '../study-filed.interface';
-import { StudyFiledService } from '../study-filed.service';
 import { MajorStudyFieldService } from './major-study-filed.service';
 
 @Component({
@@ -36,7 +35,7 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
       this.editForm = this._fb.group({
         id:-1,
         title:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
-        studyFiledId:-1,
+        studyFieldId:-1,
         studyFiledTitle:['',[Validators.required]],
         description:['',[Validators.required,Validators.maxLength(512),Validators.minLength(2)]]
         
@@ -49,11 +48,11 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
     if (this.updateMode) {
       this.loadById(this.node.data);
       this.editForm.controls['studyFiledTitle'].setValue(this.node?.parent.label);
-        this.editForm.controls['studyFiledId'].setValue(this.node?.parent.data); 
+        this.editForm.controls['studyFieldId'].setValue(this.node?.parent.data); 
     }else {
       if (this.node) {
         this.editForm.controls['studyFiledTitle'].setValue(this.node?.label);
-        this.editForm.controls['studyFiledId'].setValue(this.node?.data);  
+        this.editForm.controls['studyFieldId'].setValue(this.node?.data);  
       }
     }    
   }
@@ -67,10 +66,8 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
       },
       error:(err)=> {
         this.shService.showError('خطار در دریافت اطلاعات');
-      },
-      complete() {
-        res.unsubscribe();
-      },
+        this.disableButton = false;
+      }
     });
 
   }
@@ -79,7 +76,7 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
     this.disableButton = true;
     if (this.updateMode) {
       this.sub.add(
-        this.msfService.update(this.editForm.value).subscribe({
+        this.msfService.update(this.editForm.value as IMajorStudyField).subscribe({
           next:(res)=>{
             this.shService.showSuccess();
             this.activeModal.close(true);
@@ -91,8 +88,16 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
         })
         );
     } else {
+      let temp :IMajorStudyField ={
+        description:this.editForm.value.description,
+        id:this.editForm.value.id,
+        studyFieldId:this.editForm.value.studyFieldId,
+        title:this.editForm.value.title
+      }
+      
+      
       this.sub.add(
-        this.msfService.create(this.editForm.value).subscribe({
+        this.msfService.create(temp).subscribe({
           next:(res)=>{
             this.shService.showSuccess();
             this.activeModal.close(true);

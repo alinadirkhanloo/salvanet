@@ -66,8 +66,8 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
       profileId: -1
     });
   }
-  
-  ngOnInit(): void { 
+
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
@@ -77,7 +77,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
       }
     });
   }
-  
+
   loadById(id:number|string) {
     let res = this.pService.readById(id).subscribe({
       next:(result)=>{
@@ -94,7 +94,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
   setDataToForm(entityData:any) {
     this.accountForm.setValue(entityData as IPerson[]);
   }
-  
+
   openFindBox(idControlName:string,titleControlname:string,url,title:string) {
     this.treeConfig = {
 
@@ -140,7 +140,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
   }
 
 
-  goToLogin() {
+  cancle() {
     this.router.navigate(['/pages/personnel']);
   }
 

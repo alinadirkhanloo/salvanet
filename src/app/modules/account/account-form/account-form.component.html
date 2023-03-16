@@ -6,11 +6,11 @@
                     <div class="row no-gutters">
                         <div class="col-xl-12">
                             <div class="auth-form">
-    
+
                                 <h2 class="text-center mb-4">ایجاد حساب کاربری</h2>
                                 <form [formGroup]="accountForm" class="row mx-0 px-0">
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>کد ملی</strong></label>
+                                        <label class="mb-1"><small>کد ملی</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="36"
                                             [ngClass]="{
@@ -19,7 +19,7 @@
                                             formControlName="nationalId" placeholder="">
                                     </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>نام</strong></label>
+                                        <label class="mb-1"><small>نام</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="36"
                                             [ngClass]="{
@@ -28,7 +28,7 @@
                                             formControlName="fName" placeholder="">
                                     </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>نام خانوادگی</strong></label>
+                                        <label class="mb-1"><small>نام خانوادگی</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="24"
                                             [ngClass]="{
@@ -37,9 +37,9 @@
                                             formControlName="lName" placeholder="" >
                                     </div>
 
-                                    
+
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>شماره شناسنامه</strong></label>
+                                        <label class="mb-1"><small>شماره شناسنامه</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="24"
                                             [ngClass]="{
@@ -48,17 +48,17 @@
                                             formControlName="idNumber" placeholder="" >
                                     </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>جنسیت</strong></label>
+                                        <label class="mb-1"><small>جنسیت</small></label>
                                         <select id="inputState" formControlName="gender"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>مرد</option>
                                             <option>زن</option>
                                         </select>
-                                    </div>	
-                                                                
+                                    </div>
+
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong> تاریخ تولد</strong></label>
+                                        <label class="mb-1"><small> تاریخ تولد</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="24"
                                             [ngClass]="{
@@ -66,9 +66,9 @@
                                         'is-invalid':accountForm.controls['birthDate'].invalid && accountForm.controls['birthDate'].touched}"
                                             formControlName="birthDate" placeholder="" >
                                     </div>
-                                    
+
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>محل تولد</strong></label>
+                                        <label class="mb-1"><small>محل تولد</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="24"
                                             [ngClass]="{
@@ -78,55 +78,55 @@
                                     </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>محل صدور شناسنامه</strong></label>
+                                        <label class="mb-1"><small>محل صدور شناسنامه</small></label>
                                         <select id="inputState" formControlName="idNumberLocation"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>تهران</option>
                                             <option>کرج</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>ملیت</strong></label>
+                                        <label class="mb-1"><small>ملیت</small></label>
                                         <select id="inputState" formControlName="nationality"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>ایران</option>
                                             <option>سایر</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>تابعیت</strong></label>
+                                        <label class="mb-1"><small>تابعیت</small></label>
                                         <select id="inputState" formControlName="country"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>ایران</option>
                                             <option>سایر</option>
                                         </select>
-                                    </div>	
+                                    </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>دین</strong></label>
+                                        <label class="mb-1"><small>دین</small></label>
                                         <select id="inputState" formControlName="religen"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>اسلام</option>
                                             <option>مسیحیت</option>
                                         </select>
-                                    </div>	
+                                    </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>مذهب</strong></label>
+                                        <label class="mb-1"><small>مذهب</small></label>
                                         <select id="inputState" formControlName="sect"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>شیعه</option>
                                             <option>سنی</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت نظام وظیفه</strong></label>
+                                        <label class="mb-1"><small>وضعیت نظام وظیفه</small></label>
                                         <select id="inputState" formControlName="military"
                                             class="form-control default-select">
                                             <option selected>...</option>
@@ -134,19 +134,19 @@
                                             <option>اتمام خدمت</option>
                                             <option>مشمول</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت تاهل</strong></label>
+                                        <label class="mb-1"><small>وضعیت تاهل</small></label>
                                         <select id="inputState" formControlName="marrid"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>مجرد</option>
                                             <option>متاهل</option>
                                         </select>
-                                    </div>	
+                                    </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong> تعداد فرزندان</strong></label>
+                                        <label class="mb-1"><small> تعداد فرزندان</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="24"
                                             [ngClass]="{
@@ -156,7 +156,7 @@
                                     </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت اشتغال</strong></label>
+                                        <label class="mb-1"><small>وضعیت اشتغال</small></label>
                                         <select id="inputState" formControlName="job"
                                             class="form-control default-select">
                                             <option selected>...</option>
@@ -164,20 +164,20 @@
                                             <option>آزاد</option>
                                             <option>بیکار</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>وضعیت تحصیلی</strong></label>
+                                        <label class="mb-1"><small>وضعیت تحصیلی</small></label>
                                         <select id="inputState" formControlName="edu"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>فارغ التحصیل</option>
                                             <option>درحال تحصیل</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>سطح تحصیلات</strong></label>
+                                        <label class="mb-1"><small>سطح تحصیلات</small></label>
                                         <select id="inputState" formControlName="levelOfEdu"
                                             class="form-control default-select">
                                             <option selected>...</option>
@@ -185,19 +185,19 @@
                                             <option>دیپلم</option>
                                             <option>لیسانس</option>
                                         </select>
-                                    </div>	
+                                    </div>
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong>محل سکونت</strong></label>
+                                        <label class="mb-1"><small>محل سکونت</small></label>
                                         <select id="inputState" formControlName="home"
                                             class="form-control default-select">
                                             <option selected>...</option>
                                             <option>تهران</option>
                                             <option>کرج</option>
                                         </select>
-                                    </div>	
+                                    </div>
 
                                     <div class="form-group col-lg-4">
-                                        <label class="mb-1"><strong> آدرس</strong></label>
+                                        <label class="mb-1"><small> آدرس</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="24"
                                             [ngClass]="{
@@ -207,7 +207,7 @@
                                     </div>
 
 
-                                    
+
                                     <div class="text-center col-12">
                                         <button type="submit" pButton pRipple (click)="goToLogin()" [disabled]="!accountForm.valid || disableButton"
                                              class="p-button-success mx-2">

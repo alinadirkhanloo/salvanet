@@ -4,12 +4,13 @@
         <h2 class="text-center mb-4">مشخصات محصول</h2>
         <form [formGroup]="editForm" class="row mx-0 px-0">
             <div class="form-group col-12">
+                <label for="code">کد محصول</label>
                 <input type="text" class="form-control text-left"
                 maxlength="4" minlength="2" required
                     [ngClass]="{
                 'is-valid':editForm.controls['code'].valid,
                 'is-invalid':editForm.controls['code'].invalid && editForm.controls['code'].touched}"
-                    formControlName="code" placeholder="کد">
+                    formControlName="code" placeholder="">
                     <div *ngIf="editForm.controls['code'].invalid && (editForm.controls['code'].dirty || editForm.controls['code'].touched)" class="text-danger fs-13 mt-1">
 													
                         <div *ngIf="editForm.controls['code'].errors.required">
@@ -18,12 +19,13 @@
                     </div>
             </div>
             <div class="form-group col-12">
+                <label for="name">نام محصول</label>
                 <input type="text" class="form-control text-left"
                 maxlength="32" minlength="2" required
                     [ngClass]="{
                 'is-valid':editForm.controls['name'].valid,
                 'is-invalid':editForm.controls['name'].invalid && editForm.controls['name'].touched}"
-                    formControlName="name" placeholder="نام">
+                    formControlName="name" placeholder="">
                     <div *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].dirty || editForm.controls['name'].touched)" class="text-danger fs-13 mt-1">
 													
                         <div *ngIf="editForm.controls['name'].errors.required">
@@ -32,12 +34,13 @@
                     </div>
             </div>
             <div class="form-group col-12">
+                <label for="description">توضیحات </label>
                 <textarea type="text" class="form-control text-left"
                 maxlength="512" required
                     [ngClass]="{
                 'is-valid':editForm.controls['description'].valid,
                 'is-invalid':editForm.controls['description'].invalid && editForm.controls['description'].touched}"
-                    formControlName="description" placeholder="توضیحات"></textarea>
+                    formControlName="description" placeholder=""></textarea>
                     <div *ngIf="editForm.controls['description'].invalid && (editForm.controls['description'].dirty || editForm.controls['description'].touched)" class="text-danger fs-13 mt-1">
 													
                         <div *ngIf="editForm.controls['description'].errors.required">

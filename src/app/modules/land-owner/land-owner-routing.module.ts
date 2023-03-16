@@ -8,7 +8,7 @@ const routes: Routes = [
       .then(m => m.ProductUnitModule),
   },
   {
-    path:'owners',
+    path:'product-unit/:id/owners',
     loadChildren: () => import('./owners/owners.module')
       .then(m => m.OwnersModule),
   }

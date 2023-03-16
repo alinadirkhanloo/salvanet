@@ -24,12 +24,17 @@ import {AvatarModule} from 'primeng/avatar';
 import {AvatarGroupModule} from 'primeng/avatargroup';
 import {TooltipModule} from 'primeng/tooltip';
 import {RadioButtonModule} from 'primeng/radiobutton';
+import {TabViewModule} from 'primeng/tabview';
 
+import {PanelModule} from 'primeng/panel';
+import {TabMenuModule} from 'primeng/tabmenu';
 
 @NgModule({
   declarations: [],
   imports: [
+    PanelModule,
     AvatarGroupModule,
+    TabViewModule,
     TooltipModule,
     AvatarModule,
     HttpClientModule,
@@ -52,11 +57,14 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     CalendarModule,
     ToastModule,
     TableModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TabMenuModule
   ],
   exports: [
+    PanelModule,
     AvatarGroupModule,
     AvatarModule,
+    TabViewModule,
     TooltipModule,
     DynamicDialogModule,
     ConfirmDialogModule,
@@ -78,7 +86,8 @@ import {RadioButtonModule} from 'primeng/radiobutton';
     TableModule,
     FileUploadModule,
     HttpClientModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TabMenuModule
   ],
   providers:[ConfirmationService,DialogService]
 })

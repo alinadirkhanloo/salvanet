@@ -5,6 +5,7 @@ import { IRegistrationAnnouncement } from 'app/core/interfaces/registration-anno
 import { IGridHeader, GenericGrid } from 'app/core/interfaces/grid.interface';
 import { Component, OnInit } from '@angular/core';
 import { RegistrationAnnouncementService } from './registration-announcement.service';
+import { Roles } from './registration-announcement.interface';
 
 @Component({
   selector: 'app-registration-announcement',
@@ -18,7 +19,7 @@ export class RegistrationAnnouncementComponent implements OnInit{
     {title:'roleTitle',persianTitle:'نقش',sortKey:'roleTitle'},
     {title:'startDate',persianTitle:'تاريخ شروع',sortKey:'startDate'},
     {title:'endDate',persianTitle:'تاريخ خاتمه',sortKey:'endDate'},
-    {title:'active',persianTitle:'فعال',sortKey:'active'}
+    {title:'isActive',persianTitle:'فعال',sortKey:'isActive'}
   ];
 
   dataGrid = new GenericGrid(this.router,this.gridHeaders);
@@ -111,5 +112,9 @@ export class RegistrationAnnouncementComponent implements OnInit{
         //reject action
       }
     });
+  }
+
+  getRoleTitle(roleId:number):string{
+    return Roles.filter(m=>m.value === roleId)[0].key;
   }
 }

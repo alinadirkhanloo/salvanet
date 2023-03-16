@@ -54,12 +54,11 @@ const routes: Routes = [
         ,RegistrationComponent
     ,SignupTypeDialogComponent, CompanyRegistrationComponent, UserActivationComponent],
     imports: [
-        SharedModule,AllMaterialModule,PrimeNgModule,FindBoxModule,
+        SharedModule,AllMaterialModule,FindBoxModule,
         RouterModule.forChild(routes),NgbModule,PersonnelFilterModule
 
     ],
     providers: [
-      NgbActiveModal
     ]
 })
 export class AccountModule { }

@@ -23,7 +23,7 @@ export class UniversityComponent implements OnInit{
 
   gridHeaders:IGridHeader[] = [
     {title:'name',persianTitle:'نام',sortKey:'name'},
-    {title:'locatedInLabel',persianTitle:'محل استقرار',sortKey:'locatedInLabel'}
+    {title:'locatedInName',persianTitle:'محل استقرار',sortKey:'locatedInName'}
   ];
 
   dataGrid = new GenericGrid(this.router,this.gridHeaders);
@@ -67,7 +67,7 @@ export class UniversityComponent implements OnInit{
   }
 
   openProductForm(){
-    let modalRef = this.modalService.open(UniversityFormComponent);
+    let modalRef = this.modalService.open(UniversityFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode=false;
     modalRef.componentInstance.id=0;
     modalRef.result?.then(result=>{
@@ -78,7 +78,7 @@ export class UniversityComponent implements OnInit{
   }
 
   openProductEditForm(product:IUniversity){
-    let modalRef = this.modalService.open(UniversityFormComponent);
+    let modalRef = this.modalService.open(UniversityFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode=true;
     modalRef.componentInstance.product=product;
   }
@@ -119,6 +119,7 @@ export class UniversityComponent implements OnInit{
           this.universityService.delete(id).subscribe({
             next:(res)=>{
               this.shService.showSuccess();
+              this.loadAll(this.lazyLoadvent);
             },
             error:(err)=>{
               this.shService.showError();

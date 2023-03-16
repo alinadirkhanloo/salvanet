@@ -2,12 +2,12 @@
     <div class="page-titles mx-0">
         <div class="p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active"><a href="javascript:void(0)">کاربران</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">فراخوان</a></li>
             </ol>
         </div>
     </div>
     <div class="">
-        <p-card>
+        <p-card  header="لیست فراخوان">
             <p-table [value]="dataSource" [lazy]="dataGrid.lazy" [tableStyle]="dataGrid.customTableStyle"
                 [selection]="dataGrid.selectedData" [paginator]="dataGrid.paginator" [rows]="dataGrid.rowCount"
                 [totalRecords]="dataGrid.totalRecords" [loading]="dataGrid.loading"
@@ -15,14 +15,14 @@
                 (onLazyLoad)="loadDataSource($event)" (selectionChange)="dataGrid.selectionChange($event)"
                 (selectAllChange)="onSelectAllChange($event)" [(first)]="first" [rowsPerPageOptions]="[10,25,50]">
 
-                
+
                 <ng-template pTemplate="caption">
                     <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
                     <div class="flex">
                         <!-- CRUD ACTIONS -->
                         <p-button label="ایجاد" icon="pi pi-plus" iconPos="left" (click)="dataGrid.redirect('pages/registration-announcemen/new')"
                             styleClass="p-button-success" tooltipPosition="bottom"></p-button>
-                       
+
                     </div>
                 </ng-template>
 
@@ -57,7 +57,7 @@
                         <td>{{ rows.title }}</td>
                         <td>{{ rows.startDate }}</td>
                         <td>{{ rows.endDate }}</td>
-                        <td>{{ rows.rolesId }}</td>
+                        <td>{{ getRoleTitle(rows.rolesId) }}</td>
                         <td>
                             <p-inputSwitch [(ngModel)]="rows.active"
                             (onChange)="confirmAccountActivation($event,rows)"
@@ -67,7 +67,7 @@
                         <td class="flex">
 
                             <button pButton type="button" class="p-button-warning ml-2"
-                                (click)="dataGrid.redirect('pages/account/edit/' + rows.id)"
+                                (click)="dataGrid.redirect('pages/registration-announcemen/edit/' + rows.id)"
                                 icon="pi pi-pencil"></button>
                             <button pButton type="button" class="p-button-danger"
                                 (click)="confirmAccountDelete($event,rows.id)" icon="pi pi-trash"></button>

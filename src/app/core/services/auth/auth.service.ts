@@ -44,6 +44,14 @@ export class AuthService {
         return this.http.post(`${environment.baseUrl}/person`, person);
     }
 
+    editPerson(person: IPerson) {
+        return this.http.put(`${environment.baseUrl}/person`, person);
+    }
+
+    getPerson(nationalCode:string){
+        return this.http.get(`${environment.baseUrl}/person/nationalCode/${nationalCode}`);
+    }
+
     submitCompany(company: ICompany) {
         return this.http.post(`${environment.baseUrl}/company`, company);
     }
@@ -94,13 +102,15 @@ export class AuthService {
     }
 
     changePassword(username: string, password: string) {
-        let userTemp = { ownerId: -1, userName: username, password: password };
+        
+        
+        let userTemp = { id:null,ownerId:0, userName: username, password: password };
         return this.http.put(`${environment.baseUrl}/account/changePassword`, userTemp);
     }
 
 
     accountActivation(username: string, password: string) {
-        let userTemp = { ownerId: -1, userName: username, password: password };
+        let userTemp = { id:null,ownerId:0, userName: username, password: password };
         return this.http.put(`${environment.baseUrl}/account/activate`, userTemp);
     }
 
@@ -108,7 +118,7 @@ export class AuthService {
     logout() {
         sessionStorage.removeItem('currentUser');
         this.http.get(`${environment.authUrl}/logout`).subscribe(result=>{});
-        this.user.next(null);
+        // this.user.next(null);
     }
 
 }

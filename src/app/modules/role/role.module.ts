@@ -20,4 +20,4 @@ const routes: Routes = [
     RouterModule.forChild(routes)
   ]
 })
-export class ServerModule { }
+export class RoleModule { }

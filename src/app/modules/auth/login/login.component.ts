@@ -32,7 +32,7 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     super();
     this.loginForm = this._formBuilder.group({
       username: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.pattern('^(?=.*?[a-z])(.{36,}|(?=.*?[A-Z])(?=.*?[0-9]).{8,36})$')]],
+      password: ['', [Validators.required]],
       captcha: ['', [Validators.required]]
     });
   }
@@ -51,20 +51,31 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     if (this.loginForm.valid) {
       this.subscription = this.auth.login(this.loginForm.value).subscribe({
         next: (result: any) => {
-
           if (result) {
             // id number and phone number is correct
             this.auth.setUsername(this.loginForm.value.username);
+
             if (!JSON.parse(result.idToken).activated)
               this.router.navigate(['auth/change-password']);
-            else this.router.navigate([`${this.sharedService.returnUrl.value}`]);
+            else {
+              if (this.sharedService.returnUrl.value !== '') {
+                this.router.navigateByUrl(this.sharedService.returnUrl.value);
+              } else 
+              this.router.navigateByUrl('/pages');
+            }
             this.auth.setUser(result as User);
           } else {
             this.disableLoginButton = false;
             return
           }
         },
-        error: () => {
+        error: (error) => {
+          if (error['0']=== 'passwordIsWrong') {
+            this.sharedService.showError('کلمه عبور اشتباه است');
+          }else
+          if (error['0']=== 'accountExists') {
+            this.sharedService.showError('حساب کاربری قبلا ایجاد شده است');
+          }
           this.disableLoginButton = false;
         }
       });

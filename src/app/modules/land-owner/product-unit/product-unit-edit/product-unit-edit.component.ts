@@ -105,10 +105,9 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
       emptyFilterMessage: 'موردی یافت نشد',
       emptyMessage: 'موردی یافت نشد'
     }
-    let options= this.puService.status$.subscribe(result=>{
+    // let options= this.puService.status$.subscribe(result=>{
       this.landDocumentStatusConfig ={
-        items: result,
-        options$:new Observable<IDynamicSelectItem[]>,
+        options$:this.puService.status$,
         selectId: 'ldstatus',
         placeholder: '...',
         filter: true,
@@ -118,8 +117,7 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
       }
       
       this.landAreaStatusConfig ={
-        items: result,
-        options$:new Observable<IDynamicSelectItem[]>,
+        options$:this.puService.status$,
         selectId: 'areastatus',
         placeholder: '...',
         showClear: true,
@@ -127,19 +125,18 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
         emptyMessage: 'موردی یافت نشد'
       }
       this.statusConfig = {
-        items: result,
-        options$:new Observable<IDynamicSelectItem[]>,
+        options$:this.puService.status$,
         selectId: 'statusk',
         placeholder: '...',
         showClear: true,
         emptyFilterMessage: 'موردی یافت نشد',
         emptyMessage: 'موردی یافت نشد'
       }
-    });
-this.subscription.add(options); 
+    // });
+// this.subscription.add(options); 
     setTimeout(() => {
       this.load=true;
-    }, 2000);
+    }, 500);
   }
 
   _onStatusChange(event){

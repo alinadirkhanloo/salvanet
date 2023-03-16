@@ -1,10 +1,10 @@
+import { IPerson } from './../../../core/interfaces/person.interface';
 import { CommonService } from 'core/services/common/common.service';
 import { ReplaySubject } from 'rxjs';
 import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.interface';
-import { MenuItem } from 'primeng/api';
 import { AuthService } from 'core/services/auth/auth.service';
 import { DynamicDialogRef, DialogService } from 'primeng/dynamicdialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -17,17 +17,17 @@ import { SharedService } from 'app/shared/services/shared.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit,OnDestroy{
+export class RegistrationComponent implements OnInit, OnDestroy {
   accountForm: FormGroup;
   disableButton = false;
   disableActiveationButton = false;
   ref: DynamicDialogRef;
-  display=false;
+  display = false;
 
   public treeConfig: IDynamicTree;
   constructor(
-    private _formBuilder: FormBuilder, private modalService: NgbModal,private _sh: SharedService,
-    private router: Router,private commonService:CommonService,
+    private _formBuilder: FormBuilder, private modalService: NgbModal, private _sh: SharedService,
+    private router: Router, private commonService: CommonService,
     public dialogService: DialogService, private auth: AuthService
   ) {
     this.accountForm = this._formBuilder.group({
@@ -42,8 +42,8 @@ export class RegistrationComponent implements OnInit,OnDestroy{
       identityCardIssuingPlaceId: ['', [Validators.required]],
       identityCardIssuingPlaceTitle: ['', [Validators.required]],
       nationalityId: ['', [Validators.required]],
-      nationalityTitle: ['', [Validators.required]],
       residencePlaceId: ['', [Validators.required]],
+      residencePlaceTitle: ['', [Validators.required]],
       religion: ['', [Validators.required]],
       sect: ['', [Validators.required]],
       militaryStatus: ['', [Validators.required]],
@@ -53,66 +53,102 @@ export class RegistrationComponent implements OnInit,OnDestroy{
       levelOfEducation: ['', [Validators.required]],
       studying: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      simnumber: ['', [Validators.required,Validators.pattern(`^09[0-9]{9}`), Validators.maxLength(11),Validators.minLength(11)]],
-      id: -1,
-      profileId: -1
+      simnumber: ['', [Validators.required]],
+      id: -1
     });
   }
 
 
   ngOnInit(): void {
-    let usename = this.auth.getUsername();
-    if (!usename) {
+    let username = this.auth.getUsername();
+    if (!username) {
       this.goToLogin();
-    } else this.accountForm.controls['nationalCode'].setValue(usename);
+    } else {
+      this.auth.getPerson(username).subscribe(result=>{
+        console.log('kk', result);
+        
+        this.accountForm.controls['nationalCode'].setValue(result['nationalCode']);
+        this.accountForm.controls['simnumber'].setValue(result['simnumber']);
+      });
+
+    }
   }
 
 
-  openFindBox(idControlName:string,titleControlname:string,url,title:string) {
+  openFindBox(idControlName: string, titleControlname: string, url, title: string) {
     this.treeConfig = {
 
-          treeNodes$: this.commonService.getTree(url),
+      treeNodes$: this.commonService.getTree(url),
 
-          onNodeContextMenuSelect: new ReplaySubject<any>(1),
-          onNodeSelect: new ReplaySubject<any>(1),
+      onNodeContextMenuSelect: new ReplaySubject<any>(1),
+      onNodeSelect: new ReplaySubject<any>(1),
 
-          lazyUrl: [
-            `${url}`,
-            ``,
-          ],
+      lazyUrl: [
+        `${url}`,
+        ``,
+      ],
 
-          selectionMode: SelectionMode.SINGLE_SELECT
-        };
+      selectionMode: SelectionMode.SINGLE_SELECT
+    };
 
-        const modalRef = this.modalService.open(FindBoxComponent, { size: 'lg' });
-        modalRef.componentInstance.treeConfig = this.treeConfig;
-        modalRef.componentInstance.title = title;
-        modalRef.result.then((result) => {
-          // this.closeResult = `Closed with: ${result}`;
-            if (result) {
-              this.accountForm.controls[idControlName].setValue(result.data);
-            this.accountForm.controls[titleControlname].setValue(result.label);
-            }
-            
-        }, (reason) => {
-            // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    const modalRef = this.modalService.open(FindBoxComponent, { size: 'lg' });
+    modalRef.componentInstance.treeConfig = this.treeConfig;
+    modalRef.componentInstance.title = title;
+    modalRef.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+      if (result) {
+        this.accountForm.controls[idControlName].setValue(result.data);
+        this.accountForm.controls[titleControlname].setValue(result.label);
+      }
 
-        },);
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+
+    },);
   }
 
-  submitPerson(){
-    return  this.auth.submitPerson(this.accountForm.value)
+  submitPerson() {
+    let temp: IPerson = {
+      nationalCode: this.accountForm.value.nationalCode,
+      firstName: this.accountForm.value.firstName,
+      lastName: this.accountForm.value.lastName,
+      gender: this.accountForm.value.gender,
+      identityCardNumber: this.accountForm.value.identityCardNumber,
+      birthDate: this.accountForm.value.birthDate,
+      religion: this.accountForm.value.religion,
+      sect: this.accountForm.value.sect,
+      militaryStatus: this.accountForm.value.militaryStatus,
+      maritalStatus: this.accountForm.value.maritalStatus,
+      employmentStatus: this.accountForm.value.employmentStatus,
+      numberOfChildren: this.accountForm.value.numberOfChildren,
+      levelOfEducation: this.accountForm.value.levelOfEducation,
+      address: this.accountForm.value.address,
+      birthPlaceId: this.accountForm.value.birthPlaceId,
+      identityCardIssuingPlaceId: this.accountForm.value.identityCardIssuingPlaceId,
+      nationalityId: this.accountForm.value.nationalityId,
+      residencePlaceId: this.accountForm.value.residencePlaceId,
+      simnumber: this.accountForm.value.simnumber,
+      studying: this.accountForm.value.studying,
+      id: null
+    };
+    return this.auth.editPerson(temp);
   }
 
   submitAsPerson() {
-   this.submitPerson().subscribe({
-              next: (res) => {
-                this.router.navigate(['/role-determination']);
-                this._sh.showSuccess();
-              },error:(err)=>{
-                this._sh.showSuccess();
-              }
-            });
+
+    //   Object.keys(temp).forEach(key => {
+    //     temp[key] = this.accountForm.value[key];
+    // });
+    // console.log(temp);
+
+     this.submitPerson().subscribe({
+                next: (res) => {
+                  this.router.navigate(['/role-determination']);
+                  this._sh.showSuccess();
+                },error:(err)=>{
+                  this._sh.showSuccess();
+                }
+              });
   }
 
   submitAsCompany() {
@@ -120,7 +156,7 @@ export class RegistrationComponent implements OnInit,OnDestroy{
       next: (res) => {
         this.router.navigate(['/auth/company-registration']);
         this._sh.showSuccess();
-      },error:(err)=>{
+      }, error: (err) => {
         this._sh.showSuccess();
       }
     });
@@ -128,11 +164,13 @@ export class RegistrationComponent implements OnInit,OnDestroy{
   }
 
   goToLogin() {
+    // console.log(this.accountForm.valid, this.accountForm.value);
+
     this.router.navigate(['/']);
   }
 
   show() {
-    this.display=true;
+    this.display = true;
   }
 
 

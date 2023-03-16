@@ -8,7 +8,7 @@
                             <h2 class="text-center mb-4">مشخصات سیم کارت</h2>
                             <form [formGroup]="simCardEditForm">
                                 <div class="form-group">
-                                    <label class="mb-1"><strong>کد ملی مالک</strong></label>
+                                    <label class="mb-1"><small>کد ملی مالک</small></label>
                                     <input type="text" class="form-control text-center"
                                     maxlength="36"
                                         [ngClass]="{
@@ -17,7 +17,7 @@
                                         formControlName="ownerId" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label class="mb-1"><strong>اپراتور</strong></label>
+                                    <label class="mb-1"><small>اپراتور</small></label>
                                     <input type="text" class="form-control text-center"
                                     maxlength="36"
                                         [ngClass]="{
@@ -26,7 +26,7 @@
                                         formControlName="operator" placeholder="">
                                 </div>
                                 <div class="form-group">
-                                    <label class="mb-1"><strong>شماره سیم کارت</strong></label>
+                                    <label class="mb-1"><small>شماره سیم کارت</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="11"
                                             [ngClass]="{
@@ -34,7 +34,7 @@
                                         'is-invalid':simCardEditForm.controls['phoneNumber'].invalid && simCardEditForm.controls['phoneNumber'].touched}"
                                             formControlName="phoneNumber" placeholder="- -  - -  - - -  - - 09">
                                 </div>
-                                
+
                                 <div class="text-center">
                                     <button type="submit" pButton pRipple [disabled]="!simCardEditForm.valid || disableButton"
                                         (click)="submit()" class="p-button-success mx-2">

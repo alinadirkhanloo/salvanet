@@ -1,46 +1,143 @@
-<div class="container h-100">
-    <p-card>
-        <div class="form-row">
-            
-        <div class="form-group col-lg-4">
-            <p-toggleButton [(ngModel)]="farmer" [onLabel]="'ثبت نام کشاورز'" (onChange)="goToFarmerSignUpForm($event)"
-                [offLabel]="'ثبت نام کشاورز'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
-                [style]="{'width': '100%'}">
-            </p-toggleButton>
+<div class="authincation h-100">
+  <div class="vh-100">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 m-auto">
+        <div class="card" style="display: contents;">
+          <div class="card-header">
+            <h3>انتخاب نقش</h3>
+          </div>
+          <div class="card-body">
+            <p>در این قسمت شما باید نقش خود را انتخاب نمایید.</p>
+          </div>
         </div>
+        <div class="">
+          <div class="row">
 
-        <div class="form-group col-lg-4">
-            <p-toggleButton [(ngModel)]="productOwner" [onLabel]="'ثبت نام مالکیت واحد تولیدی'"
-            (onChange)="goToProductUnitSignUpForm($event)"
-                [offLabel]="'ثبت نام مالکیت واحد تولیدی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
-                [style]="{'width': '100%'}">
-            </p-toggleButton>
-        </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header d-sm-flex justify-content-between align-items-center">
+                  <h5 class="card-title d-inline">کشاورز</h5>
+                  <button type="button" class="btn btn-primary" (click)="goToFarmerSignUpForm($event)"> ثبت نام در نقش کشاورز<span
+                    class="btn-icon-right py-0 pr-3 pl-0"><i class="las la-tractor fs-26 d-table-cell"></i></span>
+                </button>
 
-        <div class="form-group col-lg-4">
-            <p-toggleButton [(ngModel)]="coach" [onLabel]="'ثبت نام مربی'"
-            (onChange)="goToCouchSignUpForm($event)"
-                [offLabel]="'ثبت نام مربی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
-                [style]="{'width': '100%'}">
-            </p-toggleButton>
-        </div>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    در صورت ثبت نام به عنوان کشاورز نقش شما در سامانه کشاورز خواهد بود
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        <div class="form-group col-lg-4">
-            <p-toggleButton [(ngModel)]="productSentinel" [onLabel]="'ثبت نام دیده بان تولید'" 
-            (onChange)="goToProductWatchreSignUpForm($event)"
-                [offLabel]="'ثبت نام دیده بان تولید'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
-                [style]="{'width': '100%'}">
-            </p-toggleButton>
-        </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header d-sm-flex justify-content-between align-items-center">
+                  <h5 class="card-title d-inline">واحد تولیدی</h5>
+                  <a href="javascript:void(0)" class="btn btn-primary" (click)="goToProductUnitSignUpForm($event)"> ثبت نام در نقش مالک واحد تولیدی<span
+                    class="btn-icon-right py-0 pr-3 pl-0"><i class="las la-user-tie fs-26 d-table-cell"></i></span></a>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    در صورت ثبت نام به عنوان مالک واحد تولیدی نقش شما در سامانه مالک واحد تولیدی خواهد بود
+                  </p>
+                </div>
+              </div>
+            </div>
 
-        <div class="form-group col-lg-4">
-            <p-toggleButton [(ngModel)]="foodSecuritySentinel" [onLabel]="'ثبت نام دیده بان امنیت غذایی'"
-            (onChange)="goToSecWatcherSignUpForm($event)"
-                [offLabel]="'ثبت نام دیده بان امنیت غذایی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
-                [style]="{'width': '100%'}">
-            </p-toggleButton>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header d-sm-flex justify-content-between align-items-center">
+                  <h5 class="card-title d-inline">مربی</h5>
+                  <a href="javascript:void(0)" class="btn btn-primary" (click)="goToCouchSignUpForm($event)"> ثبت نام در نقش مربی
+                    <span
+                    class="btn-icon-right py-0 pr-3 pl-0"><i class="las la-chalkboard-teacher fs-26 d-table-cell"></i></span>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    در صورت ثبت نام به عنوان مربی نقش شما در سامانه مربی خواهد بود
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-header d-sm-flex justify-content-between align-items-center">
+                  <h5 class="card-title d-inline">دیده بان تولید</h5>
+                  <a href="javascript:void(0)" class="btn btn-primary" (click)="goToProductWatchreSignUpForm($event)"> ثبت نام در نقش دیده بان تولید
+                    <span
+                    class="btn-icon-right py-0 pr-3 pl-0"><i class="las la-id-badge fs-26 d-table-cell"></i></span>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    در صورت ثبت نام به عنوان دیده بان تولید نقش شما در سامانه دیده بان تولید خواهد بود
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-12">
+              <div class="card">
+                <div class="card-header d-sm-flex justify-content-between align-items-center">
+                  <h5 class="card-title d-inline">دیده بان امنیت غذایی</h5>
+                  <a href="javascript:void(0)" class="btn btn-primary" (click)="goToSecWatcherSignUpForm($event)">ثبت نام در نقش دیده بان امنیت غذایی
+                    <span
+                    class="btn-icon-right py-0 pr-3 pl-0"><i class="las la-id-badge fs-26 d-table-cell"></i></span>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <p class="card-text">
+                    در صورت ثبت نام به عنوان دیده بان امنیت غذایی نقش شما در سامانه دیده بان امنیت غذایی خواهد بود
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
-        
-        </div>
-    </p-card>
+      </div>
+    </div>
+  </div>
 </div>
+  <!--
+<p-toggleButton [(ngModel)]="farmer" [onLabel]="'ثبت نام کشاورز'" (onChange)="goToFarmerSignUpForm($event)"
+[offLabel]="'ثبت نام کشاورز'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
+[style]="{'width': '100%'}">
+</p-toggleButton>
+</div>
+
+<div class="form-group col-12">
+<p-toggleButton [(ngModel)]="productOwner" [onLabel]="'ثبت نام مالکیت واحد تولیدی'"
+(onChange)="goToProductUnitSignUpForm($event)"
+[offLabel]="'ثبت نام مالکیت واحد تولیدی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
+[style]="{'width': '100%'}">
+</p-toggleButton>
+</div>
+
+<div class="form-group col-12">
+<p-toggleButton [(ngModel)]="coach" [onLabel]="'ثبت نام مربی'"
+(onChange)="goToCouchSignUpForm($event)"
+[offLabel]="'ثبت نام مربی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
+[style]="{'width': '100%'}">
+</p-toggleButton>
+</div>
+
+<div class="form-group col-12">
+<p-toggleButton [(ngModel)]="productSentinel" [onLabel]="'ثبت نام دیده بان تولید'"
+(onChange)="goToProductWatchreSignUpForm($event)"
+[offLabel]="'ثبت نام دیده بان تولید'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
+[style]="{'width': '100%'}">
+</p-toggleButton>
+</div>
+
+<div class="form-group col-12">
+<p-toggleButton [(ngModel)]="foodSecuritySentinel" [onLabel]="'ثبت نام دیده بان امنیت غذایی'"
+(onChange)="goToSecWatcherSignUpForm($event)"
+[offLabel]="'ثبت نام دیده بان امنیت غذایی'" [onIcon]="'pi pi-check'" [offIcon]="'pi pi-times'"
+[style]="{'width': '100%'}">
+</p-toggleButton>
+</div> -->
+<!-- </div> -->

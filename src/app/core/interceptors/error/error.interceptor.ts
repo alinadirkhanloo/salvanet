@@ -18,22 +18,20 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         // handel apies response error
         return next.handle(request).pipe(catchError(err => {
-            
+            if (this.authenticationService.getUser()) {
             if (err.status === 401) {
                 // auto logout if 401 response returned from api
-                this.authenticationService.logout();
-                this.router.navigate(['/login']);
+                
+                this.authenticationService.logout();   
+                
+                // this.router.navigate(['/login']);
 
             } else if (err.status === 500) {
 
                 this.shService.showError("سرور با خطا مواجه شده است لطفا مجددا تلاش نمایید");
 
-            } else if (err.status === 0) {
-
-                this.shService.showError("خطا در ارتباط با سرور . لطفا اینترنت خود را بررسی نمایید");
-
             }
-
+        }
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))

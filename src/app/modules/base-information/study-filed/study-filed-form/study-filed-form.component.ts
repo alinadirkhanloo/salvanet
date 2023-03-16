@@ -32,8 +32,8 @@ export class StudyFiledFormComponent implements OnInit, OnDestroy{
     private shService:SharedService
     ){
       this.editForm = this._fb.group({
-        id:-1,
-        title:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
+        id:null,
+        name:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
         description:['',[Validators.required,Validators.maxLength(512),Validators.minLength(2)]]
 
       })
@@ -51,15 +51,13 @@ export class StudyFiledFormComponent implements OnInit, OnDestroy{
 
     let res = this.sfService.readById(id).subscribe({
       next:(result)=>{
-       this.editForm.controls['title'].setValue(result.title);
+       this.editForm.controls['name'].setValue(result.name);
        this.editForm.controls['description'].setValue(result.description);
       },
       error:(err)=> {
         this.shService.showError('خطار در دریافت اطلاعات');
-      },
-      complete() {
-        res.unsubscribe();
-      },
+        this.disableButton = false;
+      }
     });
 
   }

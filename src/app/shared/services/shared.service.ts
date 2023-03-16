@@ -10,7 +10,7 @@ export class SharedService {
 
   navSidebarClass: boolean = true;
   hamburgerClass: boolean = false;
-  returnUrl = new BehaviorSubject<string>('pages');
+  returnUrl = new BehaviorSubject<string>('');
 
   private profileSubject:BehaviorSubject<IProfile> =  new BehaviorSubject<IProfile>(null);
   profile$!:Observable<IProfile>;

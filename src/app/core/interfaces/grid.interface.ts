@@ -48,6 +48,7 @@ export class GenericGrid {
         this.loading = true;
         let gridData = [];
             gridData = dataSource?dataSource:[];
+           
             this.totalRecords = gridData.length;
             this.loading = false;
         return gridData;
@@ -62,7 +63,7 @@ export class GenericGrid {
         this.position = 'top';
         this.lazy = true;
         this.selectionMode = false;
-        this.customTableStyle = { 'min-width': '75rem' };
+        this.customTableStyle = { 'min-width': '100%' };
         this.selectedData = [];
         this.paginator = true;
         this.rowCount = 10

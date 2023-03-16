@@ -16,7 +16,7 @@ export class InventionEditComponent implements OnInit {
   disableButton = false;
   updateMode = false;
   routeSub = null;
-
+  colapsed=true;
   records = [];
 
   constructor(

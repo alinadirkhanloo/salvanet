@@ -14,12 +14,6 @@ const routes: Routes = [
     path: '', component:OrganizationComponent
   },
   {
-    path: 'edit/:id',component:OrganizationEditComponent
-  },
-  {
-    path:'new',component:OrganizationEditComponent
-  },
-  {
     path: 'region/edit/:id',component:RegionFormComponent
   },
   {

@@ -12,7 +12,7 @@
                 'is-invalid':editForm.controls['name'].invalid && editForm.controls['name'].touched}"
                     formControlName="name" placeholder="نام">
                     <div *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].dirty || editForm.controls['name'].touched)" class="text-danger fs-13 mt-1">
-													
+
                         <div *ngIf="editForm.controls['name'].errors.required">
                             نام الزامی است
                         </div>
@@ -21,9 +21,9 @@
 
             <div class="input-group col-lg-12 mb-3" dir="ltr">
                 <div class="input-group-prepend">
-                    <button class="btn btn-primary" type="button" style="height: 56px;" 
-                    (click)="openFindBox('locatedInId','locatedInLabel','countryDivision','انتخاب محل استقرار دانشگاه')">
-                        <i class="flaticon-381-menu-1"></i>
+                    <button class="btn btn-primary" type="button" style="height: 56px;"
+                    (click)="openFindBox('locatedInId','locatedInLabel','countryDivision/countryDivisionSubDivisions','انتخاب محل استقرار دانشگاه')">
+                    <i class="las la-bars"></i>
                     </button>
                 </div>
                 <input type="text" class="form-control text-left" readonly
@@ -31,9 +31,9 @@
                 'is-valid':editForm.controls['locatedInLabel'].valid,
                 'is-invalid':editForm.controls['locatedInLabel'].invalid && editForm.controls['locatedInLabel'].touched}"
                     formControlName="locatedInLabel" placeholder="محل استقرار">
-                    <div *ngIf="editForm.controls['locatedInLabel'].invalid && (editForm.controls['locatedInLabel'].dirty || editForm.controls['name'].touched)" 
+                    <div *ngIf="editForm.controls['locatedInLabel'].invalid && (editForm.controls['locatedInLabel'].dirty || editForm.controls['name'].touched)"
                     class="text-danger fs-13 mt-1 w-100">
-													
+
                         <div *ngIf="editForm.controls['locatedInLabel'].errors.required">
                             محل استقرار الزامی است
                         </div>
@@ -46,7 +46,7 @@
                     <span *appSpinOn="disableButton; color: 'warn';"></span>
                     تایید
                 </button>
-                <button type="submit" pButton pRipple 
+                <button type="submit" pButton pRipple
                     (click)="close()" class="p-button-danger">
                     انصراف
                 </button>

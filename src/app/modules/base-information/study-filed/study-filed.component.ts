@@ -29,7 +29,6 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
   constructor(
     private sfService: StudyFiledService,
     private commonService: CommonService, private confirmationService: ConfirmationService,
-    private router: Router,
     private modalService: NgbModal,
     private shService: SharedService
   ) {
@@ -69,7 +68,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
   }
 
   newStudyFiled() {
-    let modalRef = this.modalService.open(StudyFiledFormComponent);
+    let modalRef = this.modalService.open(StudyFiledFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode = false;
 
     modalRef.result?.then(result => {
@@ -82,7 +81,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
 
   addNewNode(event) {
     let selectedNode = this.SFTreeConfig.selectedFile as TreeNode;
-    let modalRef = this.modalService.open(MajorStudyFiledFormComponent);
+    let modalRef = this.modalService.open(MajorStudyFiledFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode = false;
     modalRef.componentInstance.node = selectedNode;
     modalRef.result?.then(result => {
@@ -96,11 +95,11 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
   openEditForm(event) {
     let selectedNode = this.SFTreeConfig.selectedFile as TreeNode;
     if (selectedNode.parent) {
-      let modalRef = this.modalService.open(MajorStudyFiledFormComponent);
+      let modalRef = this.modalService.open(MajorStudyFiledFormComponent,{size:'lg'});
       modalRef.componentInstance.updateMode = true;
       modalRef.componentInstance.node = selectedNode;
     } else {
-      let modalRef = this.modalService.open(StudyFiledFormComponent);
+      let modalRef = this.modalService.open(StudyFiledFormComponent,{size:'lg'});
       modalRef.componentInstance.updateMode = true;
       modalRef.componentInstance.node = selectedNode;
     }
@@ -144,6 +143,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
           this.subscription.add(
             this.sfService.deleteMajor((this.SFTreeConfig.selectedFile as TreeNode).data).subscribe({
               next: (result) => {
+                this.initialTree();
                 this.shService.showSuccess('حذف شد');
               },
               error: (err) => {
@@ -156,6 +156,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
             this.sfService.delete((this.SFTreeConfig.selectedFile as TreeNode).data).subscribe({
               next: (result) => {
                 this.shService.showSuccess('حذف شد');
+                this.initialTree();
               },
               error: (err) => {
                 this.shService.showSuccess('خطای سرور');

@@ -39,7 +39,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="mb-1"><strong>درصد مالکیت</strong></label>
+                                    <label class="mb-1"><small>درصد مالکیت</small></label>
                                     <input type="text" class="form-control text-center"
                                     maxlength="36"
                                         [ngClass]="{
@@ -47,7 +47,7 @@
                                     'is-invalid':editForm.controls['sharePercentage'].invalid && editForm.controls['sharePercentage'].touched}"
                                         formControlName="sharePercentage" placeholder="">
                                 </div>
-                                
+
                                 <div class="form-group text-center">
                                     <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="submit()" class="p-button-success mx-2">

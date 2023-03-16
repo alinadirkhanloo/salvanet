@@ -96,7 +96,7 @@
                           )
                         "
                       >
-                        <i class="flaticon-381-menu-1"></i>
+                      <i class="las la-bars"></i>
                       </button>
                     </div>
                     <input
@@ -162,12 +162,12 @@
                           openFindBox(
                             'birthPlaceId',
                             'birthPlaceTitle',
-                            'countryDivision',
+                            'countryDivision/countryDivisionSubDivisions',
                             'انتخاب محل'
                           )
                         "
                       >
-                        <i class="flaticon-381-menu-1"></i>
+                      <i class="las la-bars"></i>
                       </button>
                     </div>
                     <input
@@ -198,7 +198,7 @@
                   </select>
                 </div>
 
-                <div class="form-group col-lg-4">
+                <!-- <div class="form-group col-lg-4">
                   <label class="mb-1"><small>تابعیت</small></label>
                   <select
                     id="inputState"
@@ -206,10 +206,10 @@
                     class="form-control default-select"
                   >
                     <option value="" disabled selected>...</option>
-                    <option>ایران</option>
-                    <option>سایر</option>
+                    <option value="1">ایران</option>
+                    <option value="2">سایر</option>
                   </select>
-                </div>
+                </div> -->
                 <div class="form-group col-lg-4">
                   <label class="mb-1"><small>دین</small></label>
                   <select
@@ -347,12 +347,51 @@
                     placeholder=""
                   />
                 </div>
+
+                <div class="form-group col-lg-4">
+                  <label class="mb-1"><small> محل سکونت</small></label>
+                  <div class="input-group col-12" dir="ltr">
+                    <div class="input-group-prepend">
+                      <button
+                        class="btn btn-primary"
+                        type="button"
+                        style="max-height: 56px;
+                        height: 100%;
+                        "
+                        (click)="
+                          openFindBox(
+                            'residencePlaceId',
+                            'residencePlaceTitle',
+                            'countryDivision/countryDivisionSubDivisions',
+                            'انتخاب محل'
+                          )
+                        "
+                      >
+                      <i class="las la-bars"></i>
+                      </button>
+                    </div>
+                    <input
+                      type="text" readonly
+                      class="form-control text-left"
+                      [ngClass]="{
+                        'is-valid': accountForm.controls['residencePlaceTitle'].valid,
+                        'is-invalid':
+                          accountForm.controls['residencePlaceTitle'].invalid &&
+                          accountForm.controls['residencePlaceTitle'].touched
+                      }"
+                      formControlName="residencePlaceTitle"
+                      placeholder=""
+                    />
+                  </div>
+                </div>
+
+
+
                 <div class="form-group col-lg-4">
                   <label class="mb-1"><small>شماره سيم کارت</small></label>
                   <input
                     type="text"
-                    class="form-control text-center"  OnlyNumber="true"
-                    maxlength="11" minlength="11"
+                    class="form-control text-center" readonly
                     [ngClass]="{
                       'is-valid': accountForm.controls['simnumber'].valid,
                       'is-invalid':

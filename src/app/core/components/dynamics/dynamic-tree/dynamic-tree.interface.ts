@@ -20,6 +20,7 @@ export interface IDynamicTree
   onFilter?: ReplaySubject<any>;
   selectionMode?: SelectionMode;
   selectedFile?: TreeNode[];
+  
   // TODO => Implementation Features below
   // style?: any;
   // styleClass?: string;

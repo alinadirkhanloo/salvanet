@@ -1,3 +1,4 @@
+import { ConfermationComponent } from './confermation/confermation.component';
 import { WhatcherComponent } from './whatcher.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
@@ -43,6 +44,9 @@ const routes: Routes = [
         path: 'membership',
         loadChildren: () => import('./membership/membership.module')
           .then(m => m.MembershipModule)
+      },
+      {
+        path: 'confirmation',component:ConfermationComponent
       }
     ]
   }

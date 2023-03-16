@@ -24,21 +24,24 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
   public treeConfig: IDynamicTree;
   experiences = []
 
+  updateMode = false;
+  routeSub=null;
+  records =[];
+  colapsed=true
+
   constructor(
     private aeService:AgriculturalExperiencesService,
     private _fb:FormBuilder,
     private commonService: CommonService,
     private modalService: NgbModal,
-    private shService: SharedService) { 
+    private shService: SharedService) {
       super();
       this.formGroup =  this._fb.group(
         {
           divisionCountryId:[-1,[Validators.required]],
           divisionCountryTitle:['',[Validators.required]],
           productTitle:[-1,[Validators.required]],
-          productId:['',[Validators.required]],
-          caltivarTitle:['',[Validators.required]],
-          caltivarId:[-1,[Validators.required]]
+          productId:['',[Validators.required]]
         }
       );
     }
@@ -65,7 +68,7 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
 
   initialSelections() {
 
-    
+
     this.caltivarConfig = {
       options$: this.aeService.readList('caltivar'),
       selectId: 'caltivarSelector',
@@ -79,7 +82,7 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
 
     this.myProductConfig = {
       options$: this.aeService.readList('product'),
-      selectId: 'caltivarSelector',
+      selectId: 'productSelector',
       placeholder: '...',
       optionValue:'id',
       filter: true,
@@ -99,7 +102,7 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
     )
 
   }
-  
+
 
   openFindBox(idControlName:string,titleControlname:string,url, title: string) {
     this.treeConfig = {

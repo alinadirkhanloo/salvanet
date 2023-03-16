@@ -27,6 +27,9 @@ export class PersonComponent implements OnInit {
     {title:'phoneNumber',persianTitle:'شماره تماس',sortKey:'phoneNumber'}
   ];
 
+
+
+
 dataGrid = new GenericGrid(this.router,this.gridHeaders);
 
 dataSource: IPerson[]=[];

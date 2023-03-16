@@ -15,14 +15,15 @@ export class HeaderComponent implements OnInit {
 	constructor(private auth:AuthService) { }
 
 	ngOnInit(): void {
-        document.body.setAttribute('data-headerbg','color_3');
+        document.body.setAttribute('data-headerbg','color_15');
         document.body.setAttribute('data-nav-headerbg', 'color_13');
         document.body.setAttribute('data-sibebarbg', 'color_13');
+        document.body.setAttribute('data-primary','color_15');
         if(this.auth.getUser() !== null) {
           this.user = JSON.parse(this.auth.getUser()?.idToken);
           this.avatarLable = this.user.firstName[0];
         }
-        
+
 	}
 
 

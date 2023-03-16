@@ -5,9 +5,9 @@ import { ConfirmationService } from 'primeng/api';
 import { Component, OnInit } from '@angular/core';
 import { RoleService } from './role.service';
 
-export interface Role{
-  title:string;
-  value:boolean;
+export interface Role {
+  title: string;
+  value: boolean;
 }
 
 
@@ -17,11 +17,11 @@ export interface Role{
   styleUrls: ['./role.component.css']
 })
 export class RoleComponent implements OnInit {
-  farmer=0;
-  productOwner=0;
-  productSentinel=0;
-  foodSecuritySentinel=0;
-  coach=0;
+  farmer = 0;
+  productOwner = 0;
+  productSentinel = 0;
+  foodSecuritySentinel = 0;
+  coach = 0;
 
 
 
@@ -31,38 +31,33 @@ export class RoleComponent implements OnInit {
     private roleService: RoleService
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  submit() {}
+  submit() { }
 
-  goToFarmerSignUpForm(event){
-    if (event?.checked) {
+  goToFarmerSignUpForm(event) {
       this.router.navigate(['/pages/farmer-registration']);
-    }
+
   }
 
-  goToProductWatchreSignUpForm(event){
-    if (event?.checked) {
-      this.router.navigate(['farmer']);
-    }
+  goToProductWatchreSignUpForm(event) {
+      this.router.navigate(['/pages/production-watch-registration']);
+
   }
 
-  goToSecWatcherSignUpForm(event){
-    if (event?.checked) {
-      this.router.navigate(['farmer']);
-    }
+  goToSecWatcherSignUpForm(event) {
+      this.router.navigate(['/pages/food-security-watch-registration']);
+
   }
 
-  goToProductUnitSignUpForm(event){
-    if (event?.checked) {
-      this.router.navigate(['farmer']);
-    }
+  goToProductUnitSignUpForm(event) {
+      this.router.navigate(['/pages/product-owner-registration']);
+
   }
 
-  goToCouchSignUpForm(event){
-    if (event?.checked) {
-      this.router.navigate(['farmer']);
-    }
+  goToCouchSignUpForm(event) {
+      this.router.navigate(['/pages/coach-registration']);
+
   }
 
 }

@@ -19,7 +19,7 @@ export class EducationalRecordsEditComponent implements OnInit {
   routeSub=null;
   records =[];
   educationLevelConfig!: IDynamicSelect;
-
+  colapsed=true;
   constructor(
     private _formBuilder: FormBuilder,
     private watcherService: WatcherService,

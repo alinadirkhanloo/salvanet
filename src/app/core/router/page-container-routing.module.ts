@@ -21,14 +21,19 @@ const routes: Routes = [
           .then(m => m.FarmerModule)
       },
       {
-        path: 'company',
+        path: 'companeis',
         loadChildren: () => import('app/modules/people/company/company.module')
           .then(m => m.CompanyModule)
       },
       {
-        path: 'personnl',
+        path: 'persons',
         loadChildren: () => import('app/modules/people/person/person.module')
           .then(m => m.PersonModule)
+      },
+      {
+        path: 'personnel',
+        loadChildren: () => import('app/modules/personnel/personnel.module')
+          .then(m => m.PersonnelModule)
       },
       {
         path: 'users',
@@ -38,7 +43,7 @@ const routes: Routes = [
       {
         path: 'role-determination',
         loadChildren: () => import('modules/role/role.module')
-          .then(m => m.ServerModule)
+          .then(m => m.RoleModule)
       },
       {
         path: 'organization',
@@ -75,6 +80,12 @@ const routes: Routes = [
         loadChildren: () =>  import('app/modules/whatcher/whatcher.module')
         .then(m => m.WhatcherModule)
       },
+      {
+        path: 'product-owner-registration',
+        loadChildren: () =>  import('app/modules/whatcher/whatcher.module')
+        .then(m => m.WhatcherModule)
+      },
+
 
       {
         path: 'sim-cards',

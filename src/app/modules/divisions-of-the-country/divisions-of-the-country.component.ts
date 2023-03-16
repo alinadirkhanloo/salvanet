@@ -41,7 +41,7 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
 
         this.baseInfoTreeConfig = {
 
-          treeNodes$: this.commonService.getTree('countryDivision'),
+          treeNodes$: this.commonService.getTree('countryDivision/countryDivisionSubDivisions'),
     
           onNodeContextMenuSelect: new ReplaySubject<any>(1),
           onNodeSelect: new ReplaySubject<any>(1),

@@ -18,7 +18,7 @@ export class TeachingEditComponent implements OnInit {
   disableButton = false;
   updateMode = false;
   routeSub=null;
-
+  colapsed=true;
   constructor(
     private _formBuilder: FormBuilder,
     private teachingService: TeachingService,

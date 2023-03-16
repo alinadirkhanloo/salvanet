@@ -17,6 +17,8 @@ export class BookEditComponent {
   updateMode = false;
   routeSub = null;
   records=[];
+  colapsed=true;
+  
   constructor(
     private _formBuilder: FormBuilder,
     private bookService: BookService,

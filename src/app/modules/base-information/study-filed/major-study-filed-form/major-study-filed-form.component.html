@@ -5,32 +5,35 @@
         <form [formGroup]="editForm" class="row mx-0 px-0">
 
             <div class="form-group col-12">
+                <label for="studyFiledTitle"><small>ساختار بالا دستی</small></label>
                 <input type="text" class="form-control-plaintext text-left"
                     formControlName="studyFiledTitle" placeholder="تعریف نشده" [readonly]="true" disabled >
             </div>
             <div class="form-group col-12">
+                <label for="title"><small>عنوان</small> </label>
                 <input type="text" class="form-control text-left"
                 maxlength="32" minlength="2" required
                     [ngClass]="{
                 'is-valid':editForm.controls['title'].valid,
                 'is-invalid':editForm.controls['title'].invalid && editForm.controls['title'].touched}"
-                    formControlName="title" placeholder="نام">
+                    formControlName="title" placeholder="">
                     <div *ngIf="editForm.controls['title'].invalid && (editForm.controls['title'].dirty || editForm.controls['title'].touched)" class="text-danger fs-13 mt-1">
-													
+
                         <div *ngIf="editForm.controls['title'].errors.required">
                             نام الزامی است
                         </div>
                     </div>
             </div>
             <div class="form-group col-12">
+                <label for="description"><small>توضیحات</small></label>
                 <textarea type="text" class="form-control text-left"
                 maxlength="512" required
                     [ngClass]="{
                 'is-valid':editForm.controls['description'].valid,
                 'is-invalid':editForm.controls['description'].invalid && editForm.controls['description'].touched}"
-                    formControlName="description" placeholder="توضیحات"></textarea>
+                    formControlName="description" placeholder=""></textarea>
                     <div *ngIf="editForm.controls['description'].invalid && (editForm.controls['description'].dirty || editForm.controls['description'].touched)" class="text-danger fs-13 mt-1">
-													
+
                         <div *ngIf="editForm.controls['description'].errors.required">
                             توضیحات الزامی است
                         </div>
@@ -42,7 +45,7 @@
                     <span *appSpinOn="disableButton; color: 'warn';"></span>
                     تایید
                 </button>
-                <button type="submit" pButton pRipple 
+                <button type="submit" pButton pRipple
                     (click)="close()" class="p-button-danger">
                     انصراف
                 </button>

@@ -3,13 +3,13 @@
     <ul class="metismenu" id="menu" metis-menu>
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-          <i class="flaticon-381-user-7"></i>
+          <i class="las la-database"></i>
           <span class="nav-text"> اطلاعات پایه </span>
         </a>
         <ul aria-expanded="false">
           <li><a [routerLink]="['/pages/base-information/product']"> محصولات </a></li>
           <li>
-            <a [routerLink]="['/pages/base-information/product-classification']"> رقم محصولی </a>
+            <a [routerLink]="['/pages/base-information/cultivar']"> رقم محصولی </a>
           </li>
           <li><a [routerLink]="['/pages/base-information/university']"> دانشگاه </a></li>
           <li>
@@ -20,7 +20,7 @@
 
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-          <i class="flaticon-381-route"></i>
+          <i class="las la-sitemap"></i>
           <span class="nav-text">تقسیمات کشوری</span>
         </a>
         <ul aria-expanded="false">
@@ -31,16 +31,16 @@
 
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-          <i class="flaticon-381-user-8"></i>
+          <i class="las la-users"></i>
           <span class="nav-text">اشخاص</span>
         </a>
         <ul aria-expanded="false">
-          <li><a [routerLink]="['/pages/person']">حقیقی </a></li>
-          <li><a [routerLink]="['/pages/company']"> حقوقی</a></li>
+          <li><a [routerLink]="['/pages/persons']">حقیقی </a></li>
+          <li><a [routerLink]="['/pages/companeis']"> حقوقی</a></li>
         </ul>
       </li>
 
-      <li>
+      <!-- <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="flaticon-381-user-7"></i>
           <span class="nav-text"> کشاورز </span>
@@ -52,11 +52,11 @@
             <a [routerLink]="['/pages/farmer/agricultural-interests']"> علاقه مندی های کشاورزی</a>
           </li>
         </ul>
-      </li>
+      </li> -->
 
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-          <i class="flaticon-381-networking"></i>
+          <i class="las la-user-tie"></i>
           <span class="nav-text"> مالک زمین </span>
         </a>
         <ul aria-expanded="false">
@@ -66,7 +66,7 @@
 
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
-          <i class="flaticon-381-networking-1"></i>
+          <i class="las la-stream"></i>
           <span class="nav-text">ساختار سازمان</span>
         </a>
         <ul aria-expanded="false">
@@ -77,7 +77,7 @@
         </ul>
       </li>
 
-      <li>
+      <!-- <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="flaticon-381-user-2"></i>
           <span class="nav-text"> مربی </span>
@@ -115,12 +115,10 @@
               </li>
             </ul>
           </li>
-          <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
-          <!-- <li><a [routerLink]="['/pages/coach/courses']"> سایر دوره ها </a> </li> -->
         </ul>
-      </li>
+      </li> -->
 
-      <li>
+      <!-- <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="flaticon-381-user-3"></i>
           <span class="nav-text">دیده بان امنیت غذایی</span>
@@ -158,12 +156,10 @@
               </li>
             </ul>
           </li>
-          <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
-          <!-- <li><a [routerLink]="['/pages/coach/courses']"> سایر دوره ها </a> </li> -->
         </ul>
-      </li>
+      </li> -->
 
-      <li>
+      <!-- <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="flaticon-381-user-1"></i>
           <span class="nav-text"> دیده بان تولید </span>
@@ -201,37 +197,37 @@
               </li>
             </ul>
           </li>
-          <!-- <li><a [routerLink]="['/pages/case-histor/software-skills']"> مهارت های نرم افزاری </a> </li> -->
-          <!-- <li><a [routerLink]="['/pages/coach/courses']"> سایر دوره ها </a> </li> -->
         </ul>
+      </li> -->
+
+
+      <li>
+        <a class="ai-icon" [routerLink]="['/pages/personnel']">
+          <i class="las la-users-cog"></i>
+          <span class="nav-text">پرسنل</span>
+        </a>
       </li>
 
       <li>
         <a class="ai-icon" [routerLink]="['/pages/registration-announcemen']">
-          <i class="flaticon-381-user"></i>
+          <i class="las la-bullhorn"></i>
           <span class="nav-text">فراخوان</span>
         </a>
       </li>
       <li>
         <a class="ai-icon" [routerLink]="['/pages/role-determination']">
-          <i class="flaticon-381-user"></i>
+          <i class="lar la-user-circle"></i>
           <span class="nav-text">نقش ها</span>
         </a>
       </li>
 
-      <li>
+      <!-- <li>
         <a class="ai-icon" [routerLink]="['/pages/courses']">
           <i class="flaticon-381-user"></i>
           <span class="nav-text">نگهداشت دوره ها</span>
         </a>
-      </li>
+      </li> -->
 
-      <li>
-        <a class="ai-icon" [routerLink]="['/pages/personnl']">
-          <i class="flaticon-381-user"></i>
-          <span class="nav-text">پرسنل</span>
-        </a>
-      </li>
 
       <!-- <li>
         <a class="ai-icon" [routerLink]="['/pages/accounts']">

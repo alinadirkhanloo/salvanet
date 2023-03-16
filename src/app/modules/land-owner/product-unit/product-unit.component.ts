@@ -6,6 +6,14 @@ import { IGridHeader, GenericGrid } from 'app/core/interfaces/grid.interface';
 import { Component, OnInit } from '@angular/core';
 import { IProductionUnit } from 'app/core/interfaces/product-unit.interface';
 
+
+interface ProductUnitTypes {
+  id: number,
+  topic: string
+}
+
+
+
 @Component({
   selector: 'app-product-unit',
   templateUrl: './product-unit.component.html',
@@ -19,10 +27,59 @@ export class ProductUnitComponent implements OnInit{
     {title:'address',persianTitle:'آدرس',sortKey:'address'},
   ];
 
-  products=[
-    {title:'asfas'},
-    {title:'asfas'},
-    {title:'asfas'},
+  ownershipStatuses :ProductUnitTypes[]=[
+    {id:1,topic:'شش دانگ'},
+    {id:2,topic:'مشترک'},
+    {id:3,topic:'اصلاحات اراضی'},
+    {id:4,topic:'موقوفه'},
+    {id:5,topic:'عادی (قولنامه ای)'},
+    {id:6,topic:'واگذار شده'},
+    {id:7,topic:'تصرفی'}
+  ]
+  ownershipTypes:ProductUnitTypes[]=[
+    {id:1,topic:'اختصاصی'},
+    {id:2,topic:'وراثتی'},
+    {id:3,topic:'شراکتی'},
+    {id:4,topic:'تفکیک نادرست'}
+  ]
+  statuses:ProductUnitTypes[]=[
+    {id:1,topic:'ثبت شده'},
+    {id:2,topic:'در حال بررسی'},
+    {id:3,topic:'تایید شده'},
+    {id:4,topic:'رد شده'}
+  ]
+  
+
+  productUnits=[
+    {
+      id: 1,
+      realEstateUniqueCode: "string",
+      realEstatePlate: "string",
+      address: "string",
+      landDocumentId: 1,
+      landAreaId: 1,
+      locatedInId: 1,
+      ownershipStatusId: 1,
+      landDocumentStatusId: 1,
+      landAreaStatusId: 1,
+      statusId: 1,
+      ownershipTypeId: 1
+    },
+    {
+      id: 2,
+      realEstateUniqueCode: "string",
+      realEstatePlate: "string",
+      address: "string",
+      landDocumentId: 1,
+      landAreaId: 1,
+      locatedInId: 1,
+      ownershipStatusId: 1,
+      landDocumentStatusId: 1,
+      landAreaStatusId: 1,
+      statusId: 1,
+      ownershipTypeId: 1
+    },
+    
   ]
 
   dataGrid = new GenericGrid(this.router,this.gridHeaders);
@@ -59,6 +116,10 @@ export class ProductUnitComponent implements OnInit{
     this.router.navigate(['pages/land-owner/product-unit/edit/'+ id]);
   }
 
+  owners(id:string){
+    this.router.navigate(['pages/land-owner/product-unit/'+ id + '/owners']);
+  }
+
   onSelectAllChange(event) {
     this.selectedList = this.dataGrid.selectAllChange(event,this.dataSource);
   }
@@ -91,6 +152,7 @@ export class ProductUnitComponent implements OnInit{
       acceptButtonStyleClass:'mx-2',
       accept: () => {
         //confirm action
+        this.productUnitService.delete(id)
       },
       reject: () => {
         //reject action

@@ -18,7 +18,7 @@ export class ThesisEditComponent implements OnInit{
   disableButton = false;
   updateMode = false;
   routeSub=null;
-
+  colapsed=true;
   records =[];
   
   constructor(

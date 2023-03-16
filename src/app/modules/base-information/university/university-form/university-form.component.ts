@@ -108,6 +108,7 @@ export class UniversityFormComponent  implements OnInit, OnDestroy{
           },
           error:(err)=>{
             this.shService.showError();
+            this.disableButton = false;
           }
         })
         );

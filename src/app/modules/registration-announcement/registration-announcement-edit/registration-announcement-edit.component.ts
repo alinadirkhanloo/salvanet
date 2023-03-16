@@ -1,11 +1,14 @@
+import { IDropdown } from 'core/interfaces/dropdown/dropdonw.interface';
 import { IDynamicPickList } from 'core/components/dynamics/dynamic-pick-list/dynamic-pick-list.interface';
 import { IDynamicSelect, IDynamicSelectItem } from 'core/components/dynamics/dynamic-select/dynamic-select.interface';
-import { IRegistrationAnnouncement } from './../../../core/interfaces/registration-announcement.interface';
+import { IRegistrationAnnouncement } from 'core/interfaces/registration-announcement.interface';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RegistrationAnnouncementService } from '../registration-announcement.service';
 import { Subscription } from 'rxjs';
+import { MenuItem } from 'primeng/api';
+import { Roles } from '../registration-announcement.interface';
 
 @Component({
   selector: 'app-registration-announcement-edit',
@@ -13,6 +16,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./registration-announcement-edit.component.css']
 })
 export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
+
   private su = new Subscription();
   editForm: FormGroup;
   disableButton = false;
@@ -21,6 +25,10 @@ export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
   public roleModel: IDynamicSelectItem;
   public pickListConfigs!: IDynamicPickList;
   stateConfig !: IDynamicSelect;
+  roles: IDropdown[] = Roles;
+
+  showForm = true;
+
   constructor(
     private _formBuilder: FormBuilder,
     private registrationAnnouncementService: RegistrationAnnouncementService,
@@ -29,10 +37,12 @@ export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
 
     this.editForm = this._formBuilder.group({
       title: ['', [Validators.required, Validators.maxLength(36)]],
-      startDate: ['', [Validators.required, Validators.maxLength(36)]],
-      endDate: ['', [Validators.required, Validators.maxLength(24)]],
-      roleId: ['', [Validators.required, Validators.maxLength(24)]],
-      isActive: [false, [Validators.required, Validators.maxLength(24)]],
+      startDate: ['', [Validators.required, Validators.maxLength(11)]],
+      endDate: ['', [Validators.required, Validators.maxLength(11)]],
+      rolesId: ['', [Validators.required]],
+      active: [false,[]],
+      description: ['', [Validators.required, Validators.maxLength(64)]],
+      code: ['', [Validators.required, Validators.maxLength(8)]],
       id:-1
     });
   }
@@ -42,17 +52,6 @@ export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
 
 
   ngOnInit(): void {
-    this.roleSelectorConfig = {
-      options$: this.registrationAnnouncementService.roles$,
-      optionLabel: 'title',
-      filterBy: 'title',
-      placeholder: '...',
-      emptyFilterMessage:'موردی یافت نشد',
-      emptyMessage:'موردی یافت نشد',
-      showClear: true,
-      filter: true,
-      selectdItems: []
-    };
 
     this.pickListConfigs = {
       sourceHeader:'استان/شهرستان',
@@ -94,6 +93,7 @@ export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
       this.su.add(rest.subscribe({
         next: (result) => {
           this.disableButton = false;
+          this.showForm = !this.showForm;
         },
         error: (error) => {
             this.disableButton = false;
@@ -105,7 +105,6 @@ export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
   cancle(){
     this.router.navigate(['pages/registration-announcement']);
   }
-
 
 
 }

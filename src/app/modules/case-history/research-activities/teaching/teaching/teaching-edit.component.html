@@ -17,7 +17,7 @@
                             <h2 class="text-center mb-4">مشخصات تدریس</h2>
                             <form [formGroup]="editForm" class="row mx-0 px-0">
                                 <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>موضوع</strong></label>
+                                    <label class="mb-1"><small>موضوع</small></label>
                                     <input type="text" class="form-control text-center"
                             a        maxlength="36"
                                         [ngClass]="{
@@ -26,7 +26,7 @@
                                         formControlName="subject" placeholder="">
                                 </div>
                                 <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>محل </strong></label>
+                                    <label class="mb-1"><small>محل </small></label>
                                     <input type="text" class="form-control text-center"
                                     maxlength="36"
                                         [ngClass]="{
@@ -34,9 +34,9 @@
                                     'is-invalid':editForm.controls['venue'].invalid && editForm.controls['venue'].touched}"
                                         formControlName="venue" placeholder="">
                                 </div>
-                                
+
                                 <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>سال</strong></label>
+                                    <label class="mb-1"><small>سال</small></label>
                                     <input type="text" class="form-control text-center" (click)="picker2.open()"
                                     maxlength="11" name="datepicker2" [matDatepicker]="picker2"
                                         [ngClass]="{
@@ -46,7 +46,7 @@
                                         <mat-datepicker #picker2></mat-datepicker>
                             </div>
                                 <div class="form-group col-lg-6">
-                                    <label class="mb-1"><strong>مدت زمان به روز</strong></label>
+                                    <label class="mb-1"><small>مدت زمان به روز</small></label>
                                         <input type="text" class="form-control text-center"
                                         maxlength="11"
                                             [ngClass]="{
@@ -54,7 +54,7 @@
                                         'is-invalid':editForm.controls['duration'].invalid && editForm.controls['duration'].touched}"
                                             formControlName="duration" placeholder="">
                                 </div>
-                                
+
                                 <div class="text-center">
                                     <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="submit()" class="p-button-success mx-2">

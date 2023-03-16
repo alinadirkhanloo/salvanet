@@ -18,7 +18,7 @@
                                 <form [formGroup]="editForm" *ngIf="load" class="row mx-0 px-0">
 
                                     <div class="form-group col-lg-6">
-                                        <label class="mb-1"><strong>شماره یکتا</strong></label>
+                                        <label class="mb-1"><small>شماره یکتا</small></label>
                                         <input type="text" class="form-control text-center" maxlength="36"
                                             [ngClass]="{
                                     'is-valid':editForm.controls['realEstateUniqueCode'].valid,
@@ -27,7 +27,7 @@
                                     </div>
 
                                     <div class="form-group col-lg-6">
-                                        <label class="mb-1"><strong>پلاک ثبتی</strong></label>
+                                        <label class="mb-1"><small>پلاک ثبتی</small></label>
                                         <input type="text" class="form-control text-center" maxlength="36"
                                             [ngClass]="{
                                     'is-valid':editForm.controls['realEstatePlate'].valid,
@@ -36,7 +36,7 @@
                                     </div>
 
                                     <div class="form-group col-lg-6">
-                                        <label><strong>نوع سند</strong></label>
+                                        <label><small>نوع سند</small></label>
                                         <app-dynamic-select formControlName="documentTypeId"
                                             [selectionConfig]="landRecordTypeConfig"
                                             (ngModelChange)="_onLandRecordTypeChange($event)"></app-dynamic-select>
@@ -44,28 +44,28 @@
 
 
                                     <div class="form-group col-lg-6">
-                                        <label><strong>نوع واحد توليدي</strong></label>
+                                        <label><small>نوع واحد توليدي</small></label>
                                         <app-dynamic-select formControlName="typeId"
                                             [selectionConfig]="productionUnitTypeConfig"
                                             (ngModelChange)="_onLandRecordTypeChange($event)"></app-dynamic-select>
                                     </div>
 
                                     <div class="form-group col-lg-6">
-                                        <label><strong>وضعیت واحد تولیدی</strong></label>
+                                        <label><small>وضعیت واحد تولیدی</small></label>
                                         <app-dynamic-select formControlName="statusId"
                                             [selectionConfig]="statusConfig"
                                             (ngModelChange)="_onStatusChange($event)"></app-dynamic-select>
                                     </div>
 
                                     <div class="form-group col-lg-6">
-                                        <label><strong>وضعیت تایید زمین</strong></label>
+                                        <label><small>وضعیت تایید زمین</small></label>
                                         <app-dynamic-select formControlName="landDocumentStatusId"
                                             [selectionConfig]="landDocumentStatusConfig"
                                             (ngModelChange)="_onLandRecordTypeChange($event)"></app-dynamic-select>
                                     </div>
 
                                     <div class="form-group col-lg-6">
-                                        <label><strong>وضعیت تایید محدوده زمین</strong></label>
+                                        <label><small>وضعیت تایید محدوده زمین</small></label>
                                         <app-dynamic-select formControlName="landAreaStatusId"
                                             [selectionConfig]="landAreaStatusConfig"
                                             (ngModelChange)="_onLandRecordTypeChange($event)"></app-dynamic-select>
@@ -73,8 +73,8 @@
 
 
                                     <div class="form-group col-lg-12">
-                                        <label><strong>آپلود فایل سند </strong></label>
-                                        <p-fileUpload name="demo[]" [url]="uploadAddress" 
+                                        <label><small>آپلود فایل سند </small></label>
+                                        <p-fileUpload name="demo[]" [url]="uploadAddress"
                                         (onUpload)="onLandDocUpload($event)"
                                         [chooseLabel]="'انتخاب'"
                                         [uploadLabel]="'بارگذاری'"
@@ -90,7 +90,7 @@
                                     </p-fileUpload>
                                     </div>
                                     <div class="form-group col-lg-12">
-                                        <label><strong>آپلود فایل محدوده زمین</strong></label>
+                                        <label><small>آپلود فایل محدوده زمین</small></label>
                                         <p-fileUpload name="demo3[]" [url]="uploadAddress"
                                         [chooseLabel]="'انتخاب'"
                                         [uploadLabel]="'بارگذاری'"
@@ -105,10 +105,10 @@
                                         </ng-template>
                                     </p-fileUpload>
                                     </div>
-                                    
+
 
                                     <div class="form-group col-lg-12">
-                                        <label class="mb-1"><strong>روستا</strong></label>
+                                        <label class="mb-1"><small>روستا</small></label>
                                         <input type="text" class="form-control text-center" maxlength="36"
                                             [ngClass]="{
                                     'is-valid':editForm.controls['locatedInId'].valid,
@@ -116,7 +116,7 @@
                                     </div>
 
                                     <div class="form-group col-lg-12">
-                                        <label class="mb-1"><strong>آدرس</strong></label>
+                                        <label class="mb-1"><small>آدرس</small></label>
                                         <input type="text" class="form-control text-center" maxlength="36"
                                             [ngClass]="{
                                     'is-valid':editForm.controls['address'].valid,

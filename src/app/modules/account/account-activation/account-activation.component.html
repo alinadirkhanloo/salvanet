@@ -11,7 +11,7 @@
                                 مرحله بعد از آن استفاده می شود</p>
                             <form [formGroup]="accountActivationForm">
                                 <div class="form-group">
-                                    <label class="mb-1"><strong>کد ملی</strong></label>
+                                    <label class="mb-1"><small>کد ملی</small></label>
                                     <input type="text" class="form-control text-center" maxlength="36"
                                         [ngClass]="{
                                         'is-valid':accountActivationForm.controls['idNumber'].valid,
@@ -19,7 +19,7 @@
                                         formControlName="idNumber" placeholder="- - - - - - - - - -">
                                 </div>
                                 <div class="form-group">
-                                    <label class="mb-1"><strong>کلمه عبور</strong></label>
+                                    <label class="mb-1"><small>کلمه عبور</small></label>
                                     <input type="text" class="form-control text-center" maxlength="24"
                                         [ngClass]="{
                                         'is-valid':accountActivationForm.controls['phoneNumber'].valid,

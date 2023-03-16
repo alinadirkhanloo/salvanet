@@ -28,6 +28,12 @@ export class InterestsWorkplaceComponent extends GenericClass implements OnInit,
   private divisionCountryId = 0;
   public divisionCountryTitle: string;
 
+  editForm: FormGroup;
+  updateMode = false;
+  routeSub=null;
+  records =[];
+  colapsed=true
+
   constructor(private iwService: InterestsWorkplaceService,
     private shService: SharedService,
     private commonService: CommonService,
@@ -66,6 +72,7 @@ export class InterestsWorkplaceComponent extends GenericClass implements OnInit,
       // this.closeResult = `Closed with: ${result}`;
       if (result) {
         this.divisionCountryId = result.data;
+        this.divisionCountryTitle = result.label;
       }
 
     }, (reason) => {

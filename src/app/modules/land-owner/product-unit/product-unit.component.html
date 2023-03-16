@@ -10,7 +10,7 @@
 <div class="">
     <!-- *ngIf="dataSource.length>0" -->
     <p-card>
-        <p-table  [paginator]="true" [rows]="10" [value]="products" styleClass="p-datatable-striped">
+        <p-table  [paginator]="true" [rows]="10" [value]="dataSource" styleClass="p-datatable-striped">
             <ng-template pTemplate="caption">
                 <div class="flex">
                     <!-- CRUD ACTIONS -->
@@ -30,87 +30,88 @@
                         <tr style="min-width: 100%;display: inline-table;" class="mb-2">
 
                             <td>
-        
+
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <label><strong>شماره یکتا</strong></label>
-                                    <input id="address" value="jhjghf" type="text" readonly class="form-control form-control-lg"
+                                    <label><small>شماره یکتا</small></label>
+                                    <input id="address" [value]="product.realEstateUniqueCode" type="text" readonly class="form-control form-control-lg"
                                         >
                                 </div>
-        
+
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <label><strong>نوع سند</strong></label>
-                                    <input id="address" type="text" readonly class="form-control form-control-lg"
-                                        >
+                                    <label><small>وضعيت تاييد سند زمين</small></label>
+                                    <p-dropdown [disabled]="true" [options]="statuses" [(ngModel)]="product.landDocumentStatusId"  optionLabel="topic" optionValue="id"></p-dropdown>
+                                    <!-- <input id="address" type="text" readonly class="form-control form-control-lg"> -->
                                 </div>
-        
-        
+
                             </td>
-        
+
+
+
                             <td>
-        
+
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <label><strong>نوع مالکیت</strong></label>
-                                    <input id="address" type="text" readonly class="form-control form-control-lg"
-                                        >
+                                    <label><small>نوع مالکیت</small></label>
+                                    <p-dropdown [disabled]="true" [options]="ownershipTypes" [(ngModel)]="product.ownershipTypeId"  optionLabel="topic" optionValue="id"></p-dropdown>
+                                    <!-- <input id="address" type="text" readonly class="form-control form-control-lg"> -->
                                 </div>
-        
-        
+
+
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <label><strong>وضعیت مالکیت اراضی</strong></label>
-                                    <input id="address" type="text" readonly class="form-control form-control-lg"
-                                        >
+                                    <label><small>نوع مالکیت اراضی</small></label>
+                                    <p-dropdown [disabled]="true" [options]="ownershipStatuses" [(ngModel)]="product.ownershipStatusId"  optionLabel="topic" optionValue="id"></p-dropdown>
+                                    <!-- <input id="address" type="text" readonly class="form-control form-control-lg"> -->
                                 </div>
                             </td>
-        
+
                             <td>
-        
+
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <label><strong>پلاک ثبتی</strong></label>
-                                    <input id="address" type="text" readonly class="form-control form-control-lg"
+                                    <label><small>پلاک ثبتی</small></label>
+                                    <input id="realEstatePlate" [value]="product.realEstatePlate"  type="text" readonly class="form-control form-control-lg"
                                         >
                                 </div>
-        
+
                                 <div class="form-group mx-sm-3 mb-2">
-                                    <label><strong>حدود زمین تایید شده</strong></label>
-                                    <input id="address" type="text" readonly class="form-control form-control-lg"
-                                       >
+                                    <label><small>حدود زمین تایید شده</small></label>
+                                    <p-dropdown [disabled]="true" [options]="statuses" [(ngModel)]="product.landAreaStatusId"  optionLabel="topic" optionValue="id"></p-dropdown>
+
                                 </div>
-        
+
                             </td>
 
                         </tr>
-        
+
                         <tr class="d-block">
-        
-                            <div class="form-group mx-sm-3 mb-2">
-                                <label><strong>روستا</strong></label>
+
+                            <!-- <div class="form-group mx-sm-3 mb-2">
+                                <label><small>روستا</small></label>
                                 <input id="address" type="text" readonly class="form-control form-control-lg"
                                     >
-                            </div>
-        
+                            </div> -->
+
                             <div class="form-group mx-sm-3 mb-4">
-                                <label><strong>آدرس</strong></label>
-                                <input id="address" type="text" readonly class="form-control form-control-lg"
+                                <label><small>آدرس</small></label>
+                                <input id="address" [value]="product.address" type="text" readonly class="form-control form-control-lg"
                                     >
                             </div>
-        
+
                             <div class="text-left">
-                                <p-button label="فایل زمین" icon="pi pi-download" iconPos="left" styleClass="p-button-info"
+                                <p-button label="فایل زمین" icon="pi pi-download" iconPos="left" [disabled]="true" styleClass="p-button-info"
                                     class="mx-1" pTooltip="دانلود فایل زمین" tooltipvenue="bottom"></p-button>
-        
-                                <p-button label="فایل سند" icon="pi pi-download" iconPos="left" styleClass="p-button-info"
+
+                                <p-button label="فایل سند" icon="pi pi-download" iconPos="left" [disabled]="true" styleClass="p-button-info"
                                     class="mx-1" pTooltip="دانلود فایل سند" tooltipvenue="bottom"></p-button>
-        
-                                <p-button label="مالک ها" iconPos="left" styleClass="p-button-primary" pTooltip="لیست مالکین "
+
+                                <p-button label="مالک ها" iconPos="left" (click)="owners(id)" styleClass="p-button-primary" pTooltip="لیست مالکین "
                                     class="mx-1" tooltipvenue="bottom"></p-button>
-        
-                                <p-button label="ویرایش" icon="pi pi-edit" iconPos="left" 
+
+                                <p-button label="ویرایش" icon="pi pi-edit" iconPos="left"
                                 styleClass="p-button-warning" (click)="editProductUnit(product.id)"
                                     class="mx-1" pTooltip="ویرایش واحد تولیدی" tooltipvenue="bottom"></p-button>
-        
-                                <p-button label="" icon="pi pi-trash" iconPos="left" styleClass="p-button-danger"
+
+                                <p-button label="" icon="pi pi-trash" iconPos="left" (click)="confirmDelete($event,product.id)" styleClass="p-button-danger"
                                     class="mx-1" pTooltip="حذف واحد تولیدی" tooltipvenue="bottom"></p-button>
-        
+
                             </div>
                         </tr>
 

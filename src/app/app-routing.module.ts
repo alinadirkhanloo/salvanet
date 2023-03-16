@@ -20,6 +20,11 @@ const routes: Routes = [
       .then(m => m.PageContainerModule),
   },// canActivate: [AccountGuard]
   {
+    path: 'role-determination',
+    loadChildren: () => import('modules/role/role.module')
+      .then(m => m.RoleModule)
+  },
+  {
     path: 'not-found',
     component: Error404Component
   },
