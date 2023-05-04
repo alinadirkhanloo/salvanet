@@ -14,6 +14,11 @@ const routes: Routes = [
     path: '', component:OrganizationComponent
   },
   {
+    path: 'memberships',
+    loadChildren: () => import('modules/membership/membership.module')
+      .then(m => m.MembershipModule)
+  },
+  {
     path: 'region/edit/:id',component:RegionFormComponent
   },
   {

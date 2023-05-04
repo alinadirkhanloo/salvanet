@@ -3,8 +3,8 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)"> اشخاص</a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)"> حقیقی</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)"> پرسنل</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)"> جدول</a></li>
             </ol>
         </div>
     </div>
@@ -23,7 +23,7 @@
                         <!-- CRUD ACTIONS -->
                         <span class="p-input-icon-left ml-auto">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" placeholder="کد ملی" />
+                            <input pInputText OnlyNumber="true" type="text" placeholder="کد ملی" />
                         </span>
                         <button pButton label="جست و جو" class="p-button-outlined mx-2"></button>
                         <p-button label="ایجاد" icon="pi pi-plus" iconPos="left" (click)="dataGrid.redirect('pages/person/new')" styleClass="p-button-success ml-2" pTooltip="ایجاد" tooltipvenue="bottom"></p-button>

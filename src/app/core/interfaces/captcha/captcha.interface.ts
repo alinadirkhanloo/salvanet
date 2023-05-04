@@ -1,0 +1,1 @@
+export interface ICaptcha {id:string,image:string}

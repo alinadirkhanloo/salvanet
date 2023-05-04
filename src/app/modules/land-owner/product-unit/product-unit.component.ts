@@ -109,15 +109,15 @@ export class ProductUnitComponent implements OnInit{
   }
 
   newProductUnit(){
-    this.router.navigate(['pages/land-owner/product-unit/new']);
+    this.router.navigate(['pages/lands/product-unit/new']);
   }
 
   editProductUnit(id:string){
-    this.router.navigate(['pages/land-owner/product-unit/edit/'+ id]);
+    this.router.navigate(['pages/lands/product-unit/edit/'+ id]);
   }
 
   owners(id:string){
-    this.router.navigate(['pages/land-owner/product-unit/'+ id + '/owners']);
+    this.router.navigate(['pages/lands/product-unit/'+ id + '/owners']);
   }
 
   onSelectAllChange(event) {

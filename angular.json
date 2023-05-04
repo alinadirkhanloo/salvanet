@@ -73,6 +73,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
             }
           }
         },
@@ -84,7 +92,11 @@
           "configurations": {
             "production": {
               "browserTarget": "salvanet:build:production"
-            }
+            },
+            "development": {
+              "browserTarget": "salvanet:build:development"
+            },
+            "defaultConfiguration": "production"
           }
         },
         "extract-i18n": {

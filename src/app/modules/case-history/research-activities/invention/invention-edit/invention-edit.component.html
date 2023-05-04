@@ -28,7 +28,7 @@
                                 <div class="form-group col-lg-6">
                                     <label class="mb-1"><small>شماره ثبت</small></label>
                                     <input type="text" class="form-control text-center"
-                                    maxlength="36"
+                                    maxlength="36" OnlyNumber="true"
                                         [ngClass]="{
                                     'is-valid':editForm.controls['registrationNumber'].valid,
                                     'is-invalid':editForm.controls['registrationNumber'].invalid && editForm.controls['registrationNumber'].touched}"
@@ -42,7 +42,7 @@
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         تایید
                                     </button>
-                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                    <button type="button" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="cancle()" class="p-button-danger">
                                         انصراف
                                     </button>

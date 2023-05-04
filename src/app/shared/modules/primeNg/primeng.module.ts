@@ -6,6 +6,9 @@ import {SliderModule} from 'primeng/slider';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import {DialogModule} from 'primeng/dialog';
+
+import { MenubarModule } from 'primeng/menubar';
+import { MenuModule } from 'primeng/menu';
 import {ButtonModule} from 'primeng/button';
 import {DropdownModule} from 'primeng/dropdown';
 import {ProgressBarModule} from 'primeng/progressbar';
@@ -41,7 +44,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
     StepsModule,
     InputSwitchModule,
     ToggleButtonModule,
-    FileUploadModule,
+    FileUploadModule,MenuModule,MenubarModule,
     DynamicDialogModule,
     ConfirmDialogModule,
     ConfirmPopupModule,
@@ -72,7 +75,7 @@ import {TabMenuModule} from 'primeng/tabmenu';
     ToggleButtonModule,
     StepsModule,
     ConfirmPopupModule,
-    InputTextModule,
+    InputTextModule,MenuModule,MenubarModule,
     ProgressBarModule,
     DropdownModule,
     CardModule,

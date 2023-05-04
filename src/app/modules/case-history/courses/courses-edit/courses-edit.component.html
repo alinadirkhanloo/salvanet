@@ -51,7 +51,7 @@
                                 <div class="form-group col-lg-6">
                                     <label class="mb-1"><small>مدت دوره</small></label>
                                     <input type="text" class="form-control text-center"
-                                    maxlength="36"
+                                    maxlength="36" OnlyNumber="true"
                                         [ngClass]="{
                                     'is-valid':editForm.controls['duration'].valid,
                                     'is-invalid':editForm.controls['duration'].invalid && editForm.controls['duration'].touched}"
@@ -65,7 +65,7 @@
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         تایید
                                     </button>
-                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                    <button type="button" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="cancle()" class="p-button-danger">
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         انصراف

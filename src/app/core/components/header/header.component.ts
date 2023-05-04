@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from 'app/core/services/auth/auth.service';
+import { RoleSelectorComponent } from '../role-selector/role-selector.component';
 
 
 @Component({
@@ -12,7 +14,8 @@ export class HeaderComponent implements OnInit {
   user:any;
   avatarLable='';
 
-	constructor(private auth:AuthService) { }
+	constructor(private auth:AuthService, 
+    private modalService:NgbModal) { }
 
 	ngOnInit(): void {
         document.body.setAttribute('data-headerbg','color_15');
@@ -25,6 +28,10 @@ export class HeaderComponent implements OnInit {
         }
 
 	}
+
+  openRoleSelector() {
+    this.modalService.open(RoleSelectorComponent,{size:'lg'});
+  }
 
 
     themeSettings(attributeName, attributeVal) {

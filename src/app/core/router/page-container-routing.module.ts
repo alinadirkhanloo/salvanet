@@ -5,16 +5,23 @@ import { PageContainerComponent } from 'app/modules/page-container/page-containe
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'base-information'
+    redirectTo:'base-information',pathMatch:'full'
   },
   {
     path: '', component: PageContainerComponent,
     children:[
+      
       {
-        path: 'base-information',
-        loadChildren: () => import('modules/base-information/base-information.module')
-          .then(m => m.BaseInformationModule)
+        path: 'profile',
+        loadChildren: () => import('modules/profile/profile.module')
+          .then(m => m.ProfileModule)
       },
+      {
+        path: 'courses',
+        loadChildren: () => import('modules/cources/cources.module')
+          .then(m => m.CourcesModule)
+      },
+      
       {
         path: 'farmer-registration',
         loadChildren: () => import('modules/farmer/farmer.module')
@@ -26,14 +33,14 @@ const routes: Routes = [
           .then(m => m.CompanyModule)
       },
       {
-        path: 'persons',
-        loadChildren: () => import('app/modules/people/person/person.module')
-          .then(m => m.PersonModule)
-      },
-      {
         path: 'personnel',
         loadChildren: () => import('app/modules/personnel/personnel.module')
           .then(m => m.PersonnelModule)
+      },
+      {
+        path: 'persons',
+        loadChildren: () => import('app/modules/people/person/person.module')
+          .then(m => m.PersonModule)
       },
       {
         path: 'users',
@@ -63,7 +70,7 @@ const routes: Routes = [
       },
 
       {
-        path: 'land-owner',
+        path: 'lands',
         loadChildren: () => import('modules/land-owner/land-owner.module')
           .then(m => m.LandOwnerModule)
       },

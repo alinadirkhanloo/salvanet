@@ -128,11 +128,11 @@
 
             <div class="text- col-12">
               <button
-                type="submit"
+                type="button"
                 pButton
                 pRipple
                 [disabled]="!editForm.valid || disableButton"
-                (click)="submit()"
+                (click)="submit2()"
                 class="p-button-success mx-2"
               >
                 <span *appSpinOn="disableButton; color: 'warn'"></span>

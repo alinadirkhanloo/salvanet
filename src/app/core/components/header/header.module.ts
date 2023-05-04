@@ -1,3 +1,4 @@
+import { RoleSelectorModule } from './../role-selector/role-selector.module';
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { HeaderComponent } from 'core/components/header/header.component';
@@ -12,7 +13,7 @@ import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
     HeaderComponent,
   ],
   imports: [
-    SharedModule,NgbModule,RouterModule,PrimeNgModule
+    SharedModule,NgbModule,RouterModule,PrimeNgModule,RoleSelectorModule
   ],
   exports: [
     HeaderComponent,

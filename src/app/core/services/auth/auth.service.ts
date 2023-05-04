@@ -2,7 +2,7 @@ import { IPerson } from 'app/core/interfaces/person.interface';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environment/environment';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, map } from 'rxjs';
 import { User } from 'core/interfaces/user.interface';
 import { ICompany } from 'app/core/interfaces/company.interface';
 
@@ -12,6 +12,7 @@ import { ICompany } from 'app/core/interfaces/company.interface';
 })
 export class AuthService {
 
+    public isRefreshing: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     user: BehaviorSubject<User>;
 
     username$: Observable<string>;
@@ -48,7 +49,7 @@ export class AuthService {
         return this.http.put(`${environment.baseUrl}/person`, person);
     }
 
-    getPerson(nationalCode:string){
+    getPerson(nationalCode: string) {
         return this.http.get(`${environment.baseUrl}/person/nationalCode/${nationalCode}`);
     }
 
@@ -102,23 +103,28 @@ export class AuthService {
     }
 
     changePassword(username: string, password: string) {
-        
-        
-        let userTemp = { id:null,ownerId:0, userName: username, password: password };
+
+
+        let userTemp = { id: null, ownerId: 0, userName: username, password: password };
         return this.http.put(`${environment.baseUrl}/account/changePassword`, userTemp);
     }
 
 
     accountActivation(username: string, password: string) {
-        let userTemp = { id:null,ownerId:0, userName: username, password: password };
+        let userTemp = { id: null, ownerId: 0, userName: username, password: password };
         return this.http.put(`${environment.baseUrl}/account/activate`, userTemp);
     }
 
     // remove user from localstorage and set our user observable to null
     logout() {
+        
+        this.http.get(`${environment.baseUrl}/user/logout1`).subscribe(result => { });
         sessionStorage.removeItem('currentUser');
-        this.http.get(`${environment.authUrl}/logout`).subscribe(result=>{});
         // this.user.next(null);
     }
 
+    refreshToken(): Observable<any> {
+        this.isRefreshing.next(true);
+        return this.http.post(`${environment.baseUrl}/user/refreshTokens`,{});
+    }
 }

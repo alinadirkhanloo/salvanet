@@ -92,16 +92,7 @@ $color_pallate_15: #ed0b4c; */
   url('../fonts/iransansfanum/woff/IRANSansWeb(FaNum)_Bold.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
   url('../fonts/iransansfanum/ttf/IRANSansWeb(FaNum)_Bold.ttf') format('truetype');
 }
-@font-face {
-  font-family: IRANSansfanum;
-  font-style: normal;
-  font-weight: 500;
-  src: url('../fonts/iransansfanum/eot/IRANSansWeb(FaNum)_Medium.eot');
-  src: url('../fonts/iransansfanum/eot/IRANSansWeb(FaNum)_Medium.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-  url('../fonts/iransansfanum/woff2/IRANSansWeb(FaNum)_Medium.woff2') format('woff2'),  /* FF39+,Chrome36+, Opera24+*/
-  url('../fonts/iransansfanum/woff/IRANSansWeb(FaNum)_Medium.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-  url('../fonts/iransansfanum/ttf/IRANSansWeb(FaNum)_Medium.ttf') format('truetype');
-}
+
 @font-face {
   font-family: IRANSansfanum;
   font-style: normal;

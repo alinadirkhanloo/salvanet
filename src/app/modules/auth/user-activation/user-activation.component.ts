@@ -27,7 +27,7 @@ export class UserActivationComponent implements OnInit {
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
     this.username = this.auth.getUsername();
-    if (!this.username) {
+    if (!this.username || this.shService.returnUrl.value=== '') {
       this.goToLogin();
     }
   }

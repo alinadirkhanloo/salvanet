@@ -106,5 +106,8 @@ export class RegistrationAnnouncementEditComponent implements OnInit,OnDestroy {
     this.router.navigate(['pages/registration-announcement']);
   }
 
+  submit2(){
+    this.showForm = !this.showForm;
+  }
 
 }

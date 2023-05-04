@@ -15,7 +15,7 @@
                     placeholder=""
                     readonly
                     maxlength="10"
-                    minlength="10"
+                    minlength="8"
                     [ngClass]="{
                       'is-valid': accountForm.controls['nationalCode'].valid,
                       'is-invalid':
@@ -415,7 +415,7 @@
                     بررسی و ثبت
                   </button>
                   <button
-                    type="submit"
+                    type="button"
                     (click)="goToLogin()"
                     pButton
                     pRipple

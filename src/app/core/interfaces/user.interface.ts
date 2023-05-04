@@ -1,5 +1,6 @@
 export interface User {
-  accessKey: string; // auth token
+  accessToken: string; // auth token
+  refreshToken:string;
   idToken: string; // user info
 }
 

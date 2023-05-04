@@ -9,7 +9,7 @@
                             <form [formGroup]="simCardEditForm">
                                 <div class="form-group">
                                     <label class="mb-1"><small>کد ملی مالک</small></label>
-                                    <input type="text" class="form-control text-center"
+                                    <input type="text" OnlyNumber="true" class="form-control text-center"
                                     maxlength="36"
                                         [ngClass]="{
                                     'is-valid':simCardEditForm.controls['ownerId'].valid,
@@ -41,7 +41,7 @@
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         تایید
                                     </button>
-                                    <button type="submit" pButton pRipple [disabled]="!simCardEditForm.valid || disableButton"
+                                    <button type="button" pButton pRipple [disabled]="!simCardEditForm.valid || disableButton"
                                         (click)="cancle()" class="p-button-danger">
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         انصراف

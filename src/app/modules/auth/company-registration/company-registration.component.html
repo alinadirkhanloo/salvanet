@@ -55,7 +55,7 @@
 
                   <div class="form-group col-6">
                     <label><small>شماره ثبت</small></label>
-                    <input formControlName="name" maxlength="15" minlength="1" type="text" class="form-control" placeholder="">
+                    <input formControlName="name" OnlyNumber="true" maxlength="15" minlength="1" type="text" class="form-control" placeholder="">
                   </div>
 
 
@@ -116,7 +116,7 @@
                   </div>
                   <div class="form-group col-6">
                     <button type="submit" (click)="goToLogin()" pButton pRipple class="p-button-success mx-2">ایجاد</button>
-                    <button type="submit" (click)="goToLogin()" pButton pRipple class="p-button-danger">انصراف</button>
+                    <button type="button" (click)="goToLogin()" pButton pRipple class="p-button-danger">انصراف</button>
                   </div>
                 </form>
 

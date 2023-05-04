@@ -1,12 +1,18 @@
-import { Subscription, Observable } from 'rxjs';
-import { IDynamicSelect, IDynamicSelectItem } from 'core/components/dynamics/dynamic-select/dynamic-select.interface';
-
+import { SelectionMode } from 'core/enums/dynamic-tree.enum';
+import { CommonService } from 'core/services/common/common.service';
+import { MenuItem } from 'primeng/api';
+import { Subscription, ReplaySubject } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProductionUnit } from 'app/core/interfaces/product-unit.interface';
 import { ProductUnitService } from '../product-unit.service';
 import { SharedService } from 'app/shared/services/shared.service';
+import { IFile } from 'app/core/interfaces/file.interface';
+import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.interface';
+import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { environment } from 'environment/environment';
 
 @Component({
   selector: 'app-product-unit-edit',
@@ -16,48 +22,80 @@ import { SharedService } from 'app/shared/services/shared.service';
 export class ProductUnitEditComponent implements OnInit, OnDestroy {
 
   private subscription = new Subscription();
-  load=false;
-  uploadAddress="http://localhost:3001/file"
+  items: MenuItem[];
+  activeIndex: number = 0;
+  public treeConfig: IDynamicTree;
+
+  load = false;
+  uploadAddress = `${environment}/file`;
   editForm: FormGroup;
   disableButton = false;
   updateMode = false;
   routeSub = null;
-  products = [
-    { title: 'asfas' },
-    { title: 'asfas' },
-    { title: 'asfas' }
-  ]
+
+  productionUnitTypes = [
+    { id: null, topic: '...' },
+    { id: 1, topic: 'مزرعه کشاورزی' },
+    { id: 2, topic: 'دامداری' },
+    { id: 3, topic: 'باغ' },
+    { id: 4, topic: 'مزرعه آبزی پروری' },
+    { id: 5, topic: 'مزرعه پرورش طیور' }
+  ];
+
+  documentTypes = [
+    { id: null, topic: '...' },
+    { id: 1, topic: 'شش دانگ' },
+    { id: 2, topic: 'مشترک' },
+    { id: 3, topic: 'اصلاحات اراضی' },
+    { id: 4, topic: 'موقوفه' },
+    { id: 5, topic: 'عادی (قولنامه دستی)' },
+    { id: 5, topic: 'واگذار شده' },
+    { id: 5, topic: 'تصرفی' }
+  ];
+
+  landDocumentStatues = [
+    { id: null, topic: '...' },
+    { id: 1, topic: 'تایید شده' },
+    { id: 2, topic: 'تایید نشده' }
+  ];
+
+  ownershipTypes = [
+    { id: null, topic: '...' },
+    { id: 1, topic: 'اختصاصی' },
+    { id: 2, topic: 'شراکتی' },
+    { id: 2, topic: 'موروثی' },
+    { id: 2, topic: 'تفکیک نادرست' },
+  ];
+
+
   landDocFiles: any[] = [];
   landFiles: any[] = [];
   landAreaFiles: any[] = [];
 
-  landRecordTypeConfig !: IDynamicSelect;
-  landOwnerTypeConfig !: IDynamicSelect;
-  productionUnitTypeConfig !: IDynamicSelect;
-  landDocumentStatusConfig!: IDynamicSelect;
-  landAreaStatusConfig!: IDynamicSelect;
-  statusConfig!: IDynamicSelect;
 
   constructor(
     private _formBuilder: FormBuilder,
     private puService: ProductUnitService,
-    private route: ActivatedRoute,
-    private router: Router,private shService:SharedService
+    private route: ActivatedRoute, private commonService: CommonService,
+    private router: Router, private shService: SharedService, private modalService: NgbModal
   ) {
 
     this.editForm = this._formBuilder.group({
       realEstateUniqueCode: ['', [Validators.required, Validators.maxLength(36)]],
       realEstatePlate: ['', [Validators.required, Validators.maxLength(36)]],
-      address: ['', [Validators.required, Validators.maxLength(24)]],
-      statusId: ['', [Validators.required, Validators.maxLength(24)]],
-      landAreaStatusId: ['', [Validators.required, Validators.maxLength(24)]],
-      landDocumentStatusId: ['', [Validators.required, Validators.maxLength(24)]],
-      typeId: ['', [Validators.required, Validators.maxLength(24)]],
-      landAreaId: ['', [Validators.required, Validators.maxLength(24)]],
-      documentTypeId: ['', [Validators.required, Validators.maxLength(24)]],
-      landDocumentId: ['', [Validators.required, Validators.maxLength(24)]],
-      locatedInId: ['', [Validators.required, Validators.maxLength(24)]],
-      id: -1
+      address: ['', [Validators.required]],
+      statusId: ['', [Validators.required]],
+      landDocumentStatusId: ['', [Validators.required]],
+      landAreaStatusId: ['', [Validators.required]],
+      typeId: ['', [Validators.required]],
+      landAreaId: ['', [Validators.required]],
+      documentTypeId: ['', [Validators.required]],
+      landDocumentId: ['', [Validators.required]],
+      ownershipTypeId: ['', [Validators.required]],
+      ownershipTypeTitle: [''],
+      locatedInId: [''],
+      locatedInTitle: [''],
+      id: null
     });
   }
 
@@ -73,78 +111,73 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
         }
       })
     );
-    this.initialSelects();
+    this.items = [
+      {
+        label: 'مشخصات اصلی',
+        command: (event: any) => this.activeIndex = 0
+      },
+      {
+        label: 'آپلود سند',
+        command: (event: any) => this.activeIndex = 1
+      },
+      {
+        label: 'تعیین آدرس',
+        command: (event: any) => this.activeIndex = 2
+      }
+    ];
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
-  initialSelects() {
-    this.landRecordTypeConfig = {
-      options$: this.puService.landRecordType$,
-      selectId: 'productType',
-      placeholder: '...',
-      showClear: true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.landOwnerTypeConfig = {
-      options$: this.puService.ownershipType$,
-      selectId: 'ownerType',
-      placeholder: '...',
-      showClear: true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    this.productionUnitTypeConfig = {
-      options$: this.puService.productionUnitType$,
-      selectId: 'type',
-      placeholder: '...',
-      showClear: true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-    // let options= this.puService.status$.subscribe(result=>{
-      this.landDocumentStatusConfig ={
-        options$:this.puService.status$,
-        selectId: 'ldstatus',
-        placeholder: '...',
-        filter: true,
-        showClear: true,
-        emptyFilterMessage: 'موردی یافت نشد',
-        emptyMessage: 'موردی یافت نشد'
-      }
-      
-      this.landAreaStatusConfig ={
-        options$:this.puService.status$,
-        selectId: 'areastatus',
-        placeholder: '...',
-        showClear: true,
-        emptyFilterMessage: 'موردی یافت نشد',
-        emptyMessage: 'موردی یافت نشد'
-      }
-      this.statusConfig = {
-        options$:this.puService.status$,
-        selectId: 'statusk',
-        placeholder: '...',
-        showClear: true,
-        emptyFilterMessage: 'موردی یافت نشد',
-        emptyMessage: 'موردی یافت نشد'
-      }
-    // });
-// this.subscription.add(options); 
-    setTimeout(() => {
-      this.load=true;
-    }, 500);
+  uploader(event) {
+    let file = event.files[0];
+    let tmp: IFile = {
+      name: file.name,
+      displayName: file.name,
+      size: file.size,
+      createdAt: new Date().toString(),
+      modifiedAt: new Date().toString(),
+      content: [
+        file.objectURL['changingThisBreaksApplicationSecurity']
+      ]
+    };
+    this.puService.create(tmp).subscribe({});
   }
 
-  _onStatusChange(event){
-    console.log(event);
-    
+  openFindBox(idControlName: string, titleControlname: string, url: string, expandUrl: string, title: string) {
+    this.treeConfig = {
+
+      treeNodes$: this.commonService.getTree(url),
+
+      onNodeContextMenuSelect: new ReplaySubject<any>(1),
+      onNodeSelect: new ReplaySubject<any>(1),
+
+      lazyUrl: [
+        expandUrl, ''
+      ],
+
+      selectionMode: SelectionMode.SINGLE_SELECT
+    };
+
+    const modalRef = this.modalService.open(FindBoxComponent, { size: 'lg' });
+    modalRef.componentInstance.treeConfig = this.treeConfig;
+    modalRef.componentInstance.title = title;
+    modalRef.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+      console.log(result);
+      if (result) {
+        this.editForm.controls[idControlName].setValue(result.data);
+        this.editForm.controls[titleControlname].setValue(result.label);
+      }
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+
+    },);
   }
 
-  
+
   onLandDocUpload(event) {
     console.log(event);
     let id = event.originalEvent.body.id;
@@ -161,6 +194,14 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
       this.editForm.controls['landAreaId'].setValue(id);
     }
   }
+
+  onActiveIndexChange(event) {
+    console.log(event);
+
+    this.activeIndex = event;
+  }
+
+
 
   loadById(id: number | string) {
     let res = this.puService.readById(id).subscribe({
@@ -182,8 +223,7 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
 
     this.disableButton = true;
     let productUnit = this.editForm.value;
-    productUnit.documentTypeId = this.editForm.controls['documentTypeId'].value.id; 
-    productUnit.landAreaStatusId = this.editForm.controls['landAreaStatusId'].value.id;
+    productUnit.documentTypeId = this.editForm.controls['documentTypeId'].value.id;
     productUnit.landDocumentStatusId = this.editForm.controls['landDocumentStatusId'].value.id;
     productUnit.statusId = this.editForm.controls['statusId'].value.id;
     productUnit.typeId = this.editForm.controls['typeId'].value.id;
@@ -207,12 +247,8 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
     }
   }
 
-  _onLandRecordTypeChange(event) {
-
-  }
-
   cancle() {
-    this.router.navigate(['pages/land-owner/product-unit']);
+    this.router.navigate(['pages/lands/product-unit']);
   }
 
 }

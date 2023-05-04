@@ -2,12 +2,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SharedService } from 'app/shared/services/shared.service';
-import { CommonService } from 'app/core/services/common/common.service';
-import { AuthService } from 'app/core/services/auth/auth.service';
 import { DialogService } from 'primeng/dynamicdialog';
 import { PersonnelFilterComponent } from 'app/core/components/personnel-filter/personnel-filter.component';
 import { GenericClass } from 'app/core/models/genericClass.model';
+import { SharedService } from 'app/shared/services/shared.service';
+import { AuthService } from 'app/core/services/auth/auth.service';
 
 @Component({
   selector: 'app-company-registration',
@@ -24,8 +23,9 @@ export class CompanyRegistrationComponent extends GenericClass implements OnInit
     private _formBuilder: FormBuilder,
     private modalService: NgbModal,
     private router: Router,
-    public dialogService: DialogService
-  ) {
+    public dialogService: DialogService,
+    private auth:AuthService,private shService:SharedService){
+
     super();
     this.accountForm = this._formBuilder.group({
       nationalCode: ['', [Validators.required]],
@@ -54,6 +54,10 @@ export class CompanyRegistrationComponent extends GenericClass implements OnInit
     //   }
     //   a.unsubscribe();
     // });
+
+    if (!this.auth.getUsername() || this.shService.returnUrl.value === '') {
+      this.goToLogin();
+    }
   }
 
   opemPersonFilter(){

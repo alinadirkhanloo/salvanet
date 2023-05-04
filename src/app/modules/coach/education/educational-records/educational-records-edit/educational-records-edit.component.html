@@ -48,7 +48,7 @@
                                 <div class="form-group col-lg-6">
                                     <label class="mb-1"><small>معدل</small></label>
                                     <input type="text" class="form-control text-center"
-                                    maxlength="36"
+                                    maxlength="6" OnlyNumber="true"
                                         [ngClass]="{
                                     'is-valid':editForm.controls['gpa'].valid,
                                     'is-invalid':editForm.controls['gpa'].invalid && editForm.controls['gpa'].touched}"
@@ -62,7 +62,7 @@
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         تایید
                                     </button>
-                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                    <button type="button" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="cancle()" class="p-button-danger">
                                         انصراف
                                     </button>

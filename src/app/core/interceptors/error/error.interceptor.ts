@@ -1,6 +1,8 @@
+import { User } from 'app/core/interfaces/user.interface';
+import { AuthenticateErrors } from 'app/core/enums/errors.enum';
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError, map } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { AuthService } from 'core/services/auth/auth.service';
 import { Router } from '@angular/router';
@@ -18,15 +20,40 @@ export class ErrorInterceptor implements HttpInterceptor {
 
         // handel apies response error
         return next.handle(request).pipe(catchError(err => {
-            if (this.authenticationService.getUser()) {
-            if (err.status === 401) {
-                // auto logout if 401 response returned from api
-                
-                this.authenticationService.logout();   
-                
-                // this.router.navigate(['/login']);
+              if (
+                err instanceof HttpErrorResponse &&
+                err.status === 401
+            ) {
+                if (err.error[0] === 'JwtTokenIsExpired') {
+                    this.authenticationService.refreshToken().subscribe(
+                        {
+                            next:(user: User) => {
+        
+                                if (user && user.accessToken) {
+                                    let currentUser:User = JSON.parse(sessionStorage.getItem('currentUser'));
+                                    currentUser.accessToken = user.accessToken;
+                                    currentUser.refreshToken = user.refreshToken;
+                                    sessionStorage.setItem('currentUser', JSON.stringify(currentUser));
+                                    this.authenticationService.isRefreshing.next(false);
+                                    // return next.handle(request);
+                                }
+                                
+                            },
+                            error:(err)=> {
+                                sessionStorage.removeItem('currentUser');
+                                this.router.navigate(['auth/login']);
+                            },
+                        }
+                    );
+                }
 
-            } else if (err.status === 500) {
+
+            }
+            if (err.status === 401) {
+                this.shService.showError(AuthenticateErrors[err.error[0]]);
+            } else 
+            if (this.authenticationService.getUser()) {
+            if (err.status === 500) {
 
                 this.shService.showError("سرور با خطا مواجه شده است لطفا مجددا تلاش نمایید");
 
@@ -40,4 +67,6 @@ export class ErrorInterceptor implements HttpInterceptor {
     showError(msg: string) {
         
     }
+
+
 }

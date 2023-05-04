@@ -1,67 +1,99 @@
 <div class="authincation h-100">
-    <div class="container vh-100">
-        <div class="row justify-content-center h-100 align-items-center">
-            <div class="col-lg-6 col-md-8">
-                <div class="authincation-content">
-                    <div class="row no-gutters">
-                        <div class="col-xl-12">
-                            <div class="auth-form">
-                                <div class="text-center mb-3">
-                                    <a [routerLink]="['/home']"><img src="assets/images/logo.png"></a>
-                                </div>
-                                <h4 class="text-center mb-5">احراز هویت کاربران</h4>
-                                <form [formGroup]="accountForm">
-                                    <div class="form-group">
-                                        <label class="mb-1"><small>کد ملی</small></label>
-                                        <input type="text" class="form-control text-center"
-                                        OnlyNumber="true"
-                                        maxlength="10" minlength="10"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['username'].valid,
-                                        'is-invalid':accountForm.controls['username'].invalid && accountForm.controls['username'].touched}"
-                                            formControlName="username" placeholder="- - - - - - - - - -">
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="mb-1"><small>شماره تلفن</small></label>
-                                        <input type="text" class="form-control text-center" OnlyNumber="true"
-                                        maxlength="11" minlength="11"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['mobile'].valid,
-                                        'is-invalid':accountForm.controls['mobile'].invalid && accountForm.controls['mobile'].touched}"
-                                            formControlName="mobile" placeholder="- -  - -  - - -  - - 09">
-                                    </div>
-
-                                    <div class="form-group text-center" (click)="getCaptcha()" *ngIf="captchaImage">
-                                      <img [src]="'data:image/jpg;base64,'+captchaImage"
-                                       width="200px" height="50px">
-                                    </div>
-
-
-                                    <div class="form-group mb-4">
-                                        <label class="mb-1"><small>کد امنیتی</small></label>
-                                        <input type="text" class="form-control text-center"
-                                        maxlength="5" minlength="4"
-                                            [ngClass]="{
-                                        'is-valid':accountForm.controls['captcha'].valid,
-                                        'is-invalid':accountForm.controls['captcha'].invalid && accountForm.controls['captcha'].touched}"
-                                            formControlName="captcha" placeholder="- - - - - - - - - -" >
-                                    </div>
-
-
-
-                                    <div class="text-center">
-                                        <button type="submit" [disabled]="!accountForm.valid || disableButton"
-                                            (click)="goToVerification()" class="btn btn-primary btn-block">
-                                            <span *appSpinOn="disableButton; color: 'warn';"></span>
-                                            ارسال
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+  <div class="container vh-100">
+    <div class="row justify-content-center h-100 align-items-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="authincation-content">
+          <div class="row no-gutters">
+            <div class="col-xl-12">
+              <div class="auth-form">
+                <div class="text-center mb-3">
+                  <a [routerLink]="['/home']"><img src="assets/images/logo.png" /></a>
                 </div>
+                <h4 class="text-center mb-5">احراز هویت کاربران</h4>
+                <form [formGroup]="accountForm">
+                  <div class="form-group">
+                    <label class="mb-1"><small>کد ملی</small></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      OnlyNumber="true"
+                      maxlength="10"
+                      minlength="8"
+                      [ngClass]="{
+                        'is-valid': accountForm.controls['username'].valid,
+                        'is-invalid':
+                          accountForm.controls['username'].invalid &&
+                          accountForm.controls['username'].touched
+                      }"
+                      formControlName="username"
+                      placeholder="- - - - - - - - - -"
+                    />
+                  </div>
+                  <div class="form-group mb-5">
+                    <label class="mb-1"><small>شماره تلفن</small></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      OnlyNumber="true"
+                      maxlength="11"
+                      minlength="11"
+                      [ngClass]="{
+                        'is-valid': accountForm.controls['mobile'].valid,
+                        'is-invalid':
+                          accountForm.controls['mobile'].invalid &&
+                          accountForm.controls['mobile'].touched
+                      }"
+                      formControlName="mobile"
+                      placeholder="- -  - -  - - -  - - 09"
+                    />
+                  </div>
+
+                  <div class="form-group text-center" *ngIf="captchaImage">
+                    <img
+                      [src]="'data:image/jpg;base64,' + captchaImage"
+                      width="200px"
+                      height="50px"
+                    />
+                    <button class="btn fs-18 p-2 mx-2" style="height: 35px" (click)="getCaptcha()">
+                      <i class="las la-redo-alt"></i>
+                    </button>
+                  </div>
+
+                  <div class="form-group mb-4">
+                    <label class="mb-1"><small>کد امنیتی</small></label>
+                    <input
+                      type="text"
+                      class="form-control text-center"
+                      maxlength="5"
+                      minlength="4"
+                      [ngClass]="{
+                        'is-valid': accountForm.controls['captcha'].valid,
+                        'is-invalid':
+                          accountForm.controls['captcha'].invalid &&
+                          accountForm.controls['captcha'].touched
+                      }"
+                      formControlName="captcha"
+                      placeholder="- - - - - - - - - -"
+                    />
+                  </div>
+
+                  <div class="text-center">
+                    <button
+                      type="submit"
+                      [disabled]="!accountForm.valid || disableButton"
+                      (click)="goToVerification()"
+                      class="btn btn-primary btn-block"
+                    >
+                      <span *appSpinOn="disableButton; color: 'warn'"></span>
+                      ارسال
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

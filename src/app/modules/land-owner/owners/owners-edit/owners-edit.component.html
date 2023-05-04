@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label class="mb-1"><small>درصد مالکیت</small></label>
                                     <input type="text" class="form-control text-center"
-                                    maxlength="36"
+                                    maxlength="36" OnlyNumber="true"
                                         [ngClass]="{
                                     'is-valid':editForm.controls['sharePercentage'].valid,
                                     'is-invalid':editForm.controls['sharePercentage'].invalid && editForm.controls['sharePercentage'].touched}"
@@ -54,7 +54,7 @@
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         تایید
                                     </button>
-                                    <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
+                                    <button type="button" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="cancle()" class="p-button-danger">
                                         <span *appSpinOn="disableButton; color: 'warn';"></span>
                                         انصراف

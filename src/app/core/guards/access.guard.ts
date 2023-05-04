@@ -13,7 +13,7 @@ export class AccountGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
 
         const currentUser = this.authenticationService.getItemFromSessionStorage('currentUser');
-        if (!currentUser) {
+        if (!currentUser && !this.authenticationService.isRefreshing.value) {
             // logged in so return true
             this.router.navigate(['/auth/login']);
             return false;

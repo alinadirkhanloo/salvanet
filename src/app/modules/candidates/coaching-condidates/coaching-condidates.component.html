@@ -1,0 +1,107 @@
+<div class="container-fluid h-100v">
+    <div class="row page-titles mx-0">
+        <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)"> اشخاص </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)"> داوطلبین مربیگری </a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="">
+        <p-card header="لیست مربی ها">
+            <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
+            <p-table [value]="dataSource" [lazy]="dataGrid.lazy" [tableStyle]="dataGrid.customTableStyle"
+                [selection]="dataGrid.selectedData" [paginator]="dataGrid.paginator" [rows]="dataGrid.rowCount"
+                [totalRecords]="dataGrid.totalRecords" [loading]="dataGrid.loading"
+                [globalFilterFields]="dataGrid.filterHeaerFields" [selectAll]="dataGrid.selectAll"
+                (onLazyLoad)="loadDataSource($event)" (selectionChange)="dataGrid.selectionChange($event)"
+                (selectAllChange)="onSelectAllChange($event)"
+                [(first)]="first" [rowsPerPageOptions]="[10,25,50]">
+
+                <ng-template pTemplate="caption">
+                    <div class="flex">
+                        <span class="p-input-icon-left ml-auto">
+                            <i class="pi pi-search"></i>
+                            <input pInputText OnlyNumber="true" type="text" placeholder="کد ملی" />
+                        </span>
+                        <button pButton label="جست و جو" class="p-button-outlined mx-2"></button>
+                        
+                    </div>
+                </ng-template>
+
+
+                <ng-template pTemplate="header">
+
+                    <tr>
+                        <ng-container *ngIf="dataGrid.selectionMode">
+                            <th style="width: 4rem">
+                                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                            </th>
+                        </ng-container>
+                        <th style="min-width: 1.5rem;">
+                            ردیف
+                        </th>
+                        <ng-container *ngFor="let header of dataGrid.tableHeaerFields">
+                            <th [pSortableColumn]="header.title">{{header.persianTitle}}<p-sortIcon
+                                    [field]="header.sortKey"></p-sortIcon></th>
+                        </ng-container>
+                        <th style="width: 15rem">صلاحیت</th>
+                    </tr>
+
+                    <!-- <tr>
+                    <ng-container *ngIf="dataGrid.selectionMode">
+                    <th style="width: 4rem">
+                        <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                    </th>
+                    </ng-container>
+    
+                    <th>
+                        <p-columnFilter type="text" [field]="dataGrid.tableHeaerFields[0].sortKey"
+                        matchMode="equals" [showMenu]="false">
+                    </p-columnFilter>
+                    </th>
+                    <th>
+                        <p-columnFilter type="text" [field]="dataGrid.tableHeaerFields[1].sortKey"
+                        matchMode="equals" [showMenu]="false"></p-columnFilter>
+                    </th>
+                    <th style="width: 12rem"></th>
+    
+                </tr> -->
+
+                </ng-template>
+
+
+
+
+                <ng-template pTemplate="body" let-rows let-index="rowIndex">
+                    <tr>
+                        <ng-container *ngIf="dataGrid.selectionMode">
+                            <td>
+                                <p-tableCheckbox [value]="rows"></p-tableCheckbox>
+                            </td>
+                        </ng-container>
+
+                        <td>
+                            {{first + index +1}}
+                        </td>
+
+                        <ng-container *ngFor="let header of dataGrid.tableHeaerFields;let i = index">
+                            <td>{{rows[header.title]}}</td>
+                        </ng-container>
+
+                        <td class="flex">
+                            <button pButton type="button" class="p-button-success ml-2"
+                            label="تایید" 
+                                (click)="qualification(rows)"></button>
+                            <button pButton type="button" class="p-button-danger"
+                            label="رد" 
+                                (click)="disqualification($event,rows.id)"></button>
+                        </td>
+
+                    </tr>
+                </ng-template>
+
+            </p-table>
+        </p-card>
+    </div>
+</div>

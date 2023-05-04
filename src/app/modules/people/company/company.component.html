@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="">
-        <p-card>
+        <p-card header="لیست اشخاص حقوقی">
             <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
             <p-table [value]="dataSource" [lazy]="dataGrid.lazy" [tableStyle]="dataGrid.customTableStyle"
                 [selection]="dataGrid.selectedData" [paginator]="dataGrid.paginator" [rows]="dataGrid.rowCount"
@@ -22,7 +22,7 @@
                     <div class="flex">
                         <span class="p-input-icon-left ml-auto">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" placeholder="کد ملی" />
+                            <input pInputText OnlyNumber="true" type="text" placeholder="کد ملی" />
                         </span>
                         <button pButton label="جست و جو" class="p-button-outlined mx-2"></button>
                         

@@ -21,7 +21,7 @@
                       class="form-control text-center"
                       OnlyNumber="true"
                       maxlength="10"
-                      minlength="10"
+                      minlength="8"
                       [ngClass]="{
                         'is-valid': loginForm.controls['username'].valid,
                         'is-invalid':
@@ -32,34 +32,42 @@
                       placeholder="- - - - - - - - - -"
                     />
                   </div>
-                  <div class="form-group">
-                    <label for="password" class="mb-1"><small>کلمه عبور</small></label>
+                  
+                  <label for="password" class="mb-1"><small>کلمه عبور</small></label>
+                    
+                  <div class="input-group input-primary-o mb-5" dir="ltr">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text p-0">
+                        <button class="btn fs-18 p-2 mx-2" style="height: 35px;" (click)="showPass()">
+                          <i class="las la-eye"></i>
+                        </button>
+                      </span>
+                    </div>
                     <input
-                      type="password"
+                      [type]="passType"
                       id="password"
-                      class="form-control text-center"
+                      class="form-control text-center border-left-0"
                       maxlength="36"
                       minlength="4"
+                      style="padding-right: 24%;"
                       tooltipPosition="right"
                       tooltipEvent="focus"
-                      [ngClass]="{
-                        'is-valid': loginForm.controls['password'].valid,
-                        'is-invalid':
-                          loginForm.controls['password'].invalid &&
-                          loginForm.controls['password'].touched
-                      }"
                       formControlName="password"
                       placeholder="- - - - - - - - - -"
                     />
+                    
                   </div>
 
-                  <div class="form-group text-center" (click)="getCaptcha()">
+                  <div class="form-group text-center">
                     <img
                       [src]="'data:image/jpg;base64,' + captchaImage"
                       alt="تصویر کد امنیتی"
                       width="200px"
                       height="50px"
                     />
+                    <button class="btn fs-18 p-2 mx-2" style="height: 35px;" (click)="getCaptcha()">
+                      <i class="las la-redo-alt"></i>
+                    </button>
                   </div>
 
                   <div class="form-group mb-4">

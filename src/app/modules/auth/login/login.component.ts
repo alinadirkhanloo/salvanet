@@ -6,6 +6,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'app/core/interfaces/user.interface';
 import { GenericClass } from 'app/core/models/genericClass.model';
+import { AuthenticateErrors } from 'app/core/enums/errors.enum';
+
+
 
 @Component({
   selector: 'app-login',
@@ -21,7 +24,7 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
   passTooltip = `کلمه عبور باید شامل:
   حداقل یک حرف بزرگ انگلیسی، حداقل یک حرف کوچک انگلیسی، حداقل یک عدد و یکی از علايم @*$# باشد
   `
-
+  passType='password';
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -33,7 +36,8 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     this.loginForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
-      captcha: ['', [Validators.required]]
+      captcha: ['', [Validators.required]],
+      accessKey: ['', []]
     });
   }
   ngOnDestroy(): void {
@@ -43,6 +47,7 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.getCaptcha();
+    this.sharedService.returnUrl.next('')
   }
 
   login() {
@@ -51,6 +56,7 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     if (this.loginForm.valid) {
       this.subscription = this.auth.login(this.loginForm.value).subscribe({
         next: (result: any) => {
+          // console.log(result);
           if (result) {
             // id number and phone number is correct
             this.auth.setUsername(this.loginForm.value.username);
@@ -70,6 +76,7 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
           }
         },
         error: (error) => {
+          this.getCaptcha();
           if (error['0']=== 'passwordIsWrong') {
             this.sharedService.showError('کلمه عبور اشتباه است');
           }else
@@ -83,9 +90,19 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
   }
 
   getCaptcha() {
-    this.subscription = this.auth.getCaptcha().subscribe(result => {
-      this.captchaImage = result;
-    })
+    this.subscription = this.auth.getCaptcha().subscribe(
+      {
+        next:(result:any) => {
+        
+          const data = JSON.parse(result);
+          this.captchaImage = data.image;
+          sessionStorage.setItem('captchaAccessKey',data.id);
+          this.loginForm.controls['accessKey'].setValue(data.id);
+        },
+        error:(err)=> {
+        },
+      }
+    )
   }
 
   goToActivationtion() {
@@ -101,6 +118,10 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
   signUp() {
     this.router.navigate(['auth/user-authentication']);
     this.sharedService.returnUrl.next('auth/user-registration');
+  }
+
+  showPass(){
+    this.passType==='password'?this.passType='text':this.passType='password'
   }
 
 }

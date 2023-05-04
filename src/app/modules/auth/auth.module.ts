@@ -19,7 +19,7 @@ import { PersonnelFilterModule } from 'app/core/components/personnel-filter/pers
 
 const routes: Routes = [
     {
-        path: '', redirectTo: 'login'
+        path: '', redirectTo: 'login',pathMatch:'full'
     }
     , {
         path: 'login', component: LoginComponent

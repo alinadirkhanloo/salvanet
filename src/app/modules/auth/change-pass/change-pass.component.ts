@@ -26,7 +26,7 @@ constructor(private router:Router,
 ngOnInit(): void {
   //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
   //Add 'implements OnInit' to the class.
-  if (!this.auth.getUsername()) {
+  if (!this.auth.getUsername() || this.shService.returnUrl.value === '') {
     this.goToLogin();
   }
 }

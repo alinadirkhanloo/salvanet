@@ -10,9 +10,9 @@
     </div>
     <p-confirmDialog [position]="'top'"></p-confirmDialog>
     <div class="shadow rounded bg-white mb-1">
-      <div class="card-header">
+      <div class="p-4">
         <p-button label="ایجاد" icon="pi pi-plus" iconPos="left" (click)="addNewNode('pages/new')" styleClass="p-button-success ml-2" pTooltip="ایجاد" tooltipvenue="bottom"></p-button>
-      </div>
+        <p-button label="بارگذاری تقسیمات کشوری" icon="pi pi-sync" iconPos="left"  styleClass="p-button-info ml-2" pTooltip="ایجاد" tooltipvenue="bottom"></p-button>      </div>
     </div>
     <ng-container *ngIf="load">
       <app-dynamic-tree [configs]="baseInfoTreeConfig" >

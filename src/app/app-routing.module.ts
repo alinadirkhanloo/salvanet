@@ -18,7 +18,7 @@ const routes: Routes = [
     path: 'pages',
     loadChildren: () => import('./modules/page-container/page-container.module')
       .then(m => m.PageContainerModule),
-  },// canActivate: [AccountGuard]
+   canActivate: [AccountGuard] },
   {
     path: 'role-determination',
     loadChildren: () => import('modules/role/role.module')

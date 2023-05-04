@@ -1,13 +1,14 @@
 <div class="authincation h-100">
-  <div class="vh-100">
+  <div class="">
     <div class="row">
       <div class="col-lg-10 col-md-10 m-auto">
-        <div class="card" style="display: contents">
+        <div class="card pb-4" style="display: contents">
           <div class="card-header">
-            <h3 class="">ایجاد فرد جدید</h3>
+            <h3 class="">مشخصات پرسنل</h3>
           </div>
           <div class="card-body bg-white">
             <form [formGroup]="accountForm" class="row mx-0 px-0" *ngIf="!loading">
+
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>کد ملی</small></label>
                 <input
@@ -15,8 +16,9 @@
                   class="form-control text-center"
                   placeholder=""
                   [readonly]="updateMode"
+                  [disabled]="updateMode"
                   maxlength="10"
-                  minlength="10"
+                  minlength="8"
                   [ngClass]="{
                     'is-valid': accountForm.controls['nationalCode'].valid,
                     'is-invalid':
@@ -25,12 +27,25 @@
                   }"
                   formControlName="nationalCode"
                 />
+                <div
+                  *ngIf="
+                    accountForm.controls['nationalCode'].invalid &&
+                    (accountForm.controls['nationalCode'].dirty || accountForm.controls['nationalCode'].touched)
+                    || (!checlCodeMelli && accountForm.controls['nationalCode'].dirty)
+                  "
+                  class="text-danger fs-13 mt-1"
+                >
+                  <div *ngIf="accountForm.controls['nationalCode'].errors.required">هیچ مقداری برای کدملی از موجودیت فرد حقیقی وارد نشده است							</div>
+                  
+                </div>
+                <div class="text-danger fs-13 mt-1" *ngIf="!checlCodeMelli && accountForm.controls['nationalCode'].dirty ">مقدار وارد شده برای کد ملی معتبر نمی باشد</div>
               </div>
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>نام</small></label>
                 <input
                   type="text"
                   class="form-control text-center"
+                  minlength="3"
                   maxlength="64"
                   [ngClass]="{
                     'is-valid': accountForm.controls['firstName'].valid,
@@ -41,6 +56,15 @@
                   formControlName="firstName"
                   placeholder=""
                 />
+                <div
+                  *ngIf="
+                    accountForm.controls['firstName'].invalid &&
+                    (accountForm.controls['firstName'].dirty || accountForm.controls['firstName'].touched)
+                  "
+                  class="text-danger fs-13 mt-1"
+                >
+                  <div *ngIf="accountForm.controls['firstName'].errors.required">هیچ مقداری برای نام از موجودیت فرد حقیقی وارد نشده است							</div>
+                </div>
               </div>
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>نام خانوادگی</small></label>
@@ -48,6 +72,7 @@
                   type="text"
                   class="form-control text-center"
                   maxlength="64"
+                  minlength="3"
                   [ngClass]="{
                     'is-valid': accountForm.controls['lastName'].valid,
                     'is-invalid':
@@ -57,6 +82,12 @@
                   formControlName="lastName"
                   placeholder=""
                 />
+                <div *ngIf="accountForm.controls['lastName'].invalid && (accountForm.controls['lastName'].dirty || accountForm.controls['lastName'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['lastName'].errors.required">
+                      هیچ مقداری برای نام خانوادگی از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -64,7 +95,7 @@
                 <input
                   type="text"
                   class="form-control text-center"
-                  maxlength="24"
+                  maxlength="10"
                   OnlyNumber="true"
                   [ngClass]="{
                     'is-valid': accountForm.controls['identityCardNumber'].valid,
@@ -75,6 +106,12 @@
                   formControlName="identityCardNumber"
                   placeholder=""
                 />
+                <div *ngIf="accountForm.controls['identityCardNumber'].invalid && (accountForm.controls['identityCardNumber'].dirty || accountForm.controls['identityCardNumber'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['identityCardNumber'].errors.required">
+                      هیچ مقداری برای شماره شناسنامه از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -90,17 +127,19 @@
                         openFindBox(
                           'identityCardIssuingPlaceId',
                           'identityCardIssuingPlaceTitle',
-                          'countryDivision/findBy/asd',
+                          'countryDivision/',
+                          'countryDivision/countryDivisionSubDivisions',
                           'انتخاب محل'
                         )
                       "
                     >
-                    <i class="las la-bars"></i>
+                      <i class="las la-bars"></i>
                     </button>
                   </div>
                   <input
                     type="text"
                     readonly
+                    disabled
                     class="form-control text-left"
                     [ngClass]="{
                       'is-valid': accountForm.controls['identityCardIssuingPlaceTitle'].valid,
@@ -111,6 +150,12 @@
                     formControlName="identityCardIssuingPlaceTitle"
                     placeholder=""
                   />
+                  <div *ngIf="accountForm.controls['identityCardIssuingPlaceId'].invalid && (accountForm.controls['identityCardIssuingPlaceId'].dirty || accountForm.controls['identityCardIssuingPlaceId'].touched)" class="text-danger fs-13 mt-1">
+													
+                    <div *ngIf="accountForm.controls['identityCardIssuingPlaceId'].errors.required">
+                        هیچ مقداری برای محل صدور شناسنامه از موجودیت فرد حقیقی وارد نشده است							
+                    </div>
+                </div>
                 </div>
               </div>
 
@@ -125,6 +170,12 @@
                   <option value="1">مرد</option>
                   <option value="2">زن</option>
                 </select>
+                <div *ngIf="accountForm.controls['gender'].invalid && (accountForm.controls['gender'].dirty || accountForm.controls['gender'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['gender'].errors.required">
+                      هیچ مقداری برای جنسیت از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -145,6 +196,12 @@
                   formControlName="birthDate"
                   placeholder=""
                 />
+                <div *ngIf="accountForm.controls['birthDate'].invalid && (accountForm.controls['birthDate'].dirty || accountForm.controls['birthDate'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['birthDate'].errors.required">
+                      هیچ مقداری برای تاریخ تولد از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
                 <mat-datepicker #picker1></mat-datepicker>
               </div>
 
@@ -161,16 +218,17 @@
                           'birthPlaceId',
                           'birthPlaceTitle',
                           'countryDivision',
+                          'countryDivision/countryDivisionSubDivisions',
                           'انتخاب محل'
                         )
                       "
                     >
-                    <i class="las la-bars"></i>
+                      <i class="las la-bars"></i>
                     </button>
                   </div>
                   <input
                     type="text"
-                    readonly
+                    readonly disabled
                     class="form-control text-left"
                     [ngClass]="{
                       'is-valid': accountForm.controls['birthPlaceTitle'].valid,
@@ -181,6 +239,12 @@
                     formControlName="birthPlaceTitle"
                     placeholder=""
                   />
+                  <div *ngIf="accountForm.controls['birthPlaceId'].invalid && (accountForm.controls['birthPlaceId'].dirty || accountForm.controls['birthPlaceId'].touched)" class="text-danger fs-13 mt-1">
+													
+                    <div *ngIf="accountForm.controls['birthPlaceId'].errors.required">
+                        هیچ مقداری برای محل تولد از موجودیت فرد حقیقی وارد نشده است							
+                    </div>
+                </div>
                 </div>
               </div>
 
@@ -195,6 +259,12 @@
                   <option value="1">ایرانی</option>
                   <option value="2">غیر ایرانی</option>
                 </select>
+                <div *ngIf="accountForm.controls['nationalityId'].invalid && (accountForm.controls['nationalityId'].dirty || accountForm.controls['nationalityId'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['nationalityId'].errors.required">
+                      هیچ مقداری برای ملیت از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -208,6 +278,12 @@
                   <option>ایران</option>
                   <option>سایر</option>
                 </select>
+                <div *ngIf="accountForm.controls['residencePlaceId'].invalid && (accountForm.controls['residencePlaceId'].dirty || accountForm.controls['residencePlaceId'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['residencePlaceId'].errors.required">
+                      هیچ مقداری برای تابعیت از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>دین</small></label>
@@ -222,18 +298,26 @@
                   <option value="3">يهوديت</option>
                   <option value="4">زردشت</option>
                 </select>
+                <div *ngIf="accountForm.controls['religion'].invalid && (accountForm.controls['religion'].dirty || accountForm.controls['religion'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['religion'].errors.required">
+                      هیچ مقداری برای دین از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
               </div>
-              <div class="form-group col-lg-4">
+              </div>
+              <div class="form-group col-lg-4" *ngIf="accountForm.controls['religion'].value === 1">
                 <label class="mb-1"><small>مذهب</small></label>
-                <select
-                  id="inputState"
-                  formControlName="sect"
-                  class="form-control default-select"
-                >
+                <select id="inputState" formControlName="sect"  class="form-control default-select">
                   <option value="" disabled selected>...</option>
                   <option value="1">شیعه</option>
                   <option value="2">سنی</option>
                 </select>
+                <div *ngIf="accountForm.controls['sect'].invalid && (accountForm.controls['sect'].dirty || accountForm.controls['sect'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['sect'].errors.required">
+                      هیچ مقداری برای مذهب از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -248,6 +332,12 @@
                   <option value="2">مشمول</option>
                   <option value="3">معاف</option>
                 </select>
+                <div *ngIf="accountForm.controls['militaryStatus'].invalid && (accountForm.controls['militaryStatus'].dirty || accountForm.controls['militaryStatus'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['militaryStatus'].errors.required">
+                      هیچ مقداری برای وضعیت نظام وظیقه از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -262,8 +352,14 @@
                   <option value="2">متاهل</option>
                   <option value="3">متارکه</option>
                 </select>
+                <div *ngIf="accountForm.controls['maritalStatus'].invalid && (accountForm.controls['maritalStatus'].dirty || accountForm.controls['maritalStatus'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['maritalStatus'].errors.required">
+                      هیچ مقداری برای وضعیت تاهل از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
               </div>
-              <div class="form-group col-lg-4">
+              </div>
+              <div class="form-group col-lg-4"  *ngIf="accountForm.controls['maritalStatus'].value !== 1">
                 <label class="mb-1"><small> تعداد فرزندان</small></label>
                 <input
                   type="number"
@@ -279,6 +375,12 @@
                   formControlName="numberOfChildren"
                   placeholder=""
                 />
+                <div *ngIf="accountForm.controls['numberOfChildren'].invalid && (accountForm.controls['numberOfChildren'].dirty || accountForm.controls['numberOfChildren'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['numberOfChildren'].errors.required">
+                      هیچ مقداری برای تعداد فرزندان از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -295,6 +397,12 @@
                   <option value="4">دانش جو</option>
                   <option value="5">بیکار</option>
                 </select>
+                <div *ngIf="accountForm.controls['employmentStatus'].invalid && (accountForm.controls['employmentStatus'].dirty || accountForm.controls['employmentStatus'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['employmentStatus'].errors.required">
+                      هیچ مقداری برای وضعیت اشتغال از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -308,6 +416,12 @@
                   <option value="false">فارغ التحصیل</option>
                   <option value="true">درحال تحصیل</option>
                 </select>
+                <div *ngIf="accountForm.controls['studying'].invalid && (accountForm.controls['studying'].dirty || accountForm.controls['studying'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['studying'].errors.required">
+                      هیچ مقداری برای وضعیت تحصیلی از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
               <div class="form-group col-lg-4">
@@ -329,8 +443,60 @@
                   <option value="9">دکترا | اجتهاد حوزوي</option>
                   <option value="10">دکتراي تخصصي | فوق دکترا</option>
                 </select>
+                <div *ngIf="accountForm.controls['levelOfEducation'].invalid && (accountForm.controls['levelOfEducation'].dirty || accountForm.controls['levelOfEducation'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['levelOfEducation'].errors.required">
+                      هیچ مقداری برای سطح تحصیلات از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
 
+              <div class="form-group col-lg-4">
+                <label class="mb-1"><small>محل سکونت</small></label>
+
+                <div class="input-group" dir="ltr">
+                  <div class="input-group-prepend">
+                    <button
+                      class="btn btn-primary"
+                      type="button"
+                      style="max-height: 56px; height: 100%"
+                      (click)="
+                        openFindBox(
+                          'residencePlaceId',
+                          'residencePlaceTitle',
+                          'countryDivision/',
+                          'countryDivision/countryDivisionSubDivisions',
+                          'انتخاب محل'
+                        )
+                      "
+                    >
+                      <i class="las la-bars"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    readonly
+                    disabled
+                    class="form-control text-left"
+                    [ngClass]="{
+                      'is-valid': accountForm.controls['residencePlaceId'].valid,
+                      'is-invalid':
+                        accountForm.controls['residencePlaceId'].invalid &&
+                        accountForm.controls['residencePlaceId'].touched
+                    }"
+                    formControlName="residencePlaceId"
+                    placeholder=""
+                  />
+                  <div *ngIf="accountForm.controls['residencePlaceId'].invalid &&
+                   (accountForm.controls['residencePlaceId'].dirty || accountForm.controls['residencePlaceId'].touched)" class="text-danger fs-13 mt-1">
+													
+                    <div *ngIf="accountForm.controls['residencePlaceId'].errors.required">
+                        هیچ مقداری برای محل سکونت از موجودیت فرد حقیقی وارد نشده است							
+                    </div>
+                </div>
+                </div>
+              </div>
+              
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small> آدرس</small></label>
                 <input
@@ -346,6 +512,12 @@
                   formControlName="address"
                   placeholder=""
                 />
+                <div *ngIf="accountForm.controls['address'].invalid && (accountForm.controls['address'].dirty || accountForm.controls['address'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['address'].errors.required">
+                      هیچ مقداری برای آدرس از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
+              </div>
               </div>
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>شماره سيم کارت</small></label>
@@ -364,39 +536,35 @@
                   formControlName="simnumber"
                   placeholder="- -  - -  - - -  - - 09"
                 />
+                <div *ngIf="accountForm.controls['simnumber'].invalid && (accountForm.controls['simnumber'].dirty || accountForm.controls['simnumber'].touched)" class="text-danger fs-13 mt-1">
+													
+                  <div *ngIf="accountForm.controls['simnumber'].errors.required">
+                      هیچ مقداری برای شماره سیمکارت از موجودیت فرد حقیقی وارد نشده است							
+                  </div>
               </div>
-
-
+              </div>
             </form>
           </div>
           <div class="card-footer bg-white">
-
-<div class="text-center">
-                <button
-                  type="submit"
-                  pButton
-                  pRipple
-                  [disabled]="accountForm.invalid || disableButton"
-                  (click)="submitPerson()"
-                  class="p-button-success mx-2"
-                >
-                  <span *appSpinOn="disableButton; color: 'warn'"></span>
-                  بررسی و ثبت
-                </button>
-                <button
-                  type="button"
-                  (click)="cancle()"
-                  pButton
-                  pRipple
-                  class="p-button-danger"
-                >
-                  انصراف
-                </button>
-              </div>
+            <div class="text-center">
+              <button
+                type="submit"
+                pButton
+                pRipple
+                [disabled]="accountForm.invalid || disableButton"
+                (click)="submitAsPerson()"
+                class="p-button-success mx-2"
+              >
+                <span *appSpinOn="disableButton; color: 'warn'"></span>
+                بررسی و ثبت
+              </button>
+              <button type="button" (click)="cancle()" pButton pRipple class="p-button-danger">
+                انصراف
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-

@@ -34,7 +34,7 @@ export class CultivarFormComponent implements OnInit, OnDestroy{
         code:['',[Validators.required,Validators.maxLength(4),Validators.minLength(2)]],
         name:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
         description:['',[Validators.required,Validators.maxLength(512)]],
-        parentId:-1
+        productId:-1
         
       })
   }

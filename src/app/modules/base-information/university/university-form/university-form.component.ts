@@ -40,7 +40,7 @@ export class UniversityFormComponent  implements OnInit, OnDestroy{
         id:-1,
         name:['',[Validators.required,Validators.maxLength(32),Validators.minLength(2)]],
         locatedInId:['',[Validators.required]],
-        locatedInLabel:['',[Validators.required]],
+        locatedInName:['',[Validators.required]],
       })
   }
   ngOnDestroy(): void {
@@ -48,6 +48,8 @@ export class UniversityFormComponent  implements OnInit, OnDestroy{
   }
   ngOnInit(): void {
     if (this.updateMode) {
+      console.log(this.product);
+      
       this.editForm.setValue(this.product);
     }
   }

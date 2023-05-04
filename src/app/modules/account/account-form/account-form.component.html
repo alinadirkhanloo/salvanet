@@ -12,7 +12,7 @@
                                     <div class="form-group col-lg-4">
                                         <label class="mb-1"><small>کد ملی</small></label>
                                         <input type="text" class="form-control text-center"
-                                        maxlength="36"
+                                        maxlength="36" OnlyNumber="true"
                                             [ngClass]="{
                                         'is-valid':accountForm.controls['nationalId'].valid,
                                         'is-invalid':accountForm.controls['nationalId'].invalid && accountForm.controls['nationalId'].touched}"
@@ -41,7 +41,7 @@
                                     <div class="form-group col-lg-4">
                                         <label class="mb-1"><small>شماره شناسنامه</small></label>
                                         <input type="text" class="form-control text-center"
-                                        maxlength="24"
+                                        maxlength="24" OnlyNumber="true"
                                             [ngClass]="{
                                         'is-valid':accountForm.controls['idNumber'].valid,
                                         'is-invalid':accountForm.controls['idNumber'].invalid && accountForm.controls['idNumber'].touched}"
@@ -148,7 +148,7 @@
                                     <div class="form-group col-lg-4">
                                         <label class="mb-1"><small> تعداد فرزندان</small></label>
                                         <input type="text" class="form-control text-center"
-                                        maxlength="24"
+                                        maxlength="24" OnlyNumber="true"
                                             [ngClass]="{
                                         'is-valid':accountForm.controls['childNum'].valid,
                                         'is-invalid':accountForm.controls['childNum'].invalid && accountForm.controls['childNum'].touched}"
@@ -214,7 +214,7 @@
                                             <span *appSpinOn="disableButton; color: 'warn';"></span>
                                             تایید
                                         </button>
-                                        <button type="submit" (click)="show()" pButton pRipple [disabled]="!accountForm.valid || disableButton"
+                                        <button type="button" (click)="show()" pButton pRipple [disabled]="!accountForm.valid || disableButton"
                                              class="p-button-danger">
                                             انصراف
                                         </button>

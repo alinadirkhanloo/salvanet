@@ -4,6 +4,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SharedService } from 'app/shared/services/shared.service';
 import { GenericClass } from 'app/core/models/genericClass.model';
+import { AuthenticateErrors } from 'app/core/enums/errors.enum';
 
 @Component({
   selector: 'app-user-auth',
@@ -32,6 +33,7 @@ export class UserAuthComponent extends GenericClass implements OnInit,OnDestroy 
       username: ['', [Validators.required, Validators.maxLength(10)]],
       mobile: ['', [Validators.required, Validators.pattern(`^09[0-9]{9}`), Validators.maxLength(11),Validators.minLength(11)]],
       captcha: ['', [Validators.required]],
+      accessKey: ['', []],
       action: ['', []]
     });
   }
@@ -43,7 +45,8 @@ export class UserAuthComponent extends GenericClass implements OnInit,OnDestroy 
   ngOnInit(): void {
     this.getCaptcha();
     let a = this.sharedService.returnUrl.value;
-    if (a) {
+
+    if (a!=='' && sessionStorage.getItem('captchaAccessKey') !== null) {
       this.accountForm.controls['action'].setValue(this.conditions[a]);
     }else this.router.navigate(['/']);
     
@@ -51,7 +54,10 @@ export class UserAuthComponent extends GenericClass implements OnInit,OnDestroy 
 
   getCaptcha(){
     this.subscription = this.auth.getCaptcha().subscribe(result=>{
-      this.captchaImage = result;
+      const data = JSON.parse(result);
+      this.captchaImage = data.image;
+      sessionStorage.setItem('captchaAccessKey',data.id);
+      this.accountForm.controls['accessKey'].setValue(sessionStorage.getItem('captchaAccessKey'));
     })
   }
 
@@ -74,7 +80,7 @@ export class UserAuthComponent extends GenericClass implements OnInit,OnDestroy 
             return
           }
         },
-        error: () => {
+        error: (err) => {
             this.disableButton = false;
         }
       });

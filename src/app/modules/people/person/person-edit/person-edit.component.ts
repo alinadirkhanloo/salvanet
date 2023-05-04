@@ -49,24 +49,22 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
       identityCardIssuingPlaceId: ['', [Validators.required]],
       identityCardIssuingPlaceTitle: ['', [Validators.required]],
       nationalityId: ['', [Validators.required]],
-      nationalityTitle: ['', [Validators.required]],
       residencePlaceId: ['', [Validators.required]],
+      residencePlaceTitle: ['', [Validators.required]],
       religion: ['', [Validators.required]],
-      sect: ['', [Validators.required]],
+      sect: [null],
       militaryStatus: ['', [Validators.required]],
       maritalStatus: ['', [Validators.required]],
-      numberOfChildren: ['', [Validators.required]],
+      numberOfChildren: [null, [Validators.required]],
       employmentStatus: ['', [Validators.required]],
       levelOfEducation: ['', [Validators.required]],
-      studying: ['', [Validators.required]],
+      studying: [''],
       address: ['', [Validators.required]],
-      simnumber: ['', [Validators.required]],
-      id: -1,
-      profileId: -1
+      simnumber: ['', [Validators.required]]
     });
   }
-  
-  ngOnInit(): void { 
+
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
@@ -76,12 +74,12 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
       }
     });
   }
-  
+
   loadById(id:number|string) {
     let res = this.pService.readById(id).subscribe({
       next:(result)=>{
-        this.setDataToForm(result);
         this.loading = false;
+        this.setDataToForm(result);
       },
       error(err) {},
       complete() {
@@ -93,8 +91,8 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   setDataToForm(entityData:any) {
     this.accountForm.setValue(entityData as IPerson[]);
   }
-  
-  openFindBox(idControlName:string,titleControlname:string,url,title:string) {
+
+  openFindBox(idControlName:string,titleControlname:string,url:string,expandUrl:string,title:string) {
     this.treeConfig = {
 
           treeNodes$: this.commonService.getTree(url),
@@ -103,8 +101,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
           onNodeSelect: new ReplaySubject<any>(1),
 
           lazyUrl: [
-            `${url}`,
-            '',
+            expandUrl,''
           ],
 
           selectionMode: SelectionMode.SINGLE_SELECT
@@ -116,8 +113,10 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
         modalRef.result.then((result) => {
           // this.closeResult = `Closed with: ${result}`;
             console.log(result);
-            this.accountForm.controls[idControlName].setValue(result.data);
+            if (result) {
+              this.accountForm.controls[idControlName].setValue(result.data);
             this.accountForm.controls[titleControlname].setValue(result.label);
+            }
         }, (reason) => {
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
@@ -125,7 +124,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   }
 
   submitPerson(){
-    return  this.pService.create(this.accountForm.value)
+    return  this.pService.create(this.accountForm.value);
   }
 
   submitAsPerson() {
@@ -139,8 +138,10 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   }
 
 
-  goToLogin() {
-    this.router.navigate(['/pages/personnel']);
+  cancle() {
+    // this.router.navigate(['/pages/personnel']);
+    console.log(this.accountForm.value);
+    
   }
 
 
@@ -151,4 +152,11 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
       this.ref.close();
     }
   }
+
+  get checlCodeMelli() {
+    console.log(this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value));
+    
+    return this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value);
+  }
+
 }

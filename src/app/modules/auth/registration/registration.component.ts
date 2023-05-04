@@ -60,15 +60,15 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
+    
     let username = this.auth.getUsername();
-    if (!username) {
+    if (!username || this._sh.returnUrl.value === '') {
       this.goToLogin();
     } else {
       this.auth.getPerson(username).subscribe(result=>{
-        console.log('kk', result);
-        
         this.accountForm.controls['nationalCode'].setValue(result['nationalCode']);
         this.accountForm.controls['simnumber'].setValue(result['simnumber']);
+        this.accountForm.controls['id'].setValue(result['id']);
       });
 
     }
@@ -129,7 +129,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       residencePlaceId: this.accountForm.value.residencePlaceId,
       simnumber: this.accountForm.value.simnumber,
       studying: this.accountForm.value.studying,
-      id: null
+      id: this.accountForm.value.id
     };
     return this.auth.editPerson(temp);
   }

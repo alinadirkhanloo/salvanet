@@ -4,5 +4,5 @@ export interface IFile {
 	createdAt: string;
 	modifiedAt: string;
 	size: number;
-	content: number;
+	content: string[];
 }

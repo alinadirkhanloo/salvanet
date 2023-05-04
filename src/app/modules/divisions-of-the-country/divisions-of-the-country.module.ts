@@ -11,7 +11,7 @@ import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
 const routes: Routes = [
   {
     path:'',
-    redirectTo:'tree'
+    redirectTo:'tree',pathMatch:'full'
   },
   {
     path: 'tree', component: DivisionsOfTheCountryComponent,

@@ -12,7 +12,9 @@
                             <form [formGroup]="accountActivationForm">
                                 <div class="form-group">
                                     <label class="mb-1"><small>کد ملی</small></label>
-                                    <input type="text" class="form-control text-center" maxlength="36"
+                                    <input type="text" class="form-control text-center" 
+                                    OnlyNumber="true"
+                                    maxlength="36"
                                         [ngClass]="{
                                         'is-valid':accountActivationForm.controls['idNumber'].valid,
                                         'is-invalid':accountActivationForm.controls['idNumber'].invalid && accountActivationForm.controls['idNumber'].touched}"

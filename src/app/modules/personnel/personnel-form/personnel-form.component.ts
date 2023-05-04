@@ -50,20 +50,18 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
       identityCardIssuingPlaceId: ['', [Validators.required]],
       identityCardIssuingPlaceTitle: ['', [Validators.required]],
       nationalityId: ['', [Validators.required]],
-      nationalityTitle: ['', [Validators.required]],
       residencePlaceId: ['', [Validators.required]],
+      residencePlaceTitle: ['', [Validators.required]],
       religion: ['', [Validators.required]],
-      sect: ['', [Validators.required]],
+      sect: [null],
       militaryStatus: ['', [Validators.required]],
       maritalStatus: ['', [Validators.required]],
-      numberOfChildren: ['', [Validators.required]],
+      numberOfChildren: [null, [Validators.required]],
       employmentStatus: ['', [Validators.required]],
       levelOfEducation: ['', [Validators.required]],
-      studying: ['', [Validators.required]],
+      studying: [''],
       address: ['', [Validators.required]],
-      simnumber: ['', [Validators.required]],
-      id: -1,
-      profileId: -1
+      simnumber: ['', [Validators.required]]
     });
   }
 
@@ -95,7 +93,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
     this.accountForm.setValue(entityData as IPerson[]);
   }
 
-  openFindBox(idControlName:string,titleControlname:string,url,title:string) {
+  openFindBox(idControlName:string,titleControlname:string,url:string,expandUrl:string,title:string) {
     this.treeConfig = {
 
           treeNodes$: this.commonService.getTree(url),
@@ -104,8 +102,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
           onNodeSelect: new ReplaySubject<any>(1),
 
           lazyUrl: [
-            `${url}`,
-            '',
+            expandUrl,''
           ],
 
           selectionMode: SelectionMode.SINGLE_SELECT
@@ -117,8 +114,10 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
         modalRef.result.then((result) => {
           // this.closeResult = `Closed with: ${result}`;
             console.log(result);
-            this.accountForm.controls[idControlName].setValue(result.data);
+            if (result) {
+              this.accountForm.controls[idControlName].setValue(result.data);
             this.accountForm.controls[titleControlname].setValue(result.label);
+            }
         }, (reason) => {
             // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
@@ -126,7 +125,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
   }
 
   submitPerson(){
-    return  this.pService.create(this.accountForm.value)
+    return  this.pService.create(this.accountForm.value);
   }
 
   submitAsPerson() {
@@ -141,7 +140,9 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
 
 
   cancle() {
-    this.router.navigate(['/pages/personnel']);
+    // this.router.navigate(['/pages/personnel']);
+    console.log(this.accountForm.value);
+    
   }
 
 
@@ -152,4 +153,11 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
       this.ref.close();
     }
   }
+
+  get checlCodeMelli() {
+    console.log(this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value));
+    
+    return this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value);
+  }
+
 }

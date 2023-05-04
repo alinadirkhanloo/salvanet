@@ -1,6 +1,6 @@
 export interface IUniversity {
     id: number;
     locatedInId: string 
-    locatedInLabel: string 
+    locatedInName: string 
     name: string //maxLength: 32,minLength: 2
 }
