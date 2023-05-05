@@ -24,26 +24,72 @@
                                     حداقل یک حرف بزرگ انگلیسی، حداقل یک حرف کوچک انگلیسی، حداقل یک عدد و یکی از علايم @*$# باشد
                                     </p>
                                     <div class="form-group">
+                                        
                                         <label class="mb-1"><small>کلمه عبور جدید</small></label>
-                                        <input type="password" class="form-control text-center"
+                                        <div class="input-group input-primary-o mb-5" dir="ltr">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text p-0">
+                                                <button class="btn fs-18 p-2 mx-2" style="height: 35px;" (click)="showPass1()">
+                                                  <i *ngIf="passType1=='password'" class="las la-eye"></i>
+                                                  <i *ngIf="passType1=='text'" class="las la-eye-slash"></i>
+                                                </button>
+                                              </span>
+                                            </div>
+                                            <input
+                                              [type]="passType1"
+                                              id="pass"
+                                              class="form-control text-center border-left-0"
+                                              maxlength="36"
+                                              minlength="8"
+                                              style="padding-right: 24%;"
+                                              tooltipPosition="right"
+                                              tooltipEvent="focus"
+                                              formControlName="pass"
+                                              placeholder="- - - - - - - - - -"
+                                            />
+                                            </div>
+                                        <!-- <input [type]="passType1" class="form-control text-center"
                                         maxlength="36" minlength="8"
                                             [ngClass]="{
                                         'is-valid':passForm.controls['pass'].valid,
                                         'is-invalid':passForm.controls['pass'].invalid && passForm.controls['pass'].touched}"
-                                            formControlName="pass" placeholder="- - - - - - - - - -">
+                                            formControlName="pass" placeholder="- - - - - - - - - -"> -->
                                     </div>
                                     <div class="form-group mb-5">
                                         <label class="mb-1"><small>تکرار کلمه عبور جدید</small></label>
-                                        <input type="password" class="form-control text-center"
+                                        <div class="input-group input-primary-o mb-1" dir="ltr">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text p-0">
+                                                <button class="btn fs-18 p-2 mx-2" style="height: 35px;" (click)="showPass2()">
+                                                  <i *ngIf="passType2=='password'" class="las la-eye"></i>
+                                                  <i *ngIf="passType2=='text'" class="las la-eye-slash"></i>
+                                                </button>
+                                              </span>
+                                            </div>
+                                            <input
+                                              [type]="passType2"
+                                              id="pass2"
+                                              class="form-control text-center border-left-0"
+                                              maxlength="36"
+                                              minlength="8"
+                                              style="padding-right: 24%;"
+                                              tooltipPosition="right"
+                                              tooltipEvent="focus"
+                                              formControlName="repPass"
+                                              placeholder="- - - - - - - - - -"
+                                            />
+                                            
+                                        <!-- <input [type]="passType2" class="form-control text-center"
                                         maxlength="36" minlength="8"
                                             [ngClass]="{
                                         'is-valid':passForm.controls['repPass'].valid,
                                         'is-invalid':passForm.controls['repPass'].invalid && passForm.controls['repPass'].touched}"
-                                            formControlName="repPass" placeholder="- - - - - - - - - -" >
-
-                                            <div *ngIf="isSame && passForm.controls['repPass'].dirty">
-                                              <p [ngClass]="{'pt-2 fs-14 text-danger':passForm.controls['repPass'].invalid && passForm.controls['repPass'].touched}">کلمه عبور و تکرار کلمه عبور یکسان نیستند</p>
-                                            </div>
+                                            formControlName="repPass" placeholder="- - - - - - - - - -" > -->
+                                                </div>
+                                                <div *ngIf="isSame && passForm.controls['repPass'].dirty">
+                                                    <p class="pt-2 fs-12 text-danger">کلمه عبور و تکرار کلمه عبور یکسان نیستند</p>
+                                                  </div>
+                                            
                                     </div>
 
                                     <div class="text-center">
@@ -53,7 +99,7 @@
                                             تایید
                                         </button>
                                         <button
-                                            (click)="goToLogin()" class="btn btn-primary">
+                                            (click)="goToLogin()" class="btn btn-danger">
                                             انصراف
                                         </button>
                                     </div>

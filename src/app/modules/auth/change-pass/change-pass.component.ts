@@ -10,12 +10,16 @@ import { SharedService } from 'app/shared/services/shared.service';
   styleUrls: ['./change-pass.component.css']
 })
 export class ChangePassComponent implements OnInit{
-
+  passType1='password';
+  passType2='password';
 passForm :FormGroup;
 disableSubmitButton = false;
 disableActiveationButton = false;
 constructor(private router:Router,
-  private route: ActivatedRoute,private _formBuilder:FormBuilder,private auth:AuthService,private shService:SharedService){
+  private route: ActivatedRoute,
+  private _formBuilder:FormBuilder,
+  private auth:AuthService,
+  private shService:SharedService){
 
   this.passForm = this._formBuilder.group({
     pass: ['', [Validators.required,Validators.pattern('^(?=.*?[a-z])(.{36,}|(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,36})$')]],
@@ -24,9 +28,8 @@ constructor(private router:Router,
 
 }
 ngOnInit(): void {
-  //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-  //Add 'implements OnInit' to the class.
-  if (!this.auth.getUsername() || this.shService.returnUrl.value === '') {
+
+  if (!this.auth.getUsername() && this.shService.returnUrl.value === '') {
     this.goToLogin();
   }
 }
@@ -38,6 +41,7 @@ submit(){
     this.auth.changePassword(this.auth.getUsername(),this.passForm.value.pass).subscribe({
       next:()=>{
         this.shService.showSuccess();
+        this.shService.returnUrl.next('');
         this.goToLogin();
       },
       error:()=>{
@@ -51,6 +55,14 @@ submit(){
 
 goToLogin(){
   this.router.navigate(['/'])
+}
+
+showPass1(){
+  this.passType1==='password'?this.passType1='text':this.passType1='password'
+}
+
+showPass2(){
+  this.passType2==='password'?this.passType2='text':this.passType2='password'
 }
 
 get isSame(){

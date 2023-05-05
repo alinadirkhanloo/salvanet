@@ -52,13 +52,12 @@ export class ErrorInterceptor implements HttpInterceptor {
             if (err.status === 401) {
                 this.shService.showError(AuthenticateErrors[err.error[0]]);
             } else 
-            if (this.authenticationService.getUser()) {
             if (err.status === 500) {
 
-                this.shService.showError("سرور با خطا مواجه شده است لطفا مجددا تلاش نمایید");
+                this.shService.showError(AuthenticateErrors[err.error[0]]);
 
             }
-        }
+        
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))

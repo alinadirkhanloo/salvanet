@@ -31,22 +31,22 @@
                   *ngIf="
                     accountForm.controls['nationalCode'].invalid &&
                     (accountForm.controls['nationalCode'].dirty || accountForm.controls['nationalCode'].touched)
-                    || (!checlCodeMelli && accountForm.controls['nationalCode'].dirty)
+                    || (!checkCodeMelli && accountForm.controls['nationalCode'].dirty)
                   "
                   class="text-danger fs-13 mt-1"
                 >
-                  <div *ngIf="accountForm.controls['nationalCode'].errors.required">هیچ مقداری برای کدملی از موجودیت فرد حقیقی وارد نشده است							</div>
+                  <div *ngIf="accountForm.controls['nationalCode'].errors?.required">هیچ مقداری برای کدملی از موجودیت فرد حقیقی وارد نشده است</div>
                   
                 </div>
-                <div class="text-danger fs-13 mt-1" *ngIf="!checlCodeMelli && accountForm.controls['nationalCode'].dirty ">مقدار وارد شده برای کد ملی معتبر نمی باشد</div>
+                <div class="text-danger fs-13 mt-1" *ngIf="!checKCodeMelli && accountForm.controls['nationalCode'].dirty ">مقدار وارد شده برای کد ملی معتبر نمی باشد</div>
               </div>
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>نام</small></label>
                 <input
                   type="text"
                   class="form-control text-center"
-                  maxlength="64"
                   minlength="3"
+                  maxlength="64"
                   [ngClass]="{
                     'is-valid': accountForm.controls['firstName'].valid,
                     'is-invalid':
@@ -96,7 +96,6 @@
                   type="text"
                   class="form-control text-center"
                   maxlength="10"
-                  minlength="8"
                   OnlyNumber="true"
                   [ngClass]="{
                     'is-valid': accountForm.controls['identityCardNumber'].valid,
@@ -167,9 +166,9 @@
                   formControlName="gender"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">مرد</option>
-                  <option value="2">زن</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">مرد</option>
+                    <option [value]="2">زن</option>
                 </select>
                 <div *ngIf="accountForm.controls['gender'].invalid && (accountForm.controls['gender'].dirty || accountForm.controls['gender'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -256,9 +255,9 @@
                   formControlName="nationalityId"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">ایرانی</option>
-                  <option value="2">غیر ایرانی</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">ایرانی</option>
+                    <option [value]="2">غیر ایرانی</option>
                 </select>
                 <div *ngIf="accountForm.controls['nationalityId'].invalid && (accountForm.controls['nationalityId'].dirty || accountForm.controls['nationalityId'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -268,14 +267,14 @@
               </div>
               </div>
 
-              <div class="form-group col-lg-4">
+              <!-- <div class="form-group col-lg-4">
                 <label class="mb-1"><small>تابعیت</small></label>
                 <select
                   id="inputState"
                   formControlName="residencePlaceId"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
+                  <option [value]="" disabled selected>...</option>
                   <option>ایران</option>
                   <option>سایر</option>
                 </select>
@@ -284,8 +283,8 @@
                   <div *ngIf="accountForm.controls['residencePlaceId'].errors.required">
                       هیچ مقداری برای تابعیت از موجودیت فرد حقیقی وارد نشده است							
                   </div>
-              </div>
-              </div>
+              </div> -->
+              <!-- </div> -->
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small>دین</small></label>
                 <select
@@ -293,11 +292,11 @@
                   formControlName="religion"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">اسلام</option>
-                  <option value="2">مسیحیت</option>
-                  <option value="3">يهوديت</option>
-                  <option value="4">زردشت</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">اسلام</option>
+                    <option [value]="2">مسیحیت</option>
+                    <option [value]="3">يهوديت</option>
+                    <option [value]="4">زردشت</option>
                 </select>
                 <div *ngIf="accountForm.controls['religion'].invalid && (accountForm.controls['religion'].dirty || accountForm.controls['religion'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -306,12 +305,12 @@
                   </div>
               </div>
               </div>
-              <div class="form-group col-lg-4" *ngIf="accountForm.controls['religion'].value === 1">
+              <div class="form-group col-lg-4" *ngIf="showInput(accountForm.controls['religion'].value)">
                 <label class="mb-1"><small>مذهب</small></label>
                 <select id="inputState" formControlName="sect"  class="form-control default-select">
-                  <option value="" disabled selected>...</option>
-                  <option value="1">شیعه</option>
-                  <option value="2">سنی</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">شیعه</option>
+                    <option [value]="2">سنی</option>
                 </select>
                 <div *ngIf="accountForm.controls['sect'].invalid && (accountForm.controls['sect'].dirty || accountForm.controls['sect'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -328,10 +327,10 @@
                   formControlName="militaryStatus"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">انجام شده</option>
-                  <option value="2">مشمول</option>
-                  <option value="3">معاف</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">انجام شده</option>
+                    <option [value]="2">مشمول</option>
+                    <option [value]="3">معاف</option>
                 </select>
                 <div *ngIf="accountForm.controls['militaryStatus'].invalid && (accountForm.controls['militaryStatus'].dirty || accountForm.controls['militaryStatus'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -348,10 +347,10 @@
                   formControlName="maritalStatus"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">مجرد</option>
-                  <option value="2">متاهل</option>
-                  <option value="3">متارکه</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">مجرد</option>
+                    <option [value]="2">متاهل</option>
+                    <option [value]="3">متارکه</option>
                 </select>
                 <div *ngIf="accountForm.controls['maritalStatus'].invalid && (accountForm.controls['maritalStatus'].dirty || accountForm.controls['maritalStatus'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -360,7 +359,7 @@
                   </div>
               </div>
               </div>
-              <div class="form-group col-lg-4"  *ngIf="accountForm.controls['maritalStatus'].value !== 1">
+              <div class="form-group col-lg-4" *ngIf="!showInput(accountForm.controls['maritalStatus'].value)">
                 <label class="mb-1"><small> تعداد فرزندان</small></label>
                 <input
                   type="number"
@@ -391,12 +390,12 @@
                   formControlName="employmentStatus"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">کارمند دولت</option>
-                  <option value="2">آزاد</option>
-                  <option value="3">دانش آموز</option>
-                  <option value="4">دانش جو</option>
-                  <option value="5">بیکار</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">کارمند دولت</option>
+                    <option [value]="2">آزاد</option>
+                    <option [value]="3">دانش آموز</option>
+                    <option [value]="4">دانش جو</option>
+                    <option [value]="5">بیکار</option>
                 </select>
                 <div *ngIf="accountForm.controls['employmentStatus'].invalid && (accountForm.controls['employmentStatus'].dirty || accountForm.controls['employmentStatus'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -413,9 +412,9 @@
                   formControlName="studying"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="false">فارغ التحصیل</option>
-                  <option value="true">درحال تحصیل</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="false">فارغ التحصیل</option>
+                  <option [value]="true">درحال تحصیل</option>
                 </select>
                 <div *ngIf="accountForm.controls['studying'].invalid && (accountForm.controls['studying'].dirty || accountForm.controls['studying'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -432,17 +431,17 @@
                   formControlName="levelOfEducation"
                   class="form-control default-select"
                 >
-                  <option value="" disabled selected>...</option>
-                  <option value="1">بدون تحصيلات</option>
-                  <option value="2">نهضت</option>
-                  <option value="3">ابتدايي</option>
-                  <option value="4">راهنمايي | متوسطه اول</option>
-                  <option value="5">دبيرستان | متوسطه دوم</option>
-                  <option value="6">فوق ديپلم | سطح يک حوزوي</option>
-                  <option value="7">کارشناسي | سطح دو حوزوي</option>
-                  <option value="8">کارشناسي ارشد | خارج فقه و اصول حوزوي</option>
-                  <option value="9">دکترا | اجتهاد حوزوي</option>
-                  <option value="10">دکتراي تخصصي | فوق دکترا</option>
+                  <option [value]="" disabled selected>...</option>
+                  <option [value]="1">بدون تحصيلات</option>
+                  <option [value]="2">نهضت</option>
+                  <option [value]="3">ابتدايي</option>
+                  <option [value]="4">راهنمايي | متوسطه اول</option>
+                  <option [value]="5">دبيرستان | متوسطه دوم</option>
+                  <option [value]="6">فوق ديپلم | سطح يک حوزوي</option>
+                  <option [value]="7">کارشناسي | سطح دو حوزوي</option>
+                  <option [value]="8">کارشناسي ارشد | خارج فقه و اصول حوزوي</option>
+                  <option [value]="9">دکترا | اجتهاد حوزوي</option>
+                  <option [value]="10">دکتراي تخصصي | فوق دکترا</option>
                 </select>
                 <div *ngIf="accountForm.controls['levelOfEducation'].invalid && (accountForm.controls['levelOfEducation'].dirty || accountForm.controls['levelOfEducation'].touched)" class="text-danger fs-13 mt-1">
 													
@@ -485,7 +484,7 @@
                         accountForm.controls['residencePlaceId'].invalid &&
                         accountForm.controls['residencePlaceId'].touched
                     }"
-                    formControlName="residencePlaceId"
+                    formControlName="residencePlaceTitle"
                     placeholder=""
                   />
                   <div *ngIf="accountForm.controls['residencePlaceId'].invalid &&
@@ -497,7 +496,7 @@
                 </div>
                 </div>
               </div>
-
+              
               <div class="form-group col-lg-4">
                 <label class="mb-1"><small> آدرس</small></label>
                 <input

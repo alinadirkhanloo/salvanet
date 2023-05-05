@@ -21,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { JwtInterceptor } from './core/interceptors/jwt/jwt.interceptor';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import {ToastModule} from 'primeng/toast';
+import { RolesService } from './shared/services/role.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import {ToastModule} from 'primeng/toast';
     
   ],
   providers: [
-    SharedService,
+    SharedService,RolesService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],

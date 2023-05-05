@@ -131,7 +131,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
       studying: this.accountForm.value.studying,
       id: this.accountForm.value.id
     };
-    return this.auth.editPerson(temp);
+    return this.auth.editPerson('updateForIdentityAcceptance',temp);
   }
 
   submitAsPerson() {
@@ -146,7 +146,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
                   this.router.navigate(['/role-determination']);
                   this._sh.showSuccess();
                 },error:(err)=>{
-                  this._sh.showSuccess();
+                  this._sh.showError('خطا در ثبت اطلاعات');
                 }
               });
   }
@@ -157,7 +157,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
         this.router.navigate(['/auth/company-registration']);
         this._sh.showSuccess();
       }, error: (err) => {
-        this._sh.showSuccess();
+        this._sh.showError('خطا در ثبت اطلاعات');
       }
     });
 

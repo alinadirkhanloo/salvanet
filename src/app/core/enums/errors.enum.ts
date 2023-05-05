@@ -1,8 +1,8 @@
 export enum AuthenticateErrors {
  'passwordIsWrong'='رمز عبور اشتباه است',
- 'temporaryPasswordIsExpired'='رمز عبور موقت منقضی شده است',
+ 'temporaryPasswordIsExpired'='رمز عبور موقت منقضی شده است. از بخش دریافت رمزعبور موقت اقدام نمایید.',
  'accountIsDisable'='حساب کاربری غیرفعال است',
- 'accountNotExists'='حساب کاربری وجود ندارد',
+ 'accountNotExists'='حساب کاربری وجود ندارد. لطفا ابتدا ثبت نام نمایید.',
  'captchaIsWrong'='کد امنیتی اشتباه است',
  'captchaNotExists'='کد امنیتی اشتباه است',
  'accessKeyNotExists'='لطفا صفحه را بروزرسانی کنید',

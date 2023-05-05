@@ -24,10 +24,16 @@
                             <!-- CRUD ACTIONS -->
                             <span class="p-input-icon-left ml-auto">
                                 <i class="pi pi-search"></i>
-                                <input pInputText OnlyNumber="true" type="text" placeholder="کد ملی" />
+                                <input pInputText OnlyNumber="true"
+                                [formControl]="nationalCode"
+                                 maxlength="10" 
+                                maxlength="10" type="text" placeholder="کد ملی" />
                             </span>
-                            <button pButton label="جست و جو" class="p-button-outlined mx-2"></button>
-                            <p-button label="ایجاد" icon="pi pi-plus" iconPos="left" (click)="dataGrid.redirect('pages/person/new')" styleClass="p-button-success ml-2" pTooltip="ایجاد" tooltipvenue="bottom"></p-button>
+                            <button pButton label="جست و جو"  (click)="searchUser()" class="p-button-outlined mx-2"></button>
+                            <p-button label="ایجاد" icon="pi pi-plus" iconPos="left"
+                             (click)="dataGrid.redirect('pages/persons/new')" 
+                             styleClass="p-button-success ml-2"
+                             tooltipvenue="bottom"></p-button>
                          <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
                         </div>
                     </ng-template>
@@ -65,7 +71,7 @@
                             </ng-container>
     
                             <td>
-                                {{first + index +1}}
+                                {{index +1 }}
                             </td>
     
                             <ng-container *ngFor="let header of dataGrid.tableHeaerFields;let i = index">
@@ -74,7 +80,7 @@
     
                             <td class="flex">
                                 <button pButton type="button" class="p-button-warning ml-2"
-                                    (click)="dataGrid.redirect('pages/person/edit/' + rows.id)" icon="pi pi-pencil"></button>
+                                    (click)="dataGrid.redirect('pages/persons/edit/' + rows.id)" icon="pi pi-pencil"></button>
                                 <button pButton type="button" class="p-button-danger"
                                     (click)="confirmDelete($event,rows.id)" icon="pi pi-trash"></button>
                             </td>

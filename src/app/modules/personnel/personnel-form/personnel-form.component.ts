@@ -154,9 +154,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
     }
   }
 
-  get checlCodeMelli() {
-    console.log(this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value));
-    
+  get checkCodeMelli() {
     return this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value);
   }
 

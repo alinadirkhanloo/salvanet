@@ -22,13 +22,15 @@
                       [ngClass]="{
                         'is-valid': accountForm.controls['username'].valid,
                         'is-invalid':
-                          accountForm.controls['username'].invalid &&
-                          accountForm.controls['username'].touched
+                        (accountForm.controls['username'].invalid &&
+                        accountForm.controls['username'].touched) || (!checkCodeMelli && accountForm.controls['username'].dirty)
                       }"
                       formControlName="username"
                       placeholder="- - - - - - - - - -"
                     />
                   </div>
+                  <div class="text-danger fs-13 mt-1" *ngIf="!checkCodeMelli && accountForm.controls['username'].dirty ">مقدار وارد شده برای کد ملی معتبر نمی باشد</div>
+
                   <div class="form-group mb-5">
                     <label class="mb-1"><small>شماره تلفن</small></label>
                     <input
@@ -65,7 +67,7 @@
                       type="text"
                       class="form-control text-center"
                       maxlength="5"
-                      minlength="4"
+                      minlength="5"
                       [ngClass]="{
                         'is-valid': accountForm.controls['captcha'].valid,
                         'is-invalid':
@@ -79,13 +81,20 @@
 
                   <div class="text-center">
                     <button
-                      type="submit"
+                      type="submit" style="width: 100%;max-width: 200px;"
                       [disabled]="!accountForm.valid || disableButton"
                       (click)="goToVerification()"
-                      class="btn btn-primary btn-block"
+                      class="btn btn-primary mx-2"
                     >
                       <span *appSpinOn="disableButton; color: 'warn'"></span>
                       ارسال
+                    </button>
+                    <button
+                      type="button"
+                      (click)="cancle()"
+                      class="btn btn-danger"
+                    >
+                      انصراف
                     </button>
                   </div>
                 </form>

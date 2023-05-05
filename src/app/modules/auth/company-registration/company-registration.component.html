@@ -1,21 +1,51 @@
 <div class="container-fluid vh-100 my-5">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-lg-10 col-md-11">
-        <div class="authincation-content">
-          <div class="row no-gutters">
-            <div class="col-xl-12">
-              <div class="auth-form">
-                <h2 class="text-center mb-4">مشخصات شرکت</h2>
-                <form [formGroup]="accountForm" class="form-row">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-10 col-md-11">
+      <div class="authincation-content">
+        <div class="row no-gutters">
+          <div class="col-xl-12">
+            <div class="auth-form">
+              <h2 class="text-center mb-4">مشخصات شرکت</h2>
+              <form [formGroup]="accountForm" class="form-row">
+                <div class="form-group col-6">
+                  <label><small>نام</small></label>
+                  <input
+                    formControlName="name"
+                    maxlength="64"
+                    minlength="3"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
+                </div>
 
-                  <div class="form-group col-6">
-                    <label><small>نام</small></label>
-                    <input formControlName="name" maxlength="64" minlength="3" type="text" class="form-control" placeholder="">
-                  </div>
+                <div class="form-group col-6">
+                  <label><small>کد ملی</small></label>
+                  <input
+                    formControlName="nationalCode"
+                    maxlength="64"
+                    minlength="3"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
+                </div>
 
-                  <div class="form-group col-6">
-                    <label><small>تاریخ تاسیس</small></label>
-                    <input
+                <div class="form-group col-6">
+                  <label><small>نوع</small></label>
+                  <p-dropdown
+                    [options]="companyTypes"
+                    formControlName="type"
+                    optionLabel="topic"
+                    optionValue="id"
+                    placeholder="انتخاب"
+                  >
+                  </p-dropdown>
+                </div>
+
+                <div class="form-group col-6">
+                  <label><small>تاریخ تاسیس</small></label>
+                  <input
                     type="text"
                     class="form-control text-center"
                     (click)="picker1.open()"
@@ -33,9 +63,9 @@
                   <mat-datepicker #picker1></mat-datepicker>
                 </div>
 
-                  <div class="form-group col-6">
-                    <label><small>تاریخ ثبت</small></label>
-                    <input
+                <div class="form-group col-6">
+                  <label><small>تاریخ ثبت</small></label>
+                  <input
                     type="text"
                     class="form-control text-center"
                     (click)="picker2.open()"
@@ -53,77 +83,112 @@
                   <mat-datepicker #picker2></mat-datepicker>
                 </div>
 
-                  <div class="form-group col-6">
-                    <label><small>شماره ثبت</small></label>
-                    <input formControlName="name" OnlyNumber="true" maxlength="15" minlength="1" type="text" class="form-control" placeholder="">
+                <div class="form-group col-6">
+                  <label><small>شماره ثبت</small></label>
+                  <input
+                    formControlName="name"
+                    OnlyNumber="true"
+                    maxlength="15"
+                    minlength="1"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
+                </div>
+
+                <div class="align-items-center col-6">
+                  <label class="mb-1 text-right"><small>مدیرعامل</small></label>
+                  <div class="input-group mb-3" dir="ltr">
+                    <div class="input-group-prepend">
+                      <button
+                        class="btn btn-primary h-100"
+                        type="button"
+                        (click)="opemPersonFilter()"
+                      >
+                        <i class="las la-bars"></i>
+                      </button>
+                    </div>
+                    <input
+                      formControlName="cEOName"
+                      type="text"
+                      class="form-control text-right"
+                      placeholder=""
+                    />
                   </div>
+                </div>
 
+                <div class="form-group col-6">
+                  <label><small>نماینده</small></label>
+                  <input
+                    disabled
+                    ormControlName="representativeName"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
+                </div>
 
-
-                  <div class="align-items-center col-6">
-                    <label class="mb-1 text-right"><small>مدیرعامل</small></label>
-                    <div class="input-group mb-3" dir="ltr">
-                      <div class="input-group-prepend">
-                        <button class="btn btn-primary h-100" type="button" (click)="opemPersonFilter()">
-                          <i class="las la-bars"></i>
-                        </button>
+                <div class="col-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">زمینه های فعالیت</h4>
+                    </div>
+                    <div class="card-body">
+                      <div class="basic-form">
+                        <form>
+                          <fieldset disabled>
+                            <div class="form-group">
+                              <button type="submit" class="btn btn-primary mt-3">
+                                <i class="flaticon-381-add-1"></i>
+                              </button>
+                            </div>
+                            <div class="form-group">
+                              <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+                                <ng-template pTemplate="header">
+                                  <tr>
+                                    <th>ردیف</th>
+                                    <th>عنوان</th>
+                                  </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-product>
+                                  <tr>
+                                    <td>{{ product.code }}</td>
+                                    <td>{{ product.name }}</td>
+                                  </tr>
+                                </ng-template>
+                              </p-table>
+                            </div>
+                          </fieldset>
+                        </form>
                       </div>
-                      <input formControlName="cEOName"  type="text" class="form-control text-right" placeholder="">
-
                     </div>
                   </div>
-
-                  <div class="form-group col-6">
-                    <label><small>نماینده</small></label>
-                    <input disabled ormControlName="representativeName"  type="text" class="form-control" placeholder="">
-                  </div>
-
-
-                  <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                          <h4 class="card-title">زمینه های فعالیت</h4>
-                        </div>
-                        <div class="card-body">
-                          <div class="basic-form">
-                            <form>
-                              <fieldset disabled>
-                                <div class="form-group">
-                                  <button type="submit" class="btn btn-primary mt-3"><i class="flaticon-381-add-1"></i></button>
-                                </div>
-                                <div class="form-group">
-                                  <p-table [value]="products" [tableStyle]="{'min-width': '50rem'}">
-                                    <ng-template pTemplate="header">
-                                        <tr>
-                                            <th>ردیف</th>
-                                            <th>عنوان</th>
-                                        </tr>
-                                    </ng-template>
-                                    <ng-template pTemplate="body" let-product>
-                                        <tr>
-                                            <td>{{product.code}}</td>
-                                            <td>{{product.name}}</td>
-                                        </tr>
-                                    </ng-template>
-                                </p-table>
-                                </div>
-
-                              </fieldset>
-                            </form>
-                          </div>
-                        </div>
-                      </div>
-                  </div>
-                  <div class="form-group col-6">
-                    <button type="submit" (click)="goToLogin()" pButton pRipple class="p-button-success mx-2">ایجاد</button>
-                    <button type="button" (click)="goToLogin()" pButton pRipple class="p-button-danger">انصراف</button>
-                  </div>
-                </form>
-
-              </div>
+                </div>
+                <div class="form-group col-6">
+                  <button
+                    type="submit"
+                    (click)="goToLogin()"
+                    pButton
+                    pRipple
+                    class="p-button-success mx-2"
+                  >
+                    ایجاد
+                  </button>
+                  <button
+                    type="button"
+                    (click)="goToLogin()"
+                    pButton
+                    pRipple
+                    class="p-button-danger"
+                  >
+                    انصراف
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

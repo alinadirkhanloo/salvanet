@@ -77,6 +77,7 @@ export class CompanyComponent implements OnInit{
     table.clear();
 }
 
+
   qualification(event: Event,id:string|number) {
     this.confirmationService.confirm({
       target: event.target,

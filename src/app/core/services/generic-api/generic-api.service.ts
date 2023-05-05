@@ -34,6 +34,10 @@ export abstract class GenericApiService<T>
     return this.http.get<T[]>(`${environment.baseUrl}/${this.restUrl}/${concatUrl}`,{params:this.params});
   }
 
+  public getListCount(afterIdUrl = ''): Observable<T> {
+    return this.http.get<T>(`${environment.baseUrl}/${this.restUrl}/${afterIdUrl}`);
+  }
+
   public readById(id: string | number, afterIdUrl = ''): Observable<T> {
     return this.http.get<T>(`${environment.baseUrl}/${this.restUrl}/${id}/${afterIdUrl}`);
   }

@@ -1,3 +1,4 @@
+import { CommonService } from './../../../core/services/common/common.service';
 import { SharedService } from 'shared/services/shared.service';
 import { AuthService } from 'app/core/services/auth/auth.service';
 
@@ -6,7 +7,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { User } from 'app/core/interfaces/user.interface';
 import { GenericClass } from 'app/core/models/genericClass.model';
-import { AuthenticateErrors } from 'app/core/enums/errors.enum';
+import { RolesService } from 'app/shared/services/role.service';
 
 
 
@@ -30,7 +31,9 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     private _formBuilder: FormBuilder,
     private router: Router,
     private auth: AuthService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private commonService:CommonService,
+    private roleService:RolesService
   ) {
     super();
     this.loginForm = this._formBuilder.group({
@@ -47,7 +50,6 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
 
   ngOnInit(): void {
     this.getCaptcha();
-    this.sharedService.returnUrl.next('')
   }
 
   login() {
@@ -59,15 +61,31 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
           // console.log(result);
           if (result) {
             // id number and phone number is correct
-            this.auth.setUsername(this.loginForm.value.username);
+            
+            let roles = JSON.parse(result.idToken).roles;
+            if (roles) {
+              this.roleService.setRoles(JSON.parse(result.idToken).roles);
+            }else {
+              return
+            }
 
+            this.auth.setUsername(this.loginForm.value.username);
+            
             if (!JSON.parse(result.idToken).activated)
               this.router.navigate(['auth/change-password']);
             else {
-              if (this.sharedService.returnUrl.value !== '') {
-                this.router.navigateByUrl(this.sharedService.returnUrl.value);
-              } else 
-              this.router.navigateByUrl('/pages');
+              if (!JSON.parse(result.idToken).identityAccepted){
+                this.sharedService.returnUrl.next('auth/user-registration');
+                this.router.navigate(['auth/user-registration']);
+
+              }
+              else {
+                if (this.sharedService.returnUrl.value !== '') {
+                  this.router.navigateByUrl(this.sharedService.returnUrl.value);
+                } else 
+                this.router.navigateByUrl('/pages');
+              }
+              
             }
             this.auth.setUser(result as User);
           } else {
@@ -122,6 +140,10 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
 
   showPass(){
     this.passType==='password'?this.passType='text':this.passType='password'
+  }
+
+  get checkCodeMelli() {
+    return this.commonService.checkCodeMelli(this.loginForm.controls['username'].value);
   }
 
 }

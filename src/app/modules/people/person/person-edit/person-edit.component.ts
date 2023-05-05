@@ -26,6 +26,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   accountForm: FormGroup;
   disableButton = false;
   disableActiveationButton = false;
+  id=0;
   ref: DynamicDialogRef;
   public treeConfig: IDynamicTree;
 
@@ -38,6 +39,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   ) {
     super();
     this.accountForm = this._formBuilder.group({
+      id:-1,
       nationalCode: ['', [Validators.required]],
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
@@ -55,7 +57,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
       sect: [null],
       militaryStatus: ['', [Validators.required]],
       maritalStatus: ['', [Validators.required]],
-      numberOfChildren: [null, [Validators.required]],
+      numberOfChildren: [null],
       employmentStatus: ['', [Validators.required]],
       levelOfEducation: ['', [Validators.required]],
       studying: [''],
@@ -68,6 +70,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
+        this.id = params['id'];
         this.loadById(params['id']);
       }else {
         this.loading = false;
@@ -78,8 +81,9 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   loadById(id:number|string) {
     let res = this.pService.readById(id).subscribe({
       next:(result)=>{
-        this.loading = false;
+        
         this.setDataToForm(result);
+        this.loading = false;
       },
       error(err) {},
       complete() {
@@ -88,9 +92,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
     });
   }
 
-  setDataToForm(entityData:any) {
-    this.accountForm.setValue(entityData as IPerson[]);
-  }
+
 
   openFindBox(idControlName:string,titleControlname:string,url:string,expandUrl:string,title:string) {
     this.treeConfig = {
@@ -112,7 +114,6 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
         modalRef.componentInstance.title = title;
         modalRef.result.then((result) => {
           // this.closeResult = `Closed with: ${result}`;
-            console.log(result);
             if (result) {
               this.accountForm.controls[idControlName].setValue(result.data);
             this.accountForm.controls[titleControlname].setValue(result.label);
@@ -123,14 +124,12 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
         },);
   }
 
-  submitPerson(){
-    return  this.pService.create(this.accountForm.value);
-  }
 
-  submitAsPerson() {
-   this.subscription= this.submitPerson().subscribe({
+
+  submitAsPerson() { 
+   this.subscription=  this.pService.update(this.accountForm.value).subscribe({
               next: (res) => {
-                this.router.navigate(['/role-determination']);
+                this.router.navigate(['pages/persons']);
                 this.shService.showSuccess();
               },error:(err)=>{
               }
@@ -139,9 +138,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
 
 
   cancle() {
-    // this.router.navigate(['/pages/personnel']);
-    console.log(this.accountForm.value);
-    
+    this.router.navigate(['pages/persons']);
   }
 
 
@@ -153,10 +150,44 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
     }
   }
 
-  get checlCodeMelli() {
+  get checKCodeMelli() {
     console.log(this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value));
     
     return this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value);
   }
 
+
+  setDataToForm(entityData:any) {
+
+    this.f['id'].setValue(entityData['id']);
+    this.f['nationalCode'].setValue(entityData['nationalCode']);
+    this.f['firstName'].setValue(entityData['firstName']);
+    this.f['lastName'].setValue(entityData['lastName']);
+    this.f['gender'].setValue(entityData['gender']);
+    this.f['identityCardNumber'].setValue(entityData['identityCardNumber']);
+    this.f['birthDate'].setValue(entityData['birthDate']);
+    this.f['birthPlaceId'].setValue(entityData['birthPlaceId']);
+    this.f['religion'].setValue(entityData['religion']);
+    this.f['sect'].setValue(entityData['sect']);
+    this.f['militaryStatus'].setValue(entityData['militaryStatus']);
+    this.f['maritalStatus'].setValue(entityData['maritalStatus']);
+    this.f['employmentStatus'].setValue(entityData['employmentStatus']);
+    this.f['numberOfChildren'].setValue(entityData['numberOfChildren']);
+    this.f['studying'].setValue(entityData['studying']);
+    this.f['levelOfEducation'].setValue(entityData['levelOfEducation']);
+    this.f['address'].setValue(entityData['address']);
+    this.f['identityCardIssuingPlaceId'].setValue(entityData['identityCardIssuingPlaceId']);
+    this.f['nationalityId'].setValue(entityData['nationalityId']);
+    this.f['residencePlaceId'].setValue(entityData['residencePlaceId']);
+    this.f['simnumber'].setValue(entityData['simnumber']);
+  }
+
+
+private get f() {
+  return this.accountForm.controls;
+}
+
+showInput(data:any){
+  return 1 === Number(data);
+}
 }

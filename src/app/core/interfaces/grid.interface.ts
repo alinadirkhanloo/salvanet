@@ -44,12 +44,12 @@ export class GenericGrid {
         return this.selectedData;
     }
 
-    public onLazyLoad(event: LazyLoadEvent, dataSource: any): any {
+    public onLazyLoad(event: LazyLoadEvent, dataSource: any,totalCount:number=0): any {
         this.loading = true;
         let gridData = [];
             gridData = dataSource?dataSource:[];
            
-            this.totalRecords = gridData.length;
+            this.totalRecords = totalCount;
             this.loading = false;
         return gridData;
     }
@@ -66,7 +66,7 @@ export class GenericGrid {
         this.customTableStyle = { 'min-width': '100%' };
         this.selectedData = [];
         this.paginator = true;
-        this.rowCount = 10
+        this.rowCount = 10;
         this.loading = false;
         this.tableHeaerFields = tableHeaerFields;
         this.filterHeaerFields = this.tableHeaerFields.map(item=> item.title);

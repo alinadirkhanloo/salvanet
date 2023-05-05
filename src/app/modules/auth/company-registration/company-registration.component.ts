@@ -14,8 +14,12 @@ import { AuthService } from 'app/core/services/auth/auth.service';
   styleUrls: ['./company-registration.component.css'],
 })
 export class CompanyRegistrationComponent extends GenericClass implements OnInit, OnDestroy {
-  products = [{ id: '1', topic: 'asfaf' }];
-
+  products = [];
+  companyTypes = [
+    { id: null, topic: '...' },
+    { id: '0', topic: 'شرکت' },
+    { id: '1', topic: 'گروه جهادی' }
+  ];
   accountForm: FormGroup;
   disableButton = false;
 
@@ -24,7 +28,7 @@ export class CompanyRegistrationComponent extends GenericClass implements OnInit
     private modalService: NgbModal,
     private router: Router,
     public dialogService: DialogService,
-    private auth:AuthService,private shService:SharedService){
+    private auth: AuthService, private shService: SharedService) {
 
     super();
     this.accountForm = this._formBuilder.group({
@@ -55,19 +59,19 @@ export class CompanyRegistrationComponent extends GenericClass implements OnInit
     //   a.unsubscribe();
     // });
 
-    if (!this.auth.getUsername() || this.shService.returnUrl.value === '') {
-      this.goToLogin();
-    }
+    // if (!this.auth.getUsername() || this.shService.returnUrl.value === '') {
+    //   this.goToLogin();
+    // }
   }
 
-  opemPersonFilter(){
-    const modalRef = this.modalService.open(PersonnelFilterComponent, { fullscreen:true });
+  opemPersonFilter() {
+    const modalRef = this.modalService.open(PersonnelFilterComponent, { fullscreen: true });
     modalRef.result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
-        console.log(result);
+      console.log(result);
 
     }, (reason) => {
-        // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
 
     },);
   }

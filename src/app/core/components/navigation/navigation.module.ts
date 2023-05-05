@@ -6,6 +6,7 @@ import { NavigationComponent } from 'core/components/navigation/navigation.compo
 import { RouterModule } from '@angular/router';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { SharedModule } from 'app/shared/modules/shared.module';
 
 
 
@@ -14,8 +15,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     NavigationComponent,
   ],
   imports: [
-    CommonModule,
-    RouterModule,FormsModule,ReactiveFormsModule,
+    SharedModule,
     MetismenuAngularModule,
     PerfectScrollbarModule,
     NgxDropzoneModule,MetismenuAngularModule

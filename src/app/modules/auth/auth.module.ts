@@ -1,3 +1,4 @@
+import { OnlyEnglishModule } from './../../shared/directives/only-english.directive';
 import { SignupTypeDialogComponent } from './signup-type-dialog/signup-type-dialog.component';
 
 import { UserAuthComponent } from './user-auth/user-auth.component';
@@ -15,6 +16,7 @@ import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
 import { FindBoxModule } from 'app/core/components/find-box/find-box.module';
 import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PersonnelFilterModule } from 'app/core/components/personnel-filter/personnel-filter.module';
+import { RolesService } from 'app/shared/services/role.service';
 
 
 const routes: Routes = [
@@ -58,7 +60,6 @@ const routes: Routes = [
         RouterModule.forChild(routes),NgbModule,PersonnelFilterModule
 
     ],
-    providers: [
-    ]
+    providers: []
 })
 export class AccountModule { }

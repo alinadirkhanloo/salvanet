@@ -28,8 +28,8 @@ export class SharedService {
   }
 
 
-  showSuccess(str:string='اطلاعات ثبت شد') {
-    this.toastr.success('',str );
+  showSuccess(str:string='اطلاعات ثبت شد',time:number = 1000) {
+    this.toastr.success('',str,{timeOut:time} );
   }
 
   showError(str:string='خطا در ثبت اطلاعات') {

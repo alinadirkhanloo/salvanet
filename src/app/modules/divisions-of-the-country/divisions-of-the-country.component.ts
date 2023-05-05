@@ -113,6 +113,34 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
 
   }
 
+  confirmUpload(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target,
+      message: 'کاربر گرامی، آیا قصد بارگذاری اطلاعات تقسیمات کشوری را دارید ؟'    ,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'بله',
+      rejectLabel: 'خیر',
+      acceptButtonStyleClass: 'mx-2',
+      accept: () => {
+        //confirm action
+        this.subscription.add(
+          this.dcService.create({},'ingest').subscribe({
+            next:(result)=>{
+              this.shService.showSuccess('بارگذاری انجام شد');
+            },
+            error:(err)=>{
+              this.shService.showSuccess('خطای سرور');
+            }
+          })
+        );
+
+      },
+      reject: () => {
+        //reject action
+      }
+    });
+  }
+
   getContextMenu() {
     return [
       {

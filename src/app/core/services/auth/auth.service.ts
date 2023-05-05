@@ -20,7 +20,7 @@ export class AuthService {
 
     constructor(private http: HttpClient) {
         this.user = new BehaviorSubject<User>(this.getItemFromSessionStorage('currentUser'));
-        this.usernameSubject = new BehaviorSubject<string>('4360495536');
+        this.usernameSubject = new BehaviorSubject<string>('');
         this.username$ = this.usernameSubject.asObservable();
     }
 
@@ -45,8 +45,8 @@ export class AuthService {
         return this.http.post(`${environment.baseUrl}/person`, person);
     }
 
-    editPerson(person: IPerson) {
-        return this.http.put(`${environment.baseUrl}/person`, person);
+    editPerson(url:string='',person: IPerson) {
+        return this.http.put(`${environment.baseUrl}/person/${url}`, person);
     }
 
     getPerson(nationalCode: string) {
