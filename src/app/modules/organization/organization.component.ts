@@ -6,7 +6,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService, LazyLoadEvent } from 'primeng/api';
 import { IGridHeader, GenericGrid } from 'app/core/interfaces/grid.interface';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observer, Subscription } from 'rxjs';
 import { OrganizationService } from './organization.service';
 import { SharedService } from 'app/shared/services/shared.service';
 
@@ -19,14 +19,15 @@ export class OrganizationComponent implements OnInit{
   private sub = new Subscription();
   gridHeaders:IGridHeader[] = [
     {title:'name',persianTitle:'عنوان',sortKey:'name'},
-    {title:'isActive',persianTitle:'فعال',sortKey:'isActive'}
+    {title:'fullAddress',persianTitle:' آدرس کامل',sortKey:'fullAddress'},
+    {title:'hasOrganizationUnit',persianTitle:'فعال سازی سازمان',sortKey:'hasOrganizationUnit'}
   ];
 
   dataGrid = new GenericGrid(this.router,this.gridHeaders);
 
   dataSource: IOrganization[]=[];
   selectedList: IOrganization[]=[];
-  
+
   first = 0;
   rows = 10;
   lazyLoadvent!:LazyLoadEvent;
@@ -36,30 +37,74 @@ export class OrganizationComponent implements OnInit{
     private router:Router,
     private productService:OrganizationService,
     private modalService:NgbModal,
-    private shService:SharedService
+    private shService:SharedService,
+    private orgs:OrganizationService
     ) {}
 
   ngOnInit() {
-    this.loadAll(null);
+    this.loadAll();
   }
 
-  loadAll(event){
+  loadAll(){
     this.dataGrid.loading = true;
-    this.loadDataSource(event);
+    this.loadDataSource();
   }
 
-  loadDataSource(event: LazyLoadEvent) {
-    if (event !== null) {
-      this.lazyLoadvent = event;
-      this.sub.add(
-        this.productService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
-          next:(list:any)=>{
-            this.dataGrid.onLazyLoad(event,list);
-            this.dataSource=list;
-          }
-        })
-        );
+  loadDataSource() {
+    this.shService.getCountryDivision().subscribe({
+      next:(list:any)=>{
+        this.dataSource=list;
+        this.dataGrid.loading = false;
+      }
+    })
+  }
+
+  confirmActivation(event: Event,row:any) {
+    let observer : Partial<Observer<any>> ={
+      next: result=>{
+        this.shService.showSuccess(`سازمان ${row.hasOrganizationUnit?'':' غیر '} فعال شد.`);
+        this.loadAll();
+      },error:(error)=>{
+        this.shService.showError('امکان فعال سازی وجود ندارد');
+        row.hasOrganizationUnit=!row.hasOrganizationUnit;
+      }
     }
+
+    this.confirmationService.confirm({
+      target: event.target,
+      message: `کاربر گرامی، آیا قصد ${row.hasOrganizationUnit?'':' غیر '}فعال سازی سازمان بر روی ${row.name} را دارید؟`,
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel:'بله',
+      rejectLabel:'خیر',
+      acceptButtonStyleClass:'mx-2',
+      accept: () => {
+        //confirm action
+        if (row.hasOrganizationUnit) {
+          this.orgs.create({
+            id: null,
+            name: row.name,
+            countryDivisionId: row.id,
+            typeId: row.type,
+            superiorId: row.organizationSuperiorId,
+            active: row.hasOrganizationUnit
+          }).subscribe(observer);
+        }else{
+          this.orgs.update({
+            id: row.organizationId,
+            name: row.name,
+            countryDivisionId: row.id,
+            typeId: row.type,
+            superiorId: row.organizationSuperiorId,
+            active: row.hasOrganizationUnit
+          }).subscribe(observer);
+        }
+
+      },
+      reject: () => {
+        //reject action
+        row.hasOrganizationUnit=!row.hasOrganizationUnit;
+      }
+    });
   }
 
   openProductForm(){
@@ -68,7 +113,7 @@ export class OrganizationComponent implements OnInit{
     modalRef.componentInstance.id=0;
     modalRef.result?.then(result=>{
       if (result) {
-        this.loadAll(this.lazyLoadvent);
+        this.loadAll();
       }
     }).catch(a=>{})
   }

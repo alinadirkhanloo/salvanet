@@ -58,7 +58,6 @@ export class AgriculturalInterestsComponent implements OnInit {
       emptyMessage: 'موردی یافت نشد'
     }
 
-
   }
 
   _onProductChange(event) {

@@ -5,7 +5,7 @@
 >
   <app-loading [showLoading]="showLoading"></app-loading>
 
-  <ng-container *ngIf="!showLoading.value">
+  <ng-container *ngIf="!showLoading.value&&roleSelected">
     <app-nav-header></app-nav-header>
     <app-header></app-header>
     <app-navigation></app-navigation>

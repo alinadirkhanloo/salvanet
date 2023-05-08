@@ -18,14 +18,14 @@ export class BookEditComponent {
   routeSub = null;
   records=[];
   colapsed=true;
-  
+
   constructor(
     private _formBuilder: FormBuilder,
     private bookService: BookService,
     private route: ActivatedRoute,
     private router: Router, private shService: SharedService
   ) {
-    // ITeaching 
+    // ITeaching
     this.editForm = this._formBuilder.group({
       type: ['', [Validators.required, Validators.maxLength(36)]],
       title: ['', [Validators.required, Validators.maxLength(36)]],

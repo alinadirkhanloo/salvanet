@@ -44,8 +44,7 @@
                             ردیف
                         </th>
                         <ng-container *ngFor="let header of dataGrid.tableHeaerFields">
-                            <th [pSortableColumn]="header.title">{{header.persianTitle}}<p-sortIcon
-                                    [field]="header.sortKey"></p-sortIcon></th>
+                            <th [pSortableColumn]="header.title">{{header.persianTitle}}</th>
                         </ng-container>
                         <th style="width: 12rem"></th>
                     </tr>

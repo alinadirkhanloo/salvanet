@@ -62,12 +62,15 @@ export class DynamicSelectComponent implements OnInit, OnDestroy, ControlValueAc
   onChange: Function = event => {};
 
   loadData() {
-    this.subscription.add(
-      this.selectionConfig.options$.subscribe({
-        next: result => {
-          this.selectionConfig.items = result as IDynamicSelectItem[];
-        },
-      })
-    );
+    if (this.selectionConfig?.options$) {
+      this.subscription.add(
+        this.selectionConfig.options$.subscribe({
+          next: result => {
+            this.selectionConfig.items = result as IDynamicSelectItem[];
+          },
+        })
+      );
+    }
+
   }
 }

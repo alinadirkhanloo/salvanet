@@ -28,7 +28,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                     this.authenticationService.refreshToken().subscribe(
                         {
                             next:(user: User) => {
-        
+
                                 if (user && user.accessToken) {
                                     let currentUser:User = JSON.parse(sessionStorage.getItem('currentUser'));
                                     currentUser.accessToken = user.accessToken;
@@ -37,34 +37,41 @@ export class ErrorInterceptor implements HttpInterceptor {
                                     this.authenticationService.isRefreshing.next(false);
                                     // return next.handle(request);
                                 }
-                                
+
                             },
                             error:(err)=> {
                                 sessionStorage.removeItem('currentUser');
+                                sessionStorage.removeItem('currentRole');
+                                sessionStorage.clear()
                                 this.router.navigate(['auth/login']);
                             },
                         }
                     );
+                } else if (err.error[0] === 'Unauthorized'){
+                    sessionStorage.removeItem('currentUser');
+                    sessionStorage.removeItem('currentRole');
+                    sessionStorage.clear()
+                                this.router.navigate(['auth/login']);
                 }
 
 
             }
             if (err.status === 401) {
                 this.shService.showError(AuthenticateErrors[err.error[0]]);
-            } else 
+            } else
             if (err.status === 500) {
 
                 this.shService.showError(AuthenticateErrors[err.error[0]]);
 
             }
-        
+
             const error = err.error.message || err.statusText;
             return throwError(error);
         }))
     }
 
     showError(msg: string) {
-        
+
     }
 
 

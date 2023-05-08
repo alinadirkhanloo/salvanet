@@ -20,8 +20,7 @@ export class CultivarComponent  implements OnInit{
   private sub = new Subscription();
   gridHeaders:IGridHeader[] = [
     {title:'code',persianTitle:'کد',sortKey:'code'},
-    {title:'name',persianTitle:'نام',sortKey:'name'},
-    {title:'hasVariety',persianTitle:'رقم دارد',sortKey:'hasVariety'}
+    {title:'name',persianTitle:'نام',sortKey:'name'}
   ];
 
   dataGrid = new GenericGrid(this.router,this.gridHeaders);

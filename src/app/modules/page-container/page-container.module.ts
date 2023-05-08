@@ -9,7 +9,9 @@ import { NavHeaderModule } from 'core/components/nav-header/nav-header.module';
 import { NavigationModule } from 'core/components/navigation/navigation.module';
 import { Error404Module } from 'core/components/pages/error404/error404.module';
 import { SwitcherModule } from 'core/components/switcher/switcher.module';
-import { NgbNavItem } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbNavItem } from '@ng-bootstrap/ng-bootstrap';
+import { RoleSelectorModule } from 'app/core/components/role-selector/role-selector.module';
+import { RolesService } from 'app/shared/services/role.service';
 
 
 
@@ -26,7 +28,8 @@ import { NgbNavItem } from '@ng-bootstrap/ng-bootstrap';
     NavHeaderModule,
     NavigationModule,
     Error404Module,
-    SwitcherModule
+    SwitcherModule,
+    RoleSelectorModule,NgbModule
   ],
   providers:[NgbNavItem]
 })

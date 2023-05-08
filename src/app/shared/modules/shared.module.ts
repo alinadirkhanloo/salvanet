@@ -1,5 +1,5 @@
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import { PrimeNgModule } from 'shared/modules/primeng/primeng.module';
 import { SpinOnModule } from './../directives/spin-on-directive';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';

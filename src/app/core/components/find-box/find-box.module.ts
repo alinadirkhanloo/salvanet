@@ -1,4 +1,4 @@
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import {PrimeNgModule} from 'shared/modules/primeng/primeng.module';
 import { DynamicTreeModule } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.module';
 import { NgModule } from '@angular/core';
 import { FindBoxComponent } from './find-box.component';

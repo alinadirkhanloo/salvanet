@@ -1,3 +1,4 @@
+import { DynamicSelectModule } from './../../../core/components/dynamics/dynamic-select/dynamic-select.module';
 import { NgModule } from '@angular/core';
 import { CultivarComponent } from './cultivar.component';
 import { CultivarFormComponent } from './cultivar-form/cultivar-form.component';
@@ -14,7 +15,7 @@ import { SharedModule } from 'app/shared/modules/shared.module';
   ],
   imports: [
     SharedModule,
-    AllMaterialModule,
+    AllMaterialModule,DynamicSelectModule,
     RouterModule.forChild([{path:'',component:CultivarComponent}])
   ]
 })

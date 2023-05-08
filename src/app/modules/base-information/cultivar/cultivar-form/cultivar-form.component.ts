@@ -1,3 +1,4 @@
+import { IDynamicSelect } from './../../../../core/components/dynamics/dynamic-select/dynamic-select.interface';
 import { ICultivar } from './../cultivar';
 import { SharedService } from 'app/shared/services/shared.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
@@ -16,11 +17,12 @@ export class CultivarFormComponent implements OnInit, OnDestroy{
   editForm:FormGroup;
   disableButton = false;
   private sub = new Subscription();
+  myProductConfig !: IDynamicSelect;
 
   @Input()
   updateMode = false;
 
-  @Input() 
+  @Input()
   product!:ICultivar;
 
   constructor(
@@ -30,23 +32,42 @@ export class CultivarFormComponent implements OnInit, OnDestroy{
     private shService:SharedService
     ){
       this.editForm = this._fb.group({
-        id:-1,
+        id:null,
         code:['',[Validators.required,Validators.maxLength(4),Validators.minLength(2)]],
-        name:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
+        name:['',[Validators.required,Validators.maxLength(32),Validators.minLength(3)]],
         description:['',[Validators.required,Validators.maxLength(512)]],
-        productId:-1
-        
+        productId:[null,[Validators.required]]
+
       })
   }
-  ngOnDestroy(): void {
-   this.sub.unsubscribe();
-  }
+
   ngOnInit(): void {
+    this.initialSelections();
     if (this.updateMode) {
       this.editForm.setValue(this.product);
     }
   }
 
+
+
+  initialSelections() {
+    this.myProductConfig = {
+      options$: this.cultivarService.readList('', 'product'),
+      selectId: 'product1',
+      placeholder: '...',
+      optionValue: 'id',
+      optionLabel: 'name',
+      filter: true,
+      showClear: true,
+      emptyFilterMessage: 'موردی یافت نشد',
+      emptyMessage: 'موردی یافت نشد'
+    }
+  }
+
+
+  ngOnDestroy(): void {
+   this.sub.unsubscribe();
+  }
   submit(){
     this.disableButton = true;
     if (this.updateMode) {

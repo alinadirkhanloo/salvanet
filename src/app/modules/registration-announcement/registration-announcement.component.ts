@@ -6,6 +6,7 @@ import { IGridHeader, GenericGrid } from 'app/core/interfaces/grid.interface';
 import { Component, OnInit } from '@angular/core';
 import { RegistrationAnnouncementService } from './registration-announcement.service';
 import { Roles } from './registration-announcement.interface';
+import { SharedService } from 'app/shared/services/shared.service';
 
 @Component({
   selector: 'app-registration-announcement',
@@ -33,7 +34,7 @@ export class RegistrationAnnouncementComponent implements OnInit{
   constructor(
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
-    private router:Router,
+    private router:Router,private sh:SharedService,
     private registrationAnnouncementService:RegistrationAnnouncementService
     ) {}
 
@@ -44,15 +45,17 @@ export class RegistrationAnnouncementComponent implements OnInit{
 
   loadDataSource(event: LazyLoadEvent) {
     if (event) {
-      this.registrationAnnouncementService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
-        next:(list)=>{
-          if (list) {
-            this.dataGrid.onLazyLoad(event,list);
-            this.dataSource=list;
+      this.registrationAnnouncementService.getListCount('count').subscribe(res=>{
+        this.registrationAnnouncementService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
+          next:(list)=>{
+            if (list) {
+              this.dataGrid.onLazyLoad(event,list,res);
+              this.dataSource=list;
+            }
+  
           }
-
-        }
-      });
+        });
+      })
     }
   }
 
@@ -105,6 +108,11 @@ export class RegistrationAnnouncementComponent implements OnInit{
       rejectLabel:'خیر',
       acceptButtonStyleClass:'mx-2',
       accept: () => {
+        this.registrationAnnouncementService.update(entity).subscribe(res=>{
+          if (res) {
+            this.sh.showSuccess(`${event.checked?'فعال سازی':'غیر فعال سازی'} انجام شد`);
+          }
+        });
         //confirm action
       },
       reject: () => {

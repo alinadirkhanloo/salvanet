@@ -26,7 +26,7 @@ export class ProductClassificationComponent  implements OnInit{
 
   dataSource: IProductClassification[]=[];
   selectedList: IProductClassification[]=[];
-  
+
   first = 0;
   rows = 10;
   lazyLoadvent!:LazyLoadEvent;

@@ -6,7 +6,6 @@ const routes: Routes = [
   {
     path: '', component: FarmerComponent,
     children:[
-       { path: '', redirectTo: 'interests-workplace', pathMatch: 'full' },
       {
         path: 'agricultural-interests',
         loadChildren: () => import('./agricultural-interests/agricultural-interests.module')

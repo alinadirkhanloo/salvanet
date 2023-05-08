@@ -7,7 +7,7 @@ import { IGridHeader, GenericGrid } from 'app/core/interfaces/grid.interface';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SharedService } from 'app/shared/services/shared.service';
 import { IPosition } from 'app/core/interfaces/position.interface';
-import { PositionService } from './position.service';
+import { PositionHistoryService } from './position.service';
 import { PositionIncumbentComponent } from '../position-incumbent/position-incumbent.component';
 import { PositionStatusComponent } from '../position-status/position-status.component';
 
@@ -20,9 +20,9 @@ export class PositionHistoryComponent implements OnInit{
     private sub = new Subscription();
 
     gridHeaders:IGridHeader[] = [
-      {title:'title',persianTitle:'عنوان سمت',sortKey:'title'},
-      {title:'holdsById',persianTitle:'کد ملی متصدی',sortKey:'holdsById'},
-      {title:'organizationUnitId',persianTitle:'نام و نام خانوادگی متصدی',sortKey:'organizationUnitId'}
+      {title:'name',persianTitle:'متصدی',sortKey:'name'},
+      {title:'holdsById',persianTitle:'تاریخ انتصاب',sortKey:'holdsById'},
+      {title:'organizationUnitId',persianTitle:'تاریخ انفصال',sortKey:'organizationUnitId'}
     ];
 
 
@@ -38,7 +38,7 @@ export class PositionHistoryComponent implements OnInit{
       private confirmationService: ConfirmationService,
       public dialogService: DialogService,
       private router:Router,
-      private pService:PositionService,
+      private pService:PositionHistoryService,
       private modalService:NgbModal,
       private shService:SharedService
       ) {}
@@ -50,8 +50,6 @@ export class PositionHistoryComponent implements OnInit{
     loadAll(event){
       this.dataGrid.loading = true;
       this.loadDataSource(event);
-
-
     }
 
     loadDataSource(event: LazyLoadEvent) {

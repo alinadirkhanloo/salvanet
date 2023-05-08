@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DynamicSelectComponent } from './dynamic-select.component';
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import {PrimeNgModule} from 'shared/modules/primeng/primeng.module';
 import { SharedModule } from 'app/shared/modules/shared.module';
 
 

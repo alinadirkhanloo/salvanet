@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {path:'',component:ProductionWatchComponent,
 children:[
-  
+
     {path:'',pathMatch:'full',redirectTo:'education-records'},
     {
     path:'education-records',

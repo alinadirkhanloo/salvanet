@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { IPerson } from 'app/core/interfaces/person.interface';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -18,7 +19,7 @@ export class AuthService {
     username$: Observable<string>;
     private usernameSubject: BehaviorSubject<string>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,private router:Router) {
         this.user = new BehaviorSubject<User>(this.getItemFromSessionStorage('currentUser'));
         this.usernameSubject = new BehaviorSubject<string>('');
         this.username$ = this.usernameSubject.asObservable();
@@ -64,6 +65,20 @@ export class AuthService {
         //     .set('idNumber', idNumber)
         //     .set('phoneNumber', phoneNumber);
         return this.http.post(`${environment.authUrl}/identityConfirmation`, datavalue);
+    }
+
+    sendSms(datavalue: any): Observable<any> {
+        // const params = new HttpParams()
+        //     .set('idNumber', idNumber)
+        //     .set('phoneNumber', phoneNumber);
+        return this.http.post(`${environment.baseUrl}/user/identityConfirmation`, datavalue);
+    }
+    
+    sendCode(datavalue: any): Observable<any> {
+        // const params = new HttpParams()
+        //     .set('idNumber', idNumber)
+        //     .set('phoneNumber', phoneNumber);
+        return this.http.post(`${environment.baseUrl}/user/identityConfirmation`, datavalue);
     }
 
     // resend for authentication
@@ -117,9 +132,16 @@ export class AuthService {
 
     // remove user from localstorage and set our user observable to null
     logout() {
-        
-        this.http.get(`${environment.baseUrl}/user/logout1`).subscribe(result => { });
-        sessionStorage.removeItem('currentUser');
+
+        this.http.get(`${environment.baseUrl}/user/logout1`).subscribe(result => {
+
+                sessionStorage.removeItem('currentUser');
+                sessionStorage.removeItem('currentRole');
+                sessionStorage.clear()
+                this.router.navigateByUrl('auth/login');
+
+         });
+
         // this.user.next(null);
     }
 

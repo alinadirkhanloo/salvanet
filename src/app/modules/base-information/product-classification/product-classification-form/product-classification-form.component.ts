@@ -20,7 +20,7 @@ export class ProductClassificationFormComponent implements OnInit, OnDestroy{
   @Input()
   updateMode = false;
 
-  @Input() 
+  @Input()
   product!:IProductClassification;
 
   constructor(
@@ -35,7 +35,7 @@ export class ProductClassificationFormComponent implements OnInit, OnDestroy{
         name:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
         description:['',[Validators.required,Validators.maxLength(512)]],
         parentId:-1
-        
+
       })
   }
   ngOnDestroy(): void {

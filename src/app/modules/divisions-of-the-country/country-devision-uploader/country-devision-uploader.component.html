@@ -18,7 +18,7 @@
                 <h2 class="text-center mb-4">بارگذاری تقسیمات کشوری</h2>
                 <form class="form-row mx-0 px-0">
                   <div class="form-group col-12">
-                    <p-fileUpload name="demo[]" [url]="uploadAddress" 
+                    <p-fileUpload name="demo[]" [url]="uploadAddress"
                     (onUpload)="onLandDocUpload($event)"
                     [chooseLabel]="'انتخاب'"
                     [uploadLabel]="'بارگذاری'"
@@ -33,9 +33,9 @@
                     </ng-template>
                 </p-fileUpload>
                   </div>
-                    
-                
-  
+
+
+
                   <div class="form-group text-center">
                     <button type="submit" pButton pRipple (click)="submit()"
                       class="p-button-success mx-2">
@@ -57,4 +57,3 @@
     </div>
   </div>
   </div>
-  

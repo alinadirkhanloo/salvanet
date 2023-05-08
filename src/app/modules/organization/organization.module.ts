@@ -1,3 +1,4 @@
+import { FindBoxModule } from 'app/core/components/find-box/find-box.module';
 import { RouterModule, Routes } from '@angular/router';
 import { SharedModule } from 'app/shared/modules/shared.module';
 import { NgModule } from '@angular/core';
@@ -8,6 +9,9 @@ import { DynamicTreeModule } from 'app/core/components/dynamics/dynamic-tree/dyn
 import { PositionHistoryComponent } from './position-history/position-history.component';
 import { PositionStatusComponent } from './position-status/position-status.component';
 import { PositionIncumbentComponent } from './position-incumbent/position-incumbent.component';
+import { PositionComponent } from './positions/position.component';
+import { PersonnelFilterModule } from 'app/core/components/personnel-filter/personnel-filter.module';
+import { PersonModule } from 'app/core/components/user-find-box/person/person.module';
 
 const routes: Routes = [
   {
@@ -23,6 +27,9 @@ const routes: Routes = [
   },
   {
     path:'region/new',component:RegionFormComponent
+  },
+  {
+    path:'positions/:id',component:PositionComponent
   },
   {
     path:'position-history',component:PositionHistoryComponent
@@ -41,10 +48,10 @@ const routes: Routes = [
     OrganizationEditComponent,
     RegionFormComponent,
     PositionHistoryComponent,
-    PositionStatusComponent,PositionIncumbentComponent
+    PositionStatusComponent,PositionIncumbentComponent,PositionComponent
   ],
   imports: [
-    SharedModule,DynamicTreeModule,
+    SharedModule,DynamicTreeModule,FindBoxModule,PersonModule,
     RouterModule.forChild(routes)
   ]
 })

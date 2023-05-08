@@ -25,7 +25,7 @@
                             <input pInputText OnlyNumber="true" type="text" placeholder="کد ملی" />
                         </span>
                         <button pButton label="جست و جو" class="p-button-outlined mx-2"></button>
-                        
+
                     </div>
                 </ng-template>
 
@@ -42,8 +42,7 @@
                             ردیف
                         </th>
                         <ng-container *ngFor="let header of dataGrid.tableHeaerFields">
-                            <th [pSortableColumn]="header.title">{{header.persianTitle}}<p-sortIcon
-                                    [field]="header.sortKey"></p-sortIcon></th>
+                            <th [pSortableColumn]="header.title">{{header.persianTitle}}</th>
                         </ng-container>
                         <th style="width: 15rem">صلاحیت</th>
                     </tr>
@@ -54,7 +53,7 @@
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
                     </ng-container>
-    
+
                     <th>
                         <p-columnFilter type="text" [field]="dataGrid.tableHeaerFields[0].sortKey"
                         matchMode="equals" [showMenu]="false">
@@ -65,7 +64,7 @@
                         matchMode="equals" [showMenu]="false"></p-columnFilter>
                     </th>
                     <th style="width: 12rem"></th>
-    
+
                 </tr> -->
 
                 </ng-template>
@@ -91,10 +90,10 @@
 
                         <td class="flex">
                             <button pButton type="button" class="p-button-success ml-2"
-                            label="تایید" 
+                            label="تایید"
                                 (click)="qualification(rows)"></button>
                             <button pButton type="button" class="p-button-danger"
-                            label="رد" 
+                            label="رد"
                                 (click)="disqualification($event,rows.id)"></button>
                         </td>
 

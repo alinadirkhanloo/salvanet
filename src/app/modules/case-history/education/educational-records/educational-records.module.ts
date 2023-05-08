@@ -1,5 +1,5 @@
 import { DynamicSelectModule } from 'core/components/dynamics/dynamic-select/dynamic-select.module';
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import { PrimeNgModule } from 'shared/modules/primeng/primeng.module';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { EducationalRecordsComponent } from './educational-records.component';

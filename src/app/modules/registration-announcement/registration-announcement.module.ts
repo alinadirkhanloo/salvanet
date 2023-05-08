@@ -8,6 +8,7 @@ import { RegistrationAnnouncementEditComponent } from './registration-announceme
 import { AllMaterialModule } from 'app/shared/modules/material/material.module';
 import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
 import { DatePickerModule } from 'app/core/components/dynamics/date-picker/date-picker.module';
+import { FindBoxModule } from 'app/core/components/find-box/find-box.module';
 
 const routes: Routes = [
   {
@@ -29,7 +30,7 @@ const routes: Routes = [
   ],
   imports: [
     SharedModule,AllMaterialModule,PrimeNgModule,DynamicPickListModule,DynamicSelectModule,
-    RouterModule.forChild(routes),DatePickerModule
+    RouterModule.forChild(routes),DatePickerModule,FindBoxModule
   ]
 })
 export class RegistrationAnnouncementModule { }

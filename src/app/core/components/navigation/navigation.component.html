@@ -1,7 +1,12 @@
 <div class="deznav">
   <div class="deznav-scroll" [perfectScrollbar]>
     <ul class="metismenu" id="menu" metis-menu>
-      
+      <li>
+        <a class="ai-icon" [routerLink]="['/pages/users']">
+          <i class="lar la-user-circle"></i>
+          <span class="nav-text">کاربران</span>
+        </a>
+      </li>
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="las la-database"></i>
@@ -28,8 +33,8 @@
           <li><a [routerLink]="['/pages/divisions-of-the-country/tree']">درختواره </a></li>
         </ul>
       </li>
-
-      <li *ifHasRole="'Mohammad'">
+      <!-- *ifHasRole="mohammad" -->
+      <li >
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="las la-users"></i>
           <span class="nav-text">اشخاص</span>
@@ -43,10 +48,10 @@
       <li>
         <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
           <i class="las la-user-tie"></i>
-          <span class="nav-text"> مالک زمین </span>
+          <span class="nav-text">واحد های تولیدی</span>
         </a>
         <ul aria-expanded="false">
-          <li><a [routerLink]="['/pages/lands/product-unit']">واحد های تولیدی</a></li>
+          <li><a [routerLink]="['/pages/product-units']">واحد های تولیدی</a></li>
           <li><a [routerLink]="['/pages/lands/']"> زمین های کشاورزی</a></li>
         </ul>
       </li>
@@ -58,9 +63,6 @@
         </a>
         <ul aria-expanded="false">
           <li><a [routerLink]="['/pages/organization']">سازمان ها</a></li>
-          <li>
-            <a [routerLink]="['/pages/organization-positions/position-history']"> پست سازمانی</a>
-          </li>
           <li>
             <a [routerLink]="['/pages/organization/memberships']"> عضویت ها</a>
           </li>
@@ -87,20 +89,20 @@
           <span class="nav-text">فراخوان</span>
         </a>
       </li>
-      <!-- <li>
+      <li>
         <a class="ai-icon" [routerLink]="['/pages/role-determination']">
           <i class="lar la-user-circle"></i>
           <span class="nav-text">نقش ها</span>
         </a>
-      </li> -->
+      </li>
       <li>
-        <a class="ai-icon" [routerLink]="['/pages/role-determination']">
+        <a class="ai-icon" [routerLink]="['/pages/condidates/observation-condidates']">
           <i class="lar la-user-circle"></i>
           <span class="nav-text">داوطلبین دیده بانی</span>
         </a>
       </li>
       <li>
-        <a class="ai-icon" [routerLink]="['/pages/role-determination']">
+        <a class="ai-icon" [routerLink]="['/pages/condidates/couch-condidates']">
           <i class="lar la-user-circle"></i>
           <span class="nav-text">داوطلبین مربیگر</span>
         </a>

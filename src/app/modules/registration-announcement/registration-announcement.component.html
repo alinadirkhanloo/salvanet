@@ -33,8 +33,7 @@
                         <th *ngIf="dataGrid.selectionMode" style="width: 4rem"></th>
                         <th style="min-width: 1rem">ردیف</th>
                         <ng-container *ngFor="let header of dataGrid.tableHeaerFields">
-                            <th pSortableColumn="subject">{{header.persianTitle}}<p-sortIcon
-                                    [field]="header.sortKey"></p-sortIcon></th>
+                            <th pSortableColumn="subject">{{header.persianTitle}}</th>
                         </ng-container>
                         <th style="width: 12rem"></th>
                     </tr>
@@ -57,7 +56,7 @@
                         <td>{{ rows.title }}</td>
                         <td>{{ rows.startDate }}</td>
                         <td>{{ rows.endDate }}</td>
-                        <td>{{ getRoleTitle(rows.rolesId) }}</td>
+                        <td>{{ getRoleTitle(rows.roleId) }}</td>
                         <td>
                             <p-inputSwitch [(ngModel)]="rows.active"
                             (onChange)="confirmAccountActivation($event,rows)"

@@ -12,7 +12,7 @@
                 'is-invalid':editForm.controls['code'].invalid && editForm.controls['code'].touched}"
                     formControlName="code" placeholder="">
                     <div *ngIf="editForm.controls['code'].invalid && (editForm.controls['code'].dirty || editForm.controls['code'].touched)" class="text-danger fs-13 mt-1">
-													
+
                         <div *ngIf="editForm.controls['code'].errors.required">
                             کد الزامی است
                         </div>
@@ -27,7 +27,7 @@
                 'is-invalid':editForm.controls['name'].invalid && editForm.controls['name'].touched}"
                     formControlName="name" placeholder="">
                     <div *ngIf="editForm.controls['name'].invalid && (editForm.controls['name'].dirty || editForm.controls['name'].touched)" class="text-danger fs-13 mt-1">
-													
+
                         <div *ngIf="editForm.controls['name'].errors.required">
                             نام الزامی است
                         </div>
@@ -42,7 +42,7 @@
                 'is-invalid':editForm.controls['description'].invalid && editForm.controls['description'].touched}"
                     formControlName="description" placeholder=""></textarea>
                     <div *ngIf="editForm.controls['description'].invalid && (editForm.controls['description'].dirty || editForm.controls['description'].touched)" class="text-danger fs-13 mt-1">
-													
+
                         <div *ngIf="editForm.controls['description'].errors.required">
                             توضیحات الزامی است
                         </div>
@@ -54,7 +54,7 @@
                     <span *appSpinOn="disableButton; color: 'warn';"></span>
                     تایید
                 </button>
-                <button type="button" pButton pRipple 
+                <button type="button" pButton pRipple
                     (click)="close()" class="p-button-danger">
                     انصراف
                 </button>

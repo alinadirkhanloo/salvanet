@@ -30,7 +30,7 @@
                   <p-dropdown
                     id="role"
                     [options]="roles"
-                    formControlName="rolesId"
+                    formControlName="roleId"
                     optionLabel="key"
                     optionValue="value"
                     placeholder="..."
@@ -43,7 +43,8 @@
                   <input
                     type="text"
                     class="form-control text-center"
-                    maxlength="8"
+                    maxlength="4"
+                    minlength="4"
                     [ngClass]="{
                       'is-valid': editForm.controls['code'].valid,
                       'is-invalid':
@@ -100,44 +101,91 @@
                 <div class="form-group col-lg-12">
                   <label class="mb-1"><small>توضیحات</small></label>
                   <textarea
-                    class="form-control text-center"
+                    class="form-control"
                     maxlength="64"
                     [ngClass]="{
                       'is-valid': editForm.controls['description'].valid,
                       'is-invalid':
-                        editForm.controls['description'].invalid && editForm.controls['description'].touched
+                        editForm.controls['description'].invalid &&
+                        editForm.controls['description'].touched
                     }"
                     formControlName="description"
                     placeholder=""
                   ></textarea>
                 </div>
-
               </form>
             </ng-container>
 
             <ng-container *ngIf="!showForm">
-              <div class="form-group col-lg-12">
-                <div class="py-3">
-                  <h5>لطفا شهر های زیر مجموعه را انتخاب نمایید</h5>
-                </div>
-                <app-dynamic-pick-list [configs]="pickListConfigs"></app-dynamic-pick-list>
+              <div class="form-group">
+                <p-table [value]="cities" [tableStyle]="{ 'min-width': '50rem' }">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th></th>
+                      <th colspan="2" class="text-center">استان ها و شهرستان های زیرمجموعه</th>
+                      <th class="text-right">
+                        <button
+                          class="btn btn-primary h-100"
+                          (click)="
+                            openFindBox(
+                              'identityCardIssuingPlaceId',
+                              'identityCardIssuingPlaceTitle',
+                              'countryDivision/countryDivisionSubDivisions',
+                              'انتخاب محل'
+                            )
+                          "
+                          type="button"
+                        >
+                          <i class="las la-plus fs-20 py-2" style="line-height: 0"></i>
+                        </button>
+                      </th>
+                    </tr>
+                    <tr>
+                      <th>ردیف</th>
+                      <th colspan="2" style="min-width: 2rem">عنوان</th>
+                      <th>حذف</th>
+
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-product let-i="rowIndex">
+                    <tr>
+                      <td>{{ i + 1 }}</td>
+                      <td colspan="2">{{ product.name }}</td>
+                      <td class="flex">
+
+                        <button pButton type="button" class="p-button-danger"
+                            (click)="confirmDelete($event,product.id)" icon="pi pi-trash"></button>
+                    </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
               </div>
             </ng-container>
           </div>
           <div class="card-footer bg-white">
-
             <div class="text- col-12">
-              <button
+
+              <ng-container *ngIf="showForm"><button
                 type="button"
                 pButton
                 pRipple
                 [disabled]="!editForm.valid || disableButton"
-                (click)="submit2()"
+                (click)="submit()"
                 class="p-button-success mx-2"
               >
                 <span *appSpinOn="disableButton; color: 'warn'"></span>
                 ثبت و ادامه
-              </button>
+              </button></ng-container>
+
+               <ng-container *ngIf="!showForm"><button
+                type="button"
+                pButton
+                pRipple
+                (click)="cancle()"
+                class="p-button-success mx-2"
+              >
+                ثبت              </button></ng-container> 
+
               <button type="submit" pButton pRipple (click)="cancle()" class="p-button-danger">
                 انصراف
               </button>
@@ -148,3 +196,4 @@
     </div>
   </div>
 </div>
+<p-confirmDialog [position]="'top'"></p-confirmDialog>

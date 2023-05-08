@@ -14,6 +14,11 @@
             ></p-steps>
             <form [formGroup]="editForm" class="row mx-0 py-4 px-2">
 
+
+  
+
+
+
               <ng-container *ngIf="activeIndex === 0">
 
                 <div class="form-group col-lg-6">
@@ -58,7 +63,7 @@
                   <p-dropdown
                     [disabled]="true"
                     [options]="documentTypes"
-                    formControlName="documentTypeId"
+                    formControlName="deedOwnershipTypeId"
                     optionLabel="topic"
                     optionValue="id"
                   ></p-dropdown>
@@ -86,7 +91,7 @@
                   ></p-dropdown>
                 </div>
 
-                <div class="form-group col-lg-6">
+                <!-- <div class="form-group col-lg-6">
                   <label><small>وضعیت تایید زمین</small></label>
                   <p-dropdown
                     [disabled]="true"
@@ -106,7 +111,7 @@
                     optionLabel="topic"
                     optionValue="id"
                   ></p-dropdown>
-                </div>
+                </div> -->
 
                 <div class="col-12 mt-3">
                   <button
@@ -128,57 +133,58 @@
 
                 <div class="form-group col-lg-12">
                   <label><small>آپلود فایل سند </small></label>
-                  <p-fileUpload
-                    name="demo[]"
-                    [url]="uploadAddress"
-                    (onUpload)="onLandDocUpload($event)"
-                    [chooseLabel]="'انتخاب'"
-                    [uploadLabel]="'بارگذاری'"
-                    [cancelLabel]="'لغو'"
-                    [showCancelButton]="false"
-                    [customUpload]="true"
-                    (uploadHandler)="uploader($event)"
-                    accept="image/*"
-                    maxFileSize="20000000"
-                  >
-                    <ng-template pTemplate="content">
-                      <ul *ngIf="landDocFiles.length">
-                        <li *ngFor="let file of landDocFiles">
-                          {{ file.name }} - {{ file.size }} bytes
-                        </li>
-                      </ul>
-                    </ng-template>
-                  </p-fileUpload>
+                  <div class="input-group mb-3" dir="ltr">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-danger h-100" (click)="deleteFile1()" type="button">
+                        حذف
+                      </button>
+                      <button (click)="fileUpload1.click()" class="btn btn-success h-100" type="button">
+                        انتخاب سند
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      [readonly]="true"
+                      [disabled]="true"
+                      [value]="fileName1"
+                      class="form-control text-left"
+                      placeholder=""
+                    />
+                  </div>
+                  <input style="width:0;height:0;opacity: 0; position: 0;top:0" type="file" class="file-input" (change)="pickPhoto($event)" #fileUpload1>
+    
                 </div>
 
                 <div class="form-group col-lg-12">
                   <label><small>آپلود فایل محدوده زمین</small></label>
-                  <p-fileUpload
-                    name="demo3"
-                    [url]="uploadAddress"
-                    [chooseLabel]="'انتخاب'"
-                    [uploadLabel]="'بارگذاری'"
-                    [showCancelButton]="false"
-                    (onUpload)="onLandAreaUpload($event)"
-                    [customUpload]="true"
-                    (uploadHandler)="uploader($event)"
-                    accept="image/*"
-                    maxFileSize="20000000"
-                  >
-                    <ng-template pTemplate="content">
-                      <ul *ngIf="landAreaFiles.length">
-                        <li *ngFor="let file of landAreaFiles">
-                          {{ file.name }} - {{ file.size }} bytes
-                        </li>
-                      </ul>
-                    </ng-template>
-                  </p-fileUpload>
+                  <div class="input-group mb-3" dir="ltr">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-danger h-100" (click)="deleteFile2()" type="button">
+                        حذف
+                      </button>
+                      <button (click)="fileUpload2.click()" class="btn btn-success h-100" type="button">
+                        انتخاب سند
+                      </button>
+                    </div>
+                    <input
+                      type="text"
+                      [readonly]="true"
+                      [disabled]="true"
+                      [value]="fileName2"
+                      class="form-control text-left"
+                      placeholder=""
+                    />
+                  </div>
+                  <input style="width:0;height:0;opacity: 0; position: 0;top:0" type="file" class="file-input" 
+                  (change)="pickPhoto2($event)" #fileUpload2>
+    
                 </div>
                 <div class="text-center">
                   <button
                     type="button"
                     pButton
                     pRipple
+                    [disabled]="!docs"
                     (click)="onActiveIndexChange(2)"
                     class="p-button-success mx-2"
                   >
@@ -194,7 +200,7 @@
 
                 <div class="form-group col-lg-12">
                   <label class="mb-1"><small>روستا</small></label>
-  
+
                   <div class="input-group" dir="ltr">
                     <div class="input-group-prepend">
                       <button
@@ -225,7 +231,7 @@
                         editForm.controls['locatedInId'].invalid &&
                           editForm.controls['locatedInId'].touched
                       }"
-                      formControlName="locatedInId"
+                      formControlName="locatedInTitle"
                       placeholder=""
                     />
                   </div>
@@ -235,7 +241,7 @@
                   <label class="mb-1"><small>آدرس</small></label>
                   <input
                     type="text"
-                    class="form-control text-center"
+                    class="form-control"
                     maxlength="36"
                     [ngClass]="{
                       'is-valid': editForm.controls['address'].valid,

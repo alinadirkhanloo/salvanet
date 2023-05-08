@@ -1,5 +1,4 @@
-
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import { PrimeNgModule } from 'shared/modules/primeng/primeng.module';
 import { DynamicSelectModule } from 'core/components/dynamics/dynamic-select/dynamic-select.module';
 import { NgModule } from '@angular/core';
 

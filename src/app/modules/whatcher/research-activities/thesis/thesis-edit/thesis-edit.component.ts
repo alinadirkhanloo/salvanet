@@ -20,7 +20,7 @@ export class ThesisEditComponent implements OnInit{
   routeSub=null;
   colapsed=true;
   records =[];
-  
+
   constructor(
     private _formBuilder: FormBuilder,
     private thesisService: ThesisService,
@@ -35,7 +35,7 @@ export class ThesisEditComponent implements OnInit{
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
@@ -51,7 +51,7 @@ export class ThesisEditComponent implements OnInit{
         this.setDataToForm(result);
       },
       error(err) {
-        
+
       },
       complete() {
         res.unsubscribe();

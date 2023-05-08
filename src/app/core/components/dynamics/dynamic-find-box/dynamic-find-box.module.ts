@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import { PrimeNgModule } from 'shared/modules/primeng/primeng.module';
 import { SharedModule } from 'app/shared/modules/shared.module';
 import { DynamicTreeModule } from '../dynamic-tree/dynamic-tree.module';
 import { DynamicFindBoxComponent } from './dynamic-find-box.component';

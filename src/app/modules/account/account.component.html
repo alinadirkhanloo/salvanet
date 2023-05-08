@@ -15,7 +15,7 @@
                 (onLazyLoad)="loadDataSource($event)" (selectionChange)="accountGrid.selectionChange($event)"
                 (selectAllChange)="onSelectAllChange($event)" [(first)]="first" [rowsPerPageOptions]="[10,25,50]">
 
-                
+
                 <ng-template pTemplate="caption">
                     <p-confirmDialog [position]="accountGrid.position"></p-confirmDialog>
                     <div class="flex">
@@ -38,8 +38,7 @@
                         <th *ngIf="accountGrid.selectionMode" style="width: 4rem"></th>
                         <th style="min-width: 1rem">ردیف</th>
                         <ng-container *ngFor="let header of accountGrid.tableHeaerFields">
-                            <th pSortableColumn="subject">{{header.persianTitle}}<p-sortIcon
-                                    [field]="header.sortKey"></p-sortIcon></th>
+                            <th pSortableColumn="subject">{{header.persianTitle}}</th>
                         </ng-container>
                         <th style="width: 12rem"></th>
                     </tr>
@@ -59,10 +58,11 @@
                         <td>
                             {{first + index +1}}
                         </td>
-                        <td>{{ rows.idNumber }}</td>
-                        <td>{{ rows.fullName }}</td>
-                        <td>{{ rows.phoneNumber }}</td>
-                        <td>{{ rows.username }}</td>
+                        <td>{{ rows.nationalCode }}</td>
+                        <td>{{ rows.firstName }}</td>
+                        <td>{{ rows.lastName }}</td>
+                        <td>{{ rows.simnumber }}</td>
+                        <td>{{ rows.nationalCode }}</td>
                         <td>
                             <p-inputSwitch [(ngModel)]="rows.isActive"
                             (onChange)="confirmAccountActivation($event,rows)"

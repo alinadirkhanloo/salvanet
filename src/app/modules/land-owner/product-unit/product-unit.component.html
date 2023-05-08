@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container-fluid vh-100">
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
@@ -44,8 +44,6 @@
                                 </div>
 
                             </td>
-
-
 
                             <td>
 
@@ -96,13 +94,16 @@
                             </div>
 
                             <div class="text-left">
-                                <p-button label="فایل زمین" icon="pi pi-download" iconPos="left" [disabled]="true" styleClass="p-button-info"
+                                <p-button label="فایل محدوده زمین" icon="pi pi-download" 
+                                (click)=" openFindBox(product.landBoundaryId)"
+                                iconPos="left" styleClass="p-button-info"
                                     class="mx-1" pTooltip="دانلود فایل زمین" tooltipvenue="bottom"></p-button>
 
-                                <p-button label="فایل سند" icon="pi pi-download" iconPos="left" [disabled]="true" styleClass="p-button-info"
+                                <p-button label="فایل سند" icon="pi pi-download" iconPos="left" styleClass="p-button-info"
+                                (click)=" openFindBox(product.deedId)"
                                     class="mx-1" pTooltip="دانلود فایل سند" tooltipvenue="bottom"></p-button>
 
-                                <p-button label="مالک ها" iconPos="left" (click)="owners(id)" styleClass="p-button-primary" pTooltip="لیست مالکین "
+                                <p-button label="مالک ها" iconPos="left" (click)="owners(product.id)" styleClass="p-button-primary" pTooltip="لیست مالکین "
                                     class="mx-1" tooltipvenue="bottom"></p-button>
 
                                 <p-button label="ویرایش" icon="pi pi-edit" iconPos="left"

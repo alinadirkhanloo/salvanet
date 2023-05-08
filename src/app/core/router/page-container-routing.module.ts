@@ -1,6 +1,7 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { PageContainerComponent } from 'app/modules/page-container/page-container.component';
+import { RoleGuard } from '../guards/role-access.guard';
 
 const routes: Routes = [
   {
@@ -10,18 +11,17 @@ const routes: Routes = [
   {
     path: '', component: PageContainerComponent,
     children:[
-      
       {
-        path: 'profile',
-        loadChildren: () => import('modules/profile/profile.module')
-          .then(m => m.ProfileModule)
+        path: 'base-information',
+        loadChildren: () => import('modules/base-information/base-information.module')
+          .then(m => m.BaseInformationModule)
       },
       {
         path: 'courses',
         loadChildren: () => import('modules/cources/cources.module')
           .then(m => m.CourcesModule)
       },
-      
+
       {
         path: 'farmer-registration',
         loadChildren: () => import('modules/farmer/farmer.module')
@@ -64,15 +64,14 @@ const routes: Routes = [
       },
 
       {
-        path: 'courses',
-        loadChildren: () => import('modules/cources/cources.module')
-          .then(m => m.CourcesModule)
+        path:'product-units',
+        loadChildren: () => import('app/modules/land-owner/product-unit/product-unit.module')
+          .then(m => m.ProductUnitModule),
       },
-
       {
-        path: 'lands',
-        loadChildren: () => import('modules/land-owner/land-owner.module')
-          .then(m => m.LandOwnerModule)
+        path:'product-units/owners/:id',
+        loadChildren: () => import('app/modules/land-owner/owners/owners.module')
+          .then(m => m.OwnersModule),
       },
       {
         path: 'coach-registration',loadChildren: () =>  import('app/modules/whatcher/whatcher.module')
@@ -93,18 +92,12 @@ const routes: Routes = [
         .then(m => m.WhatcherModule)
       },
 
-
-      {
-        path: 'sim-cards',
-        loadChildren: () => import('modules/sim-card/sim-card.module')
-          .then(m => m.SimCardModule)
-      },
       {
         path: 'divisions-of-the-country',
         loadChildren: () => import('modules/divisions-of-the-country/divisions-of-the-country.module')
           .then(m => m.DivisionsOfTheCountryModule)
       },
-
+      // ,canActivate:[RoleGuard]
       {
         path: 'organization-positions',
         loadChildren: () =>  import('modules/organization/organization.module')
@@ -124,6 +117,16 @@ const routes: Routes = [
         path: 'registration-announcement',
         loadChildren: () => import('modules/registration-announcement/registration-announcement.module')
           .then(m => m.RegistrationAnnouncementModule)
+      },
+      {
+        path: 'condidates/couch-condidates',
+        loadChildren: () => import('modules/candidates/coaching-condidates/coaching-condidates.module')
+          .then(m => m.CoachingCondidatesModule)
+      },
+      {
+        path: 'condidates/observation-condidates',
+        loadChildren: () => import('modules/candidates/observation-condidates/observation-condidates.module')
+          .then(m => m.ObservationCondidatesModule)
       }
     ]
   },

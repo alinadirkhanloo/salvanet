@@ -1,3 +1,4 @@
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { GenericClass } from 'app/core/models/genericClass.model';
 import { IDropdown } from 'core/interfaces/dropdown/dropdonw.interface';
@@ -10,6 +11,7 @@ import { ICource } from 'app/core/interfaces/course.interface';
 import { CourseService } from '../cources.service';
 import { SharedService } from 'app/shared/services/shared.service';
 import { IProfile } from 'app/core/interfaces/profile.interface';
+import { PersonComponent } from 'app/core/components/user-find-box/person/person.component';
 
 @Component({
   selector: 'app-courses-edit',
@@ -17,7 +19,7 @@ import { IProfile } from 'app/core/interfaces/profile.interface';
   styleUrls: ['./courses-edit.component.css']
 })
 export class CoursesEditComponent extends GenericClass implements OnInit,OnDestroy {
-
+  user=null;
   editForm: FormGroup;
   disableButton = false;
   updateMode = false;
@@ -32,7 +34,7 @@ export class CoursesEditComponent extends GenericClass implements OnInit,OnDestr
   constructor(
     private _formBuilder: FormBuilder,
     private courseService: CourseService,
-    private shService:SharedService,
+    private shService:SharedService,private modalService: NgbModal,
     private route: ActivatedRoute, private router:Router
   ) {
     super();
@@ -49,9 +51,9 @@ export class CoursesEditComponent extends GenericClass implements OnInit,OnDestr
     this.profile$ = this.shService.profile$;
   }
 
-  ngOnDestroy(): void {}
 
-  ngOnInit(): void { 
+
+  ngOnInit(): void {
 
     this.subscription = this.route.params.subscribe(params => {
       if (params['id']) {
@@ -61,6 +63,7 @@ export class CoursesEditComponent extends GenericClass implements OnInit,OnDestr
     });
   }
 
+  ngOnDestroy(): void {}
 
   loadById(id:number|string) {
     this.subscription = this.courseService.readById(id).subscribe({
@@ -75,6 +78,23 @@ export class CoursesEditComponent extends GenericClass implements OnInit,OnDestr
 
   setDataToForm(entityData:any) {
     this.editForm.setValue(entityData as ICource[]);
+  }
+
+  redirectToRegistration(){
+    this.router.navigateByUrl('/pages/person/new');
+  }
+
+  opemPersonFilter() {
+    const modalRef = this.modalService.open(PersonComponent, { fullscreen: true });
+    modalRef.result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+      console.log(result);
+      this.user=result;
+
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+
+    },);
   }
 
   submit(profileId:number) {
@@ -100,5 +120,7 @@ export class CoursesEditComponent extends GenericClass implements OnInit,OnDestr
     this.router.navigate(['pages/cources']);
   }
 
-
+  get fullName(){
+    return this.user?`${this.user?.firstName} ${this.user?.lastName}`:'';
+  }
 }

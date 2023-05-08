@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Subscription, map } from 'rxjs';
 import { Router } from '@angular/router';
 import { GenericGrid } from 'app/core/interfaces/grid.interface';
 import { IGridHeader } from 'app/core/interfaces/grid.interface';
@@ -16,11 +16,12 @@ import { AccountService } from './account.service';
 })
 export class AccountComponent implements OnInit {
   theachingHeaders:IGridHeader[] = [
-    {title:'idNumber',persianTitle:'کد ملی ',sortKey:'idNumber'},
-    {title:'fullName',persianTitle:'نام و نام خانوادگی ',sortKey:'fullName'},
-    {title:'phoneNumber',persianTitle:'شماره همراه ',sortKey:'phoneNumber'},
-    {title:'username',persianTitle:'کد کاربری ',sortKey:'username'},
-    {title:'isActive',persianTitle:'فعال',sortKey:'isActive'}
+    {title:'nationalCode',persianTitle:'کد ملی ',sortKey:'nationalCode'},
+    {title:'firstName',persianTitle:'نام  ',sortKey:'firstName'},
+    {title:'lastName',persianTitle:'نام خانوادگی ',sortKey:'lastName'},
+    {title:'simnumber',persianTitle:'شماره همراه ',sortKey:'simnumber'},
+    {title:'nationalCode',persianTitle:'کد کاربری ',sortKey:'nationalCode'},
+    {title:'active',persianTitle:'فعال',sortKey:'active'}
   ];
 
 
@@ -47,26 +48,39 @@ export class AccountComponent implements OnInit {
     ngOnInit() {
       this.loadAll(null);
     }
-  
+
     loadAll(event){
       this.accountGrid.loading = true;
       this.loadDataSource(event);
     }
-  
+
     loadDataSource(event: LazyLoadEvent) {
       if (event !== null) {
         this.lazyLoadvent = event;
         this.sub.add(
-          this.accountService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
-            next:(list:any)=>{
-              this.accountGrid.onLazyLoad(event,list);
-              this.accountList=list;
-            }
-          })
+          this.accountService.getListCount('count').pipe(
+            map((rsult) => {
+              this.accountService.readListWithParams((event.first / 10), event.rows, event.sortField,'','person').
+              subscribe({
+                next: (list: any) => {
+                  this.accountGrid.onLazyLoad(event,list,rsult);
+                      this.accountList=list;
+                }
+              })
+              return rsult;
+            })
+          ).subscribe({})
+
+          // this.accountService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
+          //   next:(list:any)=>{
+          //     this.accountGrid.onLazyLoad(event,list);
+          //     this.accountList=list;
+          //   }
+          // })
           );
       }
     }
-  
+
 
   onSelectAllChange(event) {
     this.accountSelectedList = this.accountGrid.selectAllChange(event,this.accountList);

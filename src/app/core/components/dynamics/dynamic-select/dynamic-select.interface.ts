@@ -4,7 +4,7 @@ export interface IDynamicSelect {
 
   options$?: Observable<IDynamicSelectItem[]>;
   optionValue?:string;
-  items?: IDynamicSelectItem[];
+  items?: any[];
   selectdItems?: any;
   emptyFilterMessage?: 'موردی یافت نشد',
   emptyMessage?: 'موردی یافت نشد',

@@ -20,7 +20,7 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
   visibilityOfEditeOption = false;
   treeData:any = [];
   load=false;
-
+  uploading=false;
   constructor(
     private dcService: DivisionsOfTheCountryService,
     private commonService: CommonService,private confirmationService: ConfirmationService,
@@ -42,30 +42,30 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
         this.baseInfoTreeConfig = {
 
           treeNodes$: this.commonService.getTree('countryDivision/countryDivisionSubDivisions'),
-    
+
           onNodeContextMenuSelect: new ReplaySubject<any>(1),
           onNodeSelect: new ReplaySubject<any>(1),
-    
+
           lazyUrl: [
             `countryDivision/countryDivisionSubDivisions`,
             '',
           ],
           contextMenuItems: this.getContextMenu(),
-    
+
           selectionMode: SelectionMode.SINGLE_SELECT
         };
         this.subscribeEvents();
         setTimeout(() => {
           this.load=true;
         }, 500);
-      
+
   }
 
 
   addNewNode(event) {
     let selectedNode = this.baseInfoTreeConfig.selectedFile;
     this.router.navigateByUrl('pages/divisions-of-the-country/new',
-    { 
+    {
       state:
       {
         node: selectedNode
@@ -104,7 +104,7 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
           })
         );
 
-        
+
       },
       reject: () => {
         //reject action
@@ -123,13 +123,16 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
       acceptButtonStyleClass: 'mx-2',
       accept: () => {
         //confirm action
+        this.uploading=true;
         this.subscription.add(
           this.dcService.create({},'ingest').subscribe({
             next:(result)=>{
               this.shService.showSuccess('بارگذاری انجام شد');
+              this.uploading=false;
             },
             error:(err)=>{
               this.shService.showSuccess('خطای سرور');
+              this.uploading=false;
             }
           })
         );
@@ -145,17 +148,17 @@ export class DivisionsOfTheCountryComponent implements OnInit, OnDestroy {
     return [
       {
         label: 'درج',
-        icon: 'flaticon-381-add-2 text-info',
+        icon: 'las la-plus text-info',
         command: event => this.addNewNode(event),
       },
       {
         label: 'ویرایش',
-        icon: 'flaticon-381-edit text-warning',
+        icon: 'las la-edit text-warning',
         command: event => this.editNode(event)
       },
       {
         label: 'حذف',
-        icon: 'flaticon-381-trash-2 text-danger',
+        icon: 'las la-trash text-danger',
         command: event => this.deleteNode(event)
       }
     ]

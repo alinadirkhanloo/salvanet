@@ -42,15 +42,15 @@ export class UserAuthComponent extends GenericClass implements OnInit, OnDestroy
   ngOnInit(): void {
 
     let a = this.sharedService.returnUrl.value;
-    
-    if ((a == '' && sessionStorage.getItem('captchaAccessKey') !== null) || 
+
+    if ((a == '' && sessionStorage.getItem('captchaAccessKey') !== null) ||
     (a !== '' && sessionStorage.getItem('captchaAccessKey') == null)) {
       this.router.navigateByUrl('auth/login');
     } else {
       this.accountForm.controls['action'].setValue(this.conditions[a]);
     this.getCaptcha();
     }
-    
+
   }
 
   ngOnDestroy(): void {

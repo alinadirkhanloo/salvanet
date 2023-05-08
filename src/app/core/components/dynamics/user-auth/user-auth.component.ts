@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Component, Input, OnInit } from '@angular/core';
 import { SharedService } from 'app/shared/services/shared.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-auth',
@@ -14,21 +15,21 @@ export class UserAuthComponent implements OnInit {
   accountForm: FormGroup;
   disableButton = false;
   captchaImage:any;
-
-  @Input() action:string;
-  @Input() returnUrl:string;
+  showCode=false;
+  action:string;
+  returnUrl:string;
 
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
     private auth: AuthService,
-    private sharedService:SharedService
+    private sharedService:SharedService,private acModal:NgbActiveModal
   ) {
     this.accountForm = this._formBuilder.group({
       username: ['', [Validators.required, Validators.maxLength(10)]],
       mobile: ['', [Validators.required, Validators.pattern(`^09[0-9]{9}`), Validators.maxLength(11),Validators.minLength(11)]],
       captcha: ['', [Validators.required]],
-      action: ['', []]
+      code: ['', []]
     });
   }
 
@@ -39,37 +40,68 @@ export class UserAuthComponent implements OnInit {
     this.accountForm.controls['action'].setValue(this.action);
   }
 
-  getCaptcha(){
-    let x = this.auth.getCaptcha().subscribe(result=>{
-      this.captchaImage = result;
-      x.unsubscribe();
+  getCaptcha() {
+    this.auth.getCaptcha().subscribe(result => {
+      const data = JSON.parse(result);
+      this.captchaImage = data.image;
+      // sessionStorage.setItem('captchaAccessKey', data.id);
     })
   }
 
-
-  goToVerification() {
-
+  sendSms() {
     this.disableButton = true;
-
     if (this.accountForm.valid) {
-      let rest = this.auth.checkAndSendSms(this.accountForm.value).subscribe({
-        next: (result) => {
+      setTimeout(() => {
+        this.showCode=true;
+        this.disableButton = false;
+      }, 2000);
+      // let rest = this.auth.sendSms(this.accountForm.value).subscribe({
+      //   next: (result) => {
 
-          if (result=== true) {
-            // id number and phone number is correct
-            this.router.navigate([this.returnUrl]);
-            rest.unsubscribe();
-          } else {
-            this.disableButton = false;
-            this.sharedService.showError('کدملی یا شماره موبایل اشتباه است');
-            return
-          }
-        },
-        error: () => {
-            this.disableButton = false;
-        }
-      });
+      //     if (result=== true) {
+      //       // id number and phone number is correct
+      //       this.showCode=true;
+      //       rest.unsubscribe();
+      //     } else {
+      //       this.disableButton = false;
+      //       this.sharedService.showError('کدملی یا شماره موبایل اشتباه است');
+      //       return
+      //     }
+      //   },
+      //   error: () => {
+      //       this.disableButton = false;
+      //   }
+      // });
     }
+  }
+
+  sendCode(){
+    this.disableButton = true;
+    if (this.accountForm.valid) {
+      this.acModal.close(true);
+      // let rest = this.auth.sendCode(this.accountForm.value).subscribe({
+      //   next: (result) => {
+
+      //     if (result=== true) {
+      //       // id number and phone number is correct
+      //       this.showCode=true;
+      //       rest.unsubscribe();
+      //     } else {
+      //       this.disableButton = false;
+      //       this.sharedService.showError('کدملی یا شماره موبایل اشتباه است');
+      //       return
+      //     }
+      //   },
+      //   error: () => {
+      //       this.disableButton = false;
+      //   }
+      // });
+    }
+  }
+
+  back(){
+    this.showCode =false;
+    this.accountForm.reset();
   }
 
 

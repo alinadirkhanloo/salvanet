@@ -15,7 +15,7 @@ import { RolesService } from 'app/shared/services/role.service';
   selector: 'app-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
+export class LoginComponent extends GenericClass implements OnInit, OnDestroy {
 
 
   loginForm: FormGroup;
@@ -25,17 +25,19 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
   passTooltip = `کلمه عبور باید شامل:
   حداقل یک حرف بزرگ انگلیسی، حداقل یک حرف کوچک انگلیسی، حداقل یک عدد و یکی از علايم @*$# باشد
   `
-  passType='password';
+  passType = 'password';
 
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
     private auth: AuthService,
     private sharedService: SharedService,
-    private commonService:CommonService,
-    private roleService:RolesService
+    private commonService: CommonService,
+    private roleService: RolesService
   ) {
     super();
+    sessionStorage.removeItem('currentUser');
+    sessionStorage.removeItem('currentRole');
     this.loginForm = this._formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
@@ -58,23 +60,21 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     if (this.loginForm.valid) {
       this.subscription = this.auth.login(this.loginForm.value).subscribe({
         next: (result: any) => {
-          // console.log(result);
           if (result) {
             // id number and phone number is correct
-            
+
             let roles = JSON.parse(result.idToken).roles;
             if (roles) {
               this.roleService.setRoles(JSON.parse(result.idToken).roles);
-            }else {
+            } else {
               return
             }
 
             this.auth.setUsername(this.loginForm.value.username);
-            
             if (!JSON.parse(result.idToken).activated)
               this.router.navigate(['auth/change-password']);
             else {
-              if (!JSON.parse(result.idToken).identityAccepted){
+              if (!JSON.parse(result.idToken).identityAccepted) {
                 this.sharedService.returnUrl.next('auth/user-registration');
                 this.router.navigate(['auth/user-registration']);
 
@@ -82,10 +82,10 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
               else {
                 if (this.sharedService.returnUrl.value !== '') {
                   this.router.navigateByUrl(this.sharedService.returnUrl.value);
-                } else 
-                this.router.navigateByUrl('/pages');
+                } else
+                  this.router.navigateByUrl('/pages');
               }
-              
+
             }
             this.auth.setUser(result as User);
           } else {
@@ -95,12 +95,12 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
         },
         error: (error) => {
           this.getCaptcha();
-          if (error['0']=== 'passwordIsWrong') {
+          if (error['0'] === 'passwordIsWrong') {
             this.sharedService.showError('کلمه عبور اشتباه است');
-          }else
-          if (error['0']=== 'accountExists') {
-            this.sharedService.showError('حساب کاربری قبلا ایجاد شده است');
-          }
+          } else
+            if (error['0'] === 'accountExists') {
+              this.sharedService.showError('حساب کاربری قبلا ایجاد شده است');
+            }
           this.disableLoginButton = false;
         }
       });
@@ -110,14 +110,14 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
   getCaptcha() {
     this.subscription = this.auth.getCaptcha().subscribe(
       {
-        next:(result:any) => {
-        
+        next: (result: any) => {
+
           const data = JSON.parse(result);
           this.captchaImage = data.image;
-          sessionStorage.setItem('captchaAccessKey',data.id);
+          sessionStorage.setItem('captchaAccessKey', data.id);
           this.loginForm.controls['accessKey'].setValue(data.id);
         },
-        error:(err)=> {
+        error: (err) => {
         },
       }
     )
@@ -138,8 +138,8 @@ export class LoginComponent extends GenericClass implements OnInit,OnDestroy {
     this.sharedService.returnUrl.next('auth/user-registration');
   }
 
-  showPass(){
-    this.passType==='password'?this.passType='text':this.passType='password'
+  showPass() {
+    this.passType === 'password' ? this.passType = 'text' : this.passType = 'password'
   }
 
   get checkCodeMelli() {

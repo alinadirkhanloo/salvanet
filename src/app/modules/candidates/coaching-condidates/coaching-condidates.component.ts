@@ -17,7 +17,7 @@ import { ICondidates } from '../coaching-condidats.interface';
 export class CoachingCondidatesComponent implements OnInit{
 
   private sub = new Subscription();
-  
+
   gridHeaders:IGridHeader[] = [
     {title:'nationalCode',persianTitle:'کد ملی',sortKey:'nationalCode'},
     {title:'name',persianTitle:'نام',sortKey:'name'},
@@ -33,7 +33,7 @@ export class CoachingCondidatesComponent implements OnInit{
 
   dataSource: ICondidates[]=[];
   selectedList: ICondidates[]=[];
-  
+
   first = 0;
   rows = 10;
   lazyLoadvent!:LazyLoadEvent;
@@ -58,7 +58,7 @@ export class CoachingCondidatesComponent implements OnInit{
     if (event !== null) {
       this.lazyLoadvent = event;
       this.sub.add(
-        this.ccdService.readListWithParams((event.first/10),event.rows,event.sortField).subscribe({
+        this.ccdService.readListWithParams((event.first/10),event.rows,event.sortField,'coaches').subscribe({
           next:(list:any)=>{
             this.dataGrid.onLazyLoad(event,list);
             this.dataSource=list;

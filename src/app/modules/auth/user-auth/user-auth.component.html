@@ -83,14 +83,16 @@
                     <button
                       type="submit" style="width: 100%;max-width: 200px;"
                       [disabled]="!accountForm.valid || disableButton"
-                      (click)="goToVerification()"
+                      (click)="goToVerification()"  pButton
+                      pRipple
                       class="btn btn-primary mx-2"
                     >
                       <span *appSpinOn="disableButton; color: 'warn'"></span>
                       ارسال
                     </button>
                     <button
-                      type="button"
+                      type="button" pButton
+                      pRipple
                       (click)="cancle()"
                       class="btn btn-danger"
                     >

@@ -1,6 +1,104 @@
-<div class="container-fluid h-100">
-    <div class="card p-4">
-        <p-steps [model]="items" [readonly]="false"></p-steps>
-    </div>
-    <router-outlet></router-outlet>
-</div>
+<!-- <div class="container-fluid vh-100">
+  <div class="card p-4">
+    <form class="">
+    <p-panel header="افزودن محل مورد علاقه" [toggleable]="true">
+      <div class="row no-gutters">
+        <div class="col-xl-12">
+          <div class="auth-form">
+            
+              <div class="form-group col-sm-8">
+                <label class="mb-1"><small>انتخاب محل </small></label>
+
+                <div class="input-group" dir="ltr">
+                  <div class="input-group-prepend">
+                    <button
+                      class="btn btn-primary px-3 py-0"
+                      type="button"
+                      style="max-height: 56px; height: 100%"
+                      (click)="
+                        openFindBox('divisionCountryId','divisionCountryTitle','countryDivision/countryDivisionSubDivisions', 'انتخاب محل')">
+                      <i class="las la-bars fs-24"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    readonly
+                    class="form-control text-left col-12"
+                    [(ngModel)]="divisionCountryTitle" [ngModelOptions]="{standalone: true}"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+
+
+    <p-panel header="افزودن محل مورد علاقه" [toggleable]="false">
+      <div class="row no-gutters">
+        <div class="col-xl-12">
+          <div class="auth-form">
+              <div class="form-group col-sm-6">
+                <label class="mb-1">انتخاب محل</label>
+
+                <div class="input-group col-12" dir="ltr">
+                  <div class="input-group-prepend">
+                    <button
+                      class="btn btn-primary px-3 py-0"
+                      type="button"
+                      style="max-height: 56px; height: 100%"
+                      (click)="
+                        openFindBox(
+                          'divisionCountryId',
+                          'divisionCountryTitle',
+                          'countryDivision/countryDivisionSubDivisions',
+                          'انتخاب محل'
+                        )
+                      "
+                    >
+                      <i class="las la-bars fs-24"></i>
+                    </button>
+                  </div>
+                  <input
+                    type="text"
+                    readonly
+                    name="location"
+                    class="form-control text-left col-12"
+                    formControlName="divisionCountryTitle"
+                    placeholder=""
+                  />
+                </div>
+              </div>
+
+              <div class="form-group col-sm-3">
+                <label>محصول</label>
+                <app-dynamic-select
+                  [selectionConfig]="myProductConfig1"
+                  formControlName="productModel1"
+                ></app-dynamic-select>
+              </div>
+          </div>
+        </div>
+      </div>
+    </p-panel>
+
+    <p-panel header="افزودن محل مورد علاقه" [toggleable]="false">
+      <div class="row no-gutters">
+        <div class="col-xl-12">
+          <div class="auth-form">
+              <div class="form-group col-md-4">
+                <label>محصول</label>
+                <app-dynamic-select
+                  [selectionConfig]="myProductConfig2"
+                  [(ngModel)]="productModel2"
+                ></app-dynamic-select>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    </p-panel>
+</form>
+  </div>
+</div> -->

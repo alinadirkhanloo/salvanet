@@ -33,14 +33,12 @@ export class StudyFiledFormComponent implements OnInit, OnDestroy{
     ){
       this.editForm = this._fb.group({
         id:null,
-        name:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
-        description:['',[Validators.required,Validators.maxLength(512),Validators.minLength(2)]]
-
+        title:['',[Validators.required,Validators.maxLength(64),Validators.minLength(2)]],
+        description:['',[Validators.required,Validators.maxLength(512),Validators.minLength(2)]],
+        studyFieldId:null
       })
   }
-  ngOnDestroy(): void {
-   this.sub.unsubscribe();
-  }
+
   ngOnInit(): void {
     if (this.updateMode) {
       this.loadById(this.node.data);
@@ -51,7 +49,8 @@ export class StudyFiledFormComponent implements OnInit, OnDestroy{
 
     let res = this.sfService.readById(id).subscribe({
       next:(result)=>{
-       this.editForm.controls['name'].setValue(result.name);
+        this.editForm.controls['id'].setValue(id);
+       this.editForm.controls['title'].setValue(result.title);
        this.editForm.controls['description'].setValue(result.description);
       },
       error:(err)=> {
@@ -62,12 +61,15 @@ export class StudyFiledFormComponent implements OnInit, OnDestroy{
 
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+   }
 
   submit(){
     this.disableButton = true;
     if (this.updateMode) {
       this.sub.add(
-        this.sfService.update(this.editForm.value).subscribe({
+        this.sfService.update(this.editForm.value,'',this.editForm.value['studyFieldId']?'majorStudyField':'studyField').subscribe({
           next:(res)=>{
             this.shService.showSuccess();
             this.activeModal.close(true);
@@ -80,7 +82,7 @@ export class StudyFiledFormComponent implements OnInit, OnDestroy{
         );
     } else {
       this.sub.add(
-        this.sfService.create(this.editForm.value).subscribe({
+        this.sfService.create(this.editForm.value,'',this.editForm.value['studyFieldId']?'majorStudyField':'studyField').subscribe({
           next:(res)=>{
             this.shService.showSuccess();
             this.activeModal.close(true);

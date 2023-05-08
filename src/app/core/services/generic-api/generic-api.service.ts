@@ -15,41 +15,44 @@ export abstract class GenericApiService<T>
   }
 
   // C => CRUD
-  public create(entity: any, concatUrl: string = ''): Observable<T> {
-    return this.http.post<T>(`${environment.baseUrl}/${this.restUrl}/${concatUrl}`, entity);
+  public create(entity: any, concatUrl: string = '',url:string=''): Observable<T> {
+    return this.http.post<T>(`${environment.baseUrl}/${url?url:this.restUrl}/${concatUrl}`, entity);
   }
 
   // R => CRUD
-  public readList(concatUrl: string = ''): Observable<T[]> {
+  public readList(concatUrl: string = '',url:string=''): Observable<T[]> {
 
-    return this.http.get<T[]>(`${environment.baseUrl}/${this.restUrl}/${concatUrl}`);
+    return this.http.get<T[]>(`${environment.baseUrl}/${url?url:this.restUrl}/${concatUrl}`);
   }
 
-  public readListWithParams(page:number,size:number,sort?:string,concatUrl: string = ''): Observable<T[]> {
+  public readListWithParams(page:number,size:number,sort?:string,concatUrl: string = '',restUrl:string=''): Observable<T[]> {
     this.params = new HttpParams()
     .set('page',page)
     .set('size', size)
     .set("sort", sort?sort:'');
-
-    return this.http.get<T[]>(`${environment.baseUrl}/${this.restUrl}/${concatUrl}`,{params:this.params});
+    let url = restUrl?restUrl:this.restUrl;
+    return this.http.get<T[]>(`${environment.baseUrl}/${url}/${concatUrl}`,{params:this.params});
   }
 
   public getListCount(afterIdUrl = ''): Observable<T> {
     return this.http.get<T>(`${environment.baseUrl}/${this.restUrl}/${afterIdUrl}`);
   }
 
-  public readById(id: string | number, afterIdUrl = ''): Observable<T> {
-    return this.http.get<T>(`${environment.baseUrl}/${this.restUrl}/${id}/${afterIdUrl}`);
+  public readById(id: string | number, afterIdUrl = '',url:string=''): Observable<T> {
+    return this.http.get<T>(`${environment.baseUrl}/${url?url:this.restUrl}/${id}/${afterIdUrl}`);
   }
 
   // U => CRUD
-  public update(entity, afterIdUrl = ''): Observable<T> {
-    return this.http.put<T>(`${environment.baseUrl}/${this.restUrl}/${afterIdUrl}`, entity);
+  public update(entity, afterIdUrl = '',url:string=''): Observable<T> {
+    return this.http.put<T>(`${environment.baseUrl}/${url?url:this.restUrl}/${afterIdUrl}`, entity);
   }
 
   // D => CRUD
-  public delete(id: number | string, afterIdUrl = ''): Observable<T> {
-    return this.http.delete<T>(`${environment.baseUrl}/${this.restUrl}/${id}/${afterIdUrl}`);
+  public delete(id: number | string, afterIdUrl = '',url:string=''): Observable<T> {
+    return this.http.delete<T>(`${environment.baseUrl}/${url?url:this.restUrl}/${id}/${afterIdUrl}`);
+  }
+  public deleteWithoutId( afterIdUrl = '',url:string=''): Observable<T> {
+    return this.http.delete<T>(`${environment.baseUrl}/${url?url:this.restUrl}/${afterIdUrl}`);
   }
 
 }

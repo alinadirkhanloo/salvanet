@@ -1,3 +1,6 @@
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from 'environment/environment';
+import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from 'app/core/interfaces/user.interface';
 // import { OAuthService } from 'angular-oauth2-oidc';
@@ -8,8 +11,12 @@ import { User } from 'app/core/interfaces/user.interface';
 export class RolesService {
 
   private roles: string[] = [];
+  currentRole: string = '';
+  private headers: HttpHeaders;
+  constructor(private http: HttpClient) {
+    this.headers = new HttpHeaders();
+    this.headers.append('Content-Type', 'json/application');
 
-  constructor() {
     const currentUser: User = this.getItemFromSessionStorage('currentUser');
     const isLoggedIn = currentUser && currentUser.accessToken;
     if (isLoggedIn) {
@@ -18,12 +25,14 @@ export class RolesService {
         this.setRoles(roles);
       }
     }
+    this.currentRole = sessionStorage.getItem('currentRole');
+
   }
 
   hasRole(role: string): boolean {
     if (!!this.roles) {
       const userRoles = this.roles;
-      return userRoles.includes(role);
+      return userRoles.includes(role) && this.currentRole === role;
     }
   }
 
@@ -32,6 +41,7 @@ export class RolesService {
       this.roles = roles.split(',');
     }
   }
+
   getItemFromSessionStorage(key: string) {
     const item = sessionStorage.getItem(key);
     if (item) {
@@ -42,4 +52,30 @@ export class RolesService {
     }
   }
 
+  saveCurrentRole(role: string) {
+    this.setActiveRole(role).subscribe({
+      next: (result) => {
+        if (result) {
+          this.currentRole = role;
+          sessionStorage.setItem('currentRole', role);
+          location.reload();
+        }
+      }
+    });
+
+
   }
+
+  numberOfRoles() {
+    return this.roles.length;
+  }
+
+  getRoles() {
+    return this.roles;
+  }
+
+  setActiveRole(role: string): Observable<boolean> {
+    return this.http.post<boolean>(`${environment.baseUrl}/account/setActiveRole`, { role: role });
+  }
+
+}

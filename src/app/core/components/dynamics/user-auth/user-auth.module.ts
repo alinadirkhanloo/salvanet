@@ -14,8 +14,7 @@ import { UserAuthComponent } from './user-auth.component';
 @NgModule({
   declarations: [UserAuthComponent],
   imports: [
-    SharedModule,AllMaterialModule,PrimeNgModule,FindBoxModule,
-        RouterModule.forChild([{path:'',component:UserAuthComponent}]),NgbModule,PersonnelFilterModule
+    SharedModule,AllMaterialModule,PrimeNgModule,FindBoxModule,NgbModule,PersonnelFilterModule
   ],
   exports:[UserAuthComponent]
 })

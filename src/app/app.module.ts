@@ -39,7 +39,7 @@ import { RolesService } from './shared/services/role.service';
     RouterModule,
     PerfectScrollbarModule,
     MetismenuAngularModule,ToastrModule.forRoot(),
-    
+
   ],
   providers: [
     SharedService,RolesService,

@@ -48,7 +48,7 @@ export class GenericGrid {
         this.loading = true;
         let gridData = [];
             gridData = dataSource?dataSource:[];
-           
+
             this.totalRecords = totalCount;
             this.loading = false;
         return gridData;

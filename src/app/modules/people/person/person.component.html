@@ -1,5 +1,4 @@
 
-
     <div class="container-fluid h-100v">
         <div class="row page-titles mx-0">
             <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
@@ -18,7 +17,7 @@
                     (onLazyLoad)="loadDataSource($event)" (selectionChange)="dataGrid.selectionChange($event)"
                     (selectAllChange)="onSelectAllChange($event)"
                     [(first)]="first" [rowsPerPageOptions]="[10,25,50]">
-    
+
                     <ng-template pTemplate="caption">
                         <div class="flex">
                             <!-- CRUD ACTIONS -->
@@ -26,21 +25,21 @@
                                 <i class="pi pi-search"></i>
                                 <input pInputText OnlyNumber="true"
                                 [formControl]="nationalCode"
-                                 maxlength="10" 
+                                 maxlength="10"
                                 maxlength="10" type="text" placeholder="کد ملی" />
                             </span>
                             <button pButton label="جست و جو"  (click)="searchUser()" class="p-button-outlined mx-2"></button>
                             <p-button label="ایجاد" icon="pi pi-plus" iconPos="left"
-                             (click)="dataGrid.redirect('pages/persons/new')" 
+                             (click)="dataGrid.redirect('pages/persons/new')"
                              styleClass="p-button-success ml-2"
                              tooltipvenue="bottom"></p-button>
                          <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
                         </div>
                     </ng-template>
-    
-    
+
+
                     <ng-template pTemplate="header">
-    
+
                         <tr>
                             <ng-container *ngIf="dataGrid.selectionMode">
                                 <th style="width: 4rem">
@@ -56,12 +55,12 @@
                             </ng-container>
                             <th style="width: 12rem"></th>
                         </tr>
-    
+
                     </ng-template>
-    
-    
-    
-    
+
+
+
+
                     <ng-template pTemplate="body" let-rows let-index="rowIndex">
                         <tr>
                             <ng-container *ngIf="dataGrid.selectionMode">
@@ -69,27 +68,27 @@
                                     <p-tableCheckbox [value]="rows"></p-tableCheckbox>
                                 </td>
                             </ng-container>
-    
+
                             <td>
                                 {{index +1 }}
                             </td>
-    
+
                             <ng-container *ngFor="let header of dataGrid.tableHeaerFields;let i = index">
                                 <td>{{rows[header.title]}}</td>
                             </ng-container>
-    
+
                             <td class="flex">
                                 <button pButton type="button" class="p-button-warning ml-2"
                                     (click)="dataGrid.redirect('pages/persons/edit/' + rows.id)" icon="pi pi-pencil"></button>
                                 <button pButton type="button" class="p-button-danger"
                                     (click)="confirmDelete($event,rows.id)" icon="pi pi-trash"></button>
                             </td>
-    
+
                         </tr>
                     </ng-template>
-    
+
                 </p-table>
             </p-card>
         </div>
     </div>
-    
+

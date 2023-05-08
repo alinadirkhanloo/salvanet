@@ -3,7 +3,7 @@ import { AgriculturalInterestsComponent } from './agricultural-interests.compone
 import { SharedModule } from 'app/shared/modules/shared.module';
 import { RouterModule } from '@angular/router';
 import { DynamicSelectModule } from 'core/components/dynamics/dynamic-select/dynamic-select.module';
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import {PrimeNgModule} from 'shared/modules/primeng/primeng.module';
 
 
 

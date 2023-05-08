@@ -93,7 +93,7 @@ export class PersonComponent implements OnInit {
     }else {
       this.loadAll(this.lazyLoadvent);
     }
-    
+
   }
 
   onSelectAllChange(event) {
@@ -144,5 +144,6 @@ export class PersonComponent implements OnInit {
       }
     });
   }
+
 
 }

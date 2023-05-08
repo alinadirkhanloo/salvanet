@@ -17,14 +17,14 @@
 
                     </li>
 
-                   
+
                     <li class="nav-item dropdown header-profile dropdown-no-icon" ngbDropdown>
                         <a class="nav-link" role="button" data-toggle="dropdown" ngbDropdownToggle>
                             <!-- <img src="assets/images/avatar/1.png" width="20" alt=""/> -->
                             <p-avatar [label]="avatarLable" styleClass="mr-2" size="large" [style]="{'background-color':'#2196F3', 'color': '#ffffff'}" shape="circle"></p-avatar>
                             <div class="header-info" *ngIf="user">
                                 <span>{{user.firstName}} {{user.lastName}}</span>
-                                <small>ادمین</small>
+                                <small>{{roleName}}</small>
                             </div>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right text-left" ngbDropdownMenu>

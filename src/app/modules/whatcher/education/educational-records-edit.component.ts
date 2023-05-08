@@ -35,7 +35,7 @@ export class EducationalRecordsEditComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.educationLevelConfig = {
       options$: this.watcherService.educationLevels$,
       selectId: 'product',

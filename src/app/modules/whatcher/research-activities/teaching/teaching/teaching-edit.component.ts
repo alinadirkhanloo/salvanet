@@ -25,7 +25,7 @@ export class TeachingEditComponent implements OnInit {
     private route: ActivatedRoute,
     private router:Router,private shService:SharedService
   ) {
-    // ITeaching 
+    // ITeaching
     this.editForm = this._formBuilder.group({
       subject: ['', [Validators.required, Validators.maxLength(36)]],
       venue: ['', [Validators.required, Validators.maxLength(36)]],
@@ -35,7 +35,7 @@ export class TeachingEditComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
@@ -51,7 +51,7 @@ export class TeachingEditComponent implements OnInit {
         this.setDataToForm(result);
       },
       error(err) {
-        
+
       },
       complete() {
         res.unsubscribe();

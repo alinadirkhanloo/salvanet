@@ -16,33 +16,60 @@ export class CommonService
   {
   }
 
-  public getChild(url: string): Observable<any>
+  public getChild(url: string,study:boolean=false): Observable<any>
   {
     return this.http.get<any>(`${environment.baseUrl}/${url}`).pipe(
       map( data =>{
-        return this.convertToTree(data)
+        return study?this.convertToStudyTree(data,'title'):this.convertToTree(data)
       })
       );
   }
 
-  public getTree(url: string): Observable<any>
+  public getStudiTree(url: string,lable:string='name'): Observable<any>
   {
     return this.http.get<any>(`${environment.baseUrl}/${url}`).pipe(
       map( data =>{
-        return this.convertToTree(data)
+        return this.convertToStudyTree(data,lable)
       })
       );
   }
 
-  convertToTree(data:any){
+  public getTree(url: string,lable:string='name'): Observable<any>
+  {
+    return this.http.get<any>(`${environment.baseUrl}/${url}`).pipe(
+      map( data =>{
+        return this.convertToTree(data,lable)
+      })
+      );
+  }
+
+  convertToStudyTree(data:any,lable:string='name'){
     let treeData=[];
     if (data) {
       data.forEach(element => {
         treeData.push(
           {
-            label:element.name,
+            label:element[lable],
             data:element.id,
-            leaf:element.typeId>3,
+            leaf:element.studyFieldId?true:false,
+            children:[]
+          }
+      );
+      });
+    }
+    return treeData;
+
+  }
+
+  convertToTree(data:any,lable:string='name'){
+    let treeData=[];
+    if (data) {
+      data.forEach(element => {
+        treeData.push(
+          {
+            label:element[lable],
+            data:element.id,
+            leaf:element?.typeId>3 ?? false,
             children:[]
           }
       );
@@ -54,18 +81,18 @@ export class CommonService
 
    checkCodeMelli(code:string) {
       if (code.length !== 10 || /(\d)(\1){9}/.test(code)) return false;
-  
+
       let sum = 0,
           chars = code.split(''),
           lastDigit,
           remainder;
-  
+
       for (let i = 0; i < 9; i++) sum += +chars[i] * (10 - i);
-      
+
       remainder = sum % 11;
       lastDigit = remainder < 2 ? remainder : 11 - remainder;
-  
+
       return +chars[9] === lastDigit;
   };
-  
+
 }

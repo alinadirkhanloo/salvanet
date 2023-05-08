@@ -30,7 +30,7 @@ export class UniversityComponent implements OnInit{
 
   dataSource: IUniversity[]=[];
   selectedList: IUniversity[]=[];
-  
+
   first = 0;
   rows = 10;
   lazyLoadvent!:LazyLoadEvent;
@@ -81,6 +81,11 @@ export class UniversityComponent implements OnInit{
     let modalRef = this.modalService.open(UniversityFormComponent,{size:'lg'});
     modalRef.componentInstance.updateMode=true;
     modalRef.componentInstance.product=product;
+    modalRef.result?.then(result=>{
+      if (result) {
+        this.loadAll(this.lazyLoadvent);
+      }
+    }).catch(a=>{})
   }
 
   onSelectAllChange(event) {

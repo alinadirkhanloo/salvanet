@@ -6,6 +6,7 @@ import { IDynamicSelect } from 'core/components/dynamics/dynamic-select/dynamic-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { ICountryDivision } from 'app/core/interfaces/country.interface';
+import { CountryDeivistionTypes } from 'app/core/constants/country-division-types';
 
 @Component({
   selector: 'app-divisions-of-the-country-form',
@@ -20,11 +21,10 @@ export class DivisionsOfTheCountryFormComponent implements OnInit {
   routeSub=null;
   node!: TreeNode;
   typeConfig!: IDynamicSelect;
-
+  types = CountryDeivistionTypes;
   constructor(
     private _formBuilder: FormBuilder,
     private dcsService: DivisionsOfTheCountryService,
-    private route: ActivatedRoute,
     private router:Router,
     private shService:SharedService
   ) {
@@ -36,7 +36,7 @@ export class DivisionsOfTheCountryFormComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.editForm = this._formBuilder.group({
       typeId: ['', [Validators.required]],
       superDivisionId: [this.node?.data],
@@ -47,17 +47,23 @@ export class DivisionsOfTheCountryFormComponent implements OnInit {
       id:-1
     });
       if (!!this.node) {
+        this.updateMode =true;
+        console.log(this.updateMode);
+
         this.loadById(this.node.data);
       }
 
-    
+
     this.typeConfig = {
-      options$: this.dcsService.types$,
+      items: CountryDeivistionTypes,
       selectId: 'product',
       placeholder: '...',
+      optionValue:'id',
+      optionLabel:'title',
       showClear:true,
       emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
+      emptyMessage: 'موردی یافت نشد',
+      disabled :this.updateMode
     }
   }
 
@@ -107,7 +113,7 @@ export class DivisionsOfTheCountryFormComponent implements OnInit {
 
   getType(id:number){
 
-    return this.typeConfig.items.find(m=>m.id === id);
+    return CountryDeivistionTypes.find(m=>{return m.id === id});
   }
 
   submit() {
@@ -116,7 +122,7 @@ export class DivisionsOfTheCountryFormComponent implements OnInit {
     let temp = this.editForm.value;
     temp.educationLevelId = this.editForm.controls["typeId"].value.id;
     if (this.editForm.valid) {
-      let rest = this.updateMode?this.dcsService.update(this.editForm.value.id,temp):this.dcsService.create(temp);
+      let rest = this.updateMode?this.dcsService.update(temp):this.dcsService.create(temp);
       let restSub =rest.subscribe({
         next: (result) => {
           this.disableButton = false;

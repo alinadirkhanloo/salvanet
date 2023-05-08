@@ -42,7 +42,7 @@ export class JobEditComponent extends GenericClass implements OnInit, OnDestroy{
   ngOnDestroy() : void{
 
   }
-  
+
   setDataToForm(entityData:any) {
     this.editForm.setValue(entityData as IJob[]);
   }

@@ -25,7 +25,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
   visibilityOfEditeOption = false;
   treeData: any = [];
   load = false;
-
+  node:TreeNode=null;
   constructor(
     private sfService: StudyFiledService,
     private commonService: CommonService, private confirmationService: ConfirmationService,
@@ -43,17 +43,21 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+  setNode(node:TreeNode){
+    this.node=node;
+  }
+
   initialTree() {
     this.load = false;
     this.SFTreeConfig = {
 
-      treeNodes$: this.commonService.getTree('studyField'),
+      treeNodes$: this.commonService.getStudiTree('studyField','title'),
 
       onNodeContextMenuSelect: new ReplaySubject<any>(1),
       onNodeSelect: new ReplaySubject<any>(1),
-
+      study:true,
       lazyUrl: [
-        `countryDivision/countryDivisionSubDivisions`,
+        `majorStudyField/studyFieldMajors`,
         '',
       ],
       contextMenuItems: this.getContextMenu(),
@@ -109,7 +113,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
   // addNewNode(event) {
   //   let selectedNode = this.SFTreeConfig.selectedFile;
   //   this.router.navigateByUrl('pages/divisions-of-the-country/new',
-  //   { 
+  //   {
   //     state:
   //     {
   //       node: selectedNode
@@ -179,17 +183,18 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
     return [
       {
         label: 'درج',
-        icon: 'flaticon-381-add-2 text-info',
+        icon: 'pi pi-plus text-success ml-2',
         command: event => this.addNewNode(event),
+        visible:this.node?.parent===undefined
       },
       {
         label: 'ویرایش',
-        icon: 'flaticon-381-edit text-warning',
+        icon: 'pi pi-pencil text-warning ml-2 ',
         command: event => this.openEditForm(event)
       },
       {
         label: 'حذف',
-        icon: 'flaticon-381-trash-2 text-danger',
+        icon: 'pi pi-trash text-danger ml-2 ',
         command: event => this.deleteNode(event)
       }
     ]
@@ -199,6 +204,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.SFTreeConfig.onNodeSelect.subscribe(node => {
+        this.setNode(node.node);
         // this.SFTreeConfig.selectionMode = 'checkbox';
       })
     );
@@ -206,6 +212,7 @@ export class StudyFiledComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.SFTreeConfig.onNodeContextMenuSelect.subscribe(val => {
+        this.setNode(val.node);
         this.visibilityOfEditeOption = !(val.node.parent === undefined);
         this.SFTreeConfig.contextMenuItems = this.getContextMenu();
 

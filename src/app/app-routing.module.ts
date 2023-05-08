@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./modules/auth/auth.module')
-      .then(m => m.AccountModule),
+      .then(m => m.AccountModule)
   },
   {
     path: 'pages',
@@ -35,7 +35,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes,{scrollPositionRestoration: 'enabled'})],
+  imports: [RouterModule.forRoot(routes, {useHash: true,scrollPositionRestoration: 'enabled'})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

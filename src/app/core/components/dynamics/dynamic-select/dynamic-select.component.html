@@ -1,8 +1,10 @@
 
-  <p-dropdown
+  <p-dropdown *ngIf="selectionConfig"
+  [disabled]="selectionConfig.disabled"
   [options]="selectionConfig.items"
   [(ngModel)]="dateValue"
   [optionLabel]="selectionConfig.optionLabel"
+  [optionValue]="selectionConfig.optionValue"
   [filter]="selectionConfig.filter"
   [filterBy]="selectionConfig.filterBy"
   [showClear]="selectionConfig.showClear"
@@ -12,10 +14,10 @@
 
   <!-- Selected option -->
 
-    <ng-template pTemplate="selectedItem">
+    <ng-template let-option pTemplate="selectedItem">
 
         <div class="item item-value" *ngIf="dateValue">
-            <div>{{dateValue.title}}</div>
+            <div>{{option[selectionConfig.optionLabel]}}</div>
         </div>
 
     </ng-template>
@@ -25,7 +27,7 @@
     <ng-template let-option pTemplate="item">
 
         <div class="country-item">
-            <div>{{option.title}}</div>
+            <div>{{option[selectionConfig.optionLabel]}}</div>
         </div>
 
     </ng-template>

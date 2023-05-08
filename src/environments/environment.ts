@@ -5,13 +5,7 @@
 export const environment = {
   production: false,
   authUrl:'http://192.168.3.72:8080/auth', // our host url
-  baseUrl:'http://192.168.3.72:8080/api' // our host url
-
-  
-  // authUrl:'http://localhost:3001/auth', // our host url
-  // baseUrl:'http://localhost:3001/api' // our host url
-
-
+  baseUrl:'http://192.168.3.72:8080/api'  // our host url
 };
 
 /*

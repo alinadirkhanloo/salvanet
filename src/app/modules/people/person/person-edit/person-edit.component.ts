@@ -81,7 +81,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
   loadById(id:number|string) {
     let res = this.pService.readById(id).subscribe({
       next:(result)=>{
-        
+
         this.setDataToForm(result);
         this.loading = false;
       },
@@ -126,7 +126,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
 
 
 
-  submitAsPerson() { 
+  submitAsPerson() {
    this.subscription=  this.pService.update(this.accountForm.value).subscribe({
               next: (res) => {
                 this.router.navigate(['pages/persons']);
@@ -152,7 +152,7 @@ export class PersonEditComponent extends GenericClass implements OnInit,OnDestro
 
   get checKCodeMelli() {
     console.log(this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value));
-    
+
     return this.commonService.checkCodeMelli(this.accountForm.controls['nationalCode'].value);
   }
 

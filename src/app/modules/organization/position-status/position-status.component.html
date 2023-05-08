@@ -1,14 +1,21 @@
 <div class="row no-gutters">
   <div class="col-xl-12">
     <div class="auth-form">
-      <h2 class="text-center mb-4">( انتصاب | انفصال ) متصدی سمت</h2>
+      <h2 class="text-center mb-4">{{label}} متصدی سمت</h2>
 
-      <form>
-        <div class="form-group">
-          <label>سمت سازمانی</label>
-          <input type="text" class="form-control" placeholder="">
-        </div>
-        <div class="form-group">
+      <form class="row">
+        <div class="form-group col-lg-8 mb-2">
+          <label class="mb-1">سمت سازمانی </label>
+          <input
+            type="text"
+            class="form-control text-center"
+            placeholder=""
+            [readonly]="true"
+            [disabled]="true"
+            [value]="positionLabel"
+          />
+          </div>
+        <div class="form-group col-lg-4">
           <label>وضعیت فعلی</label>
           <select class="form-control">
             <option>فعال</option>
@@ -17,7 +24,7 @@
         </div>
 
         <div class="form-group">
-          <button type="submit" pButton pRipple class="p-button-success mx-2">تایید</button>
+          <button type="submit" pButton pRipple class="p-button-success mx-2">{{label}}</button>
           <button type="button" pButton pRipple class="p-button-danger">انصراف</button>
         </div>
       </form>

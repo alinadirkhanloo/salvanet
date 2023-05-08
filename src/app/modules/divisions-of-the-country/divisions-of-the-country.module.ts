@@ -6,7 +6,7 @@ import { DivisionsOfTheCountryComponent } from './divisions-of-the-country.compo
 import { DivisionsOfTheCountryFormComponent } from './divisions-of-the-country-form/divisions-of-the-country-form.component';
 import { DynamicTreeModule } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.module';
 import { CountryDevisionUploaderComponent } from './country-devision-uploader/country-devision-uploader.component';
-import { PrimeNgModule } from 'app/shared/modules/primeng/primeng.module';
+import {PrimeNgModule} from 'shared/modules/primeng/primeng.module';
 
 const routes: Routes = [
   {

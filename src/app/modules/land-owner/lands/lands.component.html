@@ -2,13 +2,13 @@
     <div class="row page-titles mx-0">
         <div class="col-sm-6 p-md-0 justify-content-sm-start mt-2 mt-sm-0 d-flex">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="javascript:void(0)"> اشخاص </a></li>
-                <li class="breadcrumb-item active"><a href="javascript:void(0)"> حقوقی </a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)"> واحد تولیدی </a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)"> زمین های کشاورززی </a></li>
             </ol>
         </div>
     </div>
     <div class="">
-        <p-card header="لیست اشخاص حقوقی">
+        <p-card header="لیست زمین های کشاورزی">
             <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
             <p-table [value]="dataSource" [lazy]="dataGrid.lazy" [tableStyle]="dataGrid.customTableStyle"
                 [selection]="dataGrid.selectedData" [paginator]="dataGrid.paginator" [rows]="dataGrid.rowCount"
@@ -30,8 +30,7 @@
                             ردیف
                         </th>
                         <ng-container *ngFor="let header of dataGrid.tableHeaerFields">
-                            <th [pSortableColumn]="header.title">{{header.persianTitle}}<p-sortIcon
-                                    [field]="header.sortKey"></p-sortIcon></th>
+                            <th [pSortableColumn]="header.title">{{header.persianTitle}}</th>
                         </ng-container>
                         <th style="width: 15rem">صحت مالکیت زمین</th>
                         <th style="width: 15rem">روستاهای فعال</th>
@@ -43,7 +42,7 @@
                         <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
                     </th>
                     </ng-container>
-    
+
                     <th>
                         <p-columnFilter type="text" [field]="dataGrid.tableHeaerFields[0].sortKey"
                         matchMode="equals" [showMenu]="false">
@@ -54,7 +53,7 @@
                         matchMode="equals" [showMenu]="false"></p-columnFilter>
                     </th>
                     <th style="width: 12rem"></th>
-    
+
                 </tr> -->
 
                 </ng-template>
@@ -80,15 +79,15 @@
 
                         <td class="flex">
                             <button pButton type="button" class="p-button-success ml-2"
-                            label="تایید" 
+                            label="تایید"
                                 (click)="qualification(rows)"></button>
                             <button pButton type="button" class="p-button-danger"
-                            label="رد" 
+                            label="رد"
                                 (click)="disqualification($event,rows.id)"></button>
                         </td>
                         <td class="flex">
                             <button pButton type="button" class="p-button-danger"
-                            label="مشاهده" 
+                            label="مشاهده"
                                 (click)="disqualification($event,rows.id)"></button>
                         </td>
 

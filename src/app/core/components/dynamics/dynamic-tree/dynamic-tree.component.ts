@@ -76,7 +76,6 @@ export class DynamicTreeComponent implements OnInit, OnDestroy
         )
     );
 
-
   }
 
   ngOnDestroy(): void
@@ -94,7 +93,7 @@ export class DynamicTreeComponent implements OnInit, OnDestroy
     );
 
     this.subscription.add(
-      this.commonService.getChild(lazyUrl)
+      this.commonService.getChild(lazyUrl,this.configs?.study)
         .subscribe(
           (nodes) => event.node.children = nodes
         )

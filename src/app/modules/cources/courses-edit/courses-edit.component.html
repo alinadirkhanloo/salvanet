@@ -1,150 +1,142 @@
-<div class="container-fluid">
-  <div class="h-100">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-lg-10 col-md-11">
-        <div class="authincation-content">
-          <div class="row no-gutters">
-            <div class="col-xl-12">
-              <div class="auth-form">
-                <h2 class="text-center mb-4">مشخصات دوره</h2>
-                <form [formGroup]="editForm" class="row mx-0 px-0">
-                  <div class="form-group col-lg-6">
-                    <label for="type">نوع</label>
-                    <p-dropdown
-                      id="type"
-                      [options]="types"
-                      formControlName="type"
-                      optionLabel="key"
-                      optionValue="value"
-                      placeholder="..."
-                    >
-                    </p-dropdown>
-                  </div>
-
-                  <div class="form-group col-lg-6">
-                    <label for="executor">مجری</label>
-                    <input
-                      type="text"
-                      id="executor"
-                      class="form-control text-center"
-                      maxlength="36"
-                      [ngClass]="{
-                        'is-valid': editForm.controls['executor'].valid,
-                        'is-invalid':
-                          editForm.controls['executor'].invalid &&
-                          editForm.controls['executor'].touched
-                      }"
-                      formControlName="executor"
-                      placeholder=""
-                    />
-                  </div>
-
-                  <div class="form-group col-lg-6">
-                    <label for="title" class="mb-1">عنوان دوره</label>
-                    <input
-                      id="title"
-                      type="text"
-                      class="form-control text-center"
-                      maxlength="36"
-                      [ngClass]="{
-                        'is-valid': editForm.controls['title'].valid,
-                        'is-invalid':
-                          editForm.controls['title'].invalid && editForm.controls['title'].touched
-                      }"
-                      formControlName="title"
-                      placeholder=""
-                    />
-                  </div>
-
-                  <div class="form-group col-lg-6">
-                    <label for="picker" class="mb-1">سال برگزاری</label>
-                    <input
-                      id="picker"
-                      type="text"
-                      class="form-control text-center"
-                      (click)="picker.open()"
-                      maxlength="11"
-                      name="datepicker1"
-                      [matDatepicker]="picker"
-                      formControlName="year"
-                      [ngClass]="{
-                        'is-valid': editForm.controls['year'].valid,
-                        'is-invalid':
-                          editForm.controls['year'].invalid && editForm.controls['year'].touched
-                      }"
-                      formControlName="year"
-                      placeholder=""
-                    />
-                    <mat-datepicker #picker></mat-datepicker>
-                  </div>
-
-                  <div class="form-group col-lg-6">
-                    <label for="duration" class="mb-1">مدت دوره <small>(به ماه)</small></label>
-                    <input
-                      id="duration"
-                      type="number"
-                      class="form-control text-center"
-                      maxlength="36"
-                      [ngClass]="{
-                        'is-valid': editForm.controls['duration'].valid,
-                        'is-invalid':
-                          editForm.controls['duration'].invalid &&
-                          editForm.controls['duration'].touched
-                      }"
-                      formControlName="duration"
-                      placeholder=""
-                    />
-                  </div>
-
-                  <div class="form-group col-lg-6">
-                    <label for="degreeYear" class="mb-1"><small>سال اخذ مدرک</small></label>
-                    <input
-                      id="degreeYear"
-                      type="text"
-                      class="form-control text-center"
-                      (click)="picker2.open()"
-                      maxlength="11"
-                      name="datepicker2"
-                      [matDatepicker]="picker2"
-                      formControlName="degreeYear"
-                      [ngClass]="{
-                        'is-valid': editForm.controls['degreeYear'].valid,
-                        'is-invalid':
-                          editForm.controls['degreeYear'].invalid &&
-                          editForm.controls['degreeYear'].touched
-                      }"
-                      formControlName="degreeYear"
-                      placeholder=""
-                    />
-                    <mat-datepicker #picker2></mat-datepicker>
-                  </div>
-
-                  <div class="text-center">
-                    <button
-                      type="submit"
-                      pButton
-                      pRipple
-                      *ngIf="profile$ | async as profile"
-                      [disabled]="!editForm.valid || disableButton"
-                      (click)="submit(profile.id)"
-                      class="p-button-success mx-2"
-                    >
-                      <span *appSpinOn="disableButton; color: 'warn'"></span>
-                      تایید
-                    </button>
-                    <button
-                      type="button"
-                      pButton
-                      pRipple
-                      (click)="cancle()"
-                      class="p-button-danger"
-                    >
-                      انصراف
-                    </button>
-                  </div>
-                </form>
+<div class="authincation h-100">
+  <div class="vh-100">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 m-auto">
+        <div class="card" style="display: contents">
+          <div class="card-header">
+            <h3>مشخصات دوره</h3>
+          </div>
+          <div class="card-body bg-white">
+            <form [formGroup]="editForm" class="row mx-0 px-0">
+              <div class="form-group col-lg-6">
+                <label for="type">نوع</label>
+                <p-dropdown
+                  id="type"
+                  [options]="types"
+                  formControlName="type"
+                  optionLabel="key"
+                  optionValue="value"
+                  placeholder="..."
+                >
+                </p-dropdown>
               </div>
-            </div>
+
+              <div class="form-group col-lg-6">
+                <label for="executor">مجری</label>
+                <div class="input-group mb-3" dir="ltr">
+                  <div class="input-group-prepend">
+                    <button class="btn btn-success h-100" (click)="redirectToRegistration()" type="button">
+                      ایجاد فرد
+                    </button>
+                    <button (click)="opemPersonFilter()" class="btn btn-success h-100" type="button">
+                      انتخاب فرد
+                    </button>
+        
+                  </div>
+                  <input type="text"  [readonly]="true"
+                  [disabled]="true"
+                  [value]="fullName" class="form-control text-left" placeholder="">
+        
+                </div>
+              </div>
+
+              <div class="form-group col-lg-6">
+                <label for="title" class="mb-1">عنوان دوره</label>
+                <input
+                  id="title"
+                  type="text"
+                  class="form-control text-center"
+                  maxlength="36"
+                  [ngClass]="{
+                    'is-valid': editForm.controls['title'].valid,
+                    'is-invalid':
+                      editForm.controls['title'].invalid && editForm.controls['title'].touched
+                  }"
+                  formControlName="title"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="form-group col-lg-6">
+                <label for="picker" class="mb-1">سال برگزاری</label>
+                <input
+                  id="picker"
+                  type="text"
+                  class="form-control text-center"
+                  (click)="picker.open()"
+                  maxlength="11"
+                  name="datepicker1"
+                  [matDatepicker]="picker"
+                  formControlName="year"
+                  [ngClass]="{
+                    'is-valid': editForm.controls['year'].valid,
+                    'is-invalid':
+                      editForm.controls['year'].invalid && editForm.controls['year'].touched
+                  }"
+                  formControlName="year"
+                  placeholder=""
+                />
+                <mat-datepicker #picker></mat-datepicker>
+              </div>
+
+              <div class="form-group col-lg-6">
+                <label for="duration" class="mb-1">مدت دوره <small>(به ماه)</small></label>
+                <input
+                  id="duration"
+                  type="number"
+                  class="form-control text-center"
+                  maxlength="36"
+                  [ngClass]="{
+                    'is-valid': editForm.controls['duration'].valid,
+                    'is-invalid':
+                      editForm.controls['duration'].invalid && editForm.controls['duration'].touched
+                  }"
+                  formControlName="duration"
+                  placeholder=""
+                />
+              </div>
+
+              <div class="form-group col-lg-6">
+                <label for="degreeYear" class="mb-1"><small>سال اخذ مدرک</small></label>
+                <input
+                  id="degreeYear"
+                  type="text"
+                  class="form-control text-center"
+                  (click)="picker2.open()"
+                  maxlength="11"
+                  name="datepicker2"
+                  [matDatepicker]="picker2"
+                  formControlName="degreeYear"
+                  [ngClass]="{
+                    'is-valid': editForm.controls['degreeYear'].valid,
+                    'is-invalid':
+                      editForm.controls['degreeYear'].invalid &&
+                      editForm.controls['degreeYear'].touched
+                  }"
+                  formControlName="degreeYear"
+                  placeholder=""
+                />
+                <mat-datepicker #picker2></mat-datepicker>
+              </div>
+
+              <div class="text-center">
+                <button
+                  type="submit"
+                  pButton
+                  pRipple
+                  *ngIf="profile$ | async as profile"
+                  [disabled]="!editForm.valid || disableButton"
+                  (click)="submit(profile.id)"
+                  class="p-button-success mx-2"
+                >
+                  <span *appSpinOn="disableButton; color: 'warn'"></span>
+                  تایید
+                </button>
+                <button type="button" pButton pRipple (click)="cancle()" class="p-button-danger">
+                  انصراف
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

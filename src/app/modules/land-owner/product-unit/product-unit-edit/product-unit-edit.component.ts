@@ -1,9 +1,9 @@
 import { SelectionMode } from 'core/enums/dynamic-tree.enum';
 import { CommonService } from 'core/services/common/common.service';
 import { MenuItem } from 'primeng/api';
-import { Subscription, ReplaySubject } from 'rxjs';
+import { Subscription, ReplaySubject, map } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IProductionUnit } from 'app/core/interfaces/product-unit.interface';
 import { ProductUnitService } from '../product-unit.service';
@@ -13,6 +13,7 @@ import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-
 import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'environment/environment';
+import { FileUpload } from 'primeng/fileupload';
 
 @Component({
   selector: 'app-product-unit-edit',
@@ -20,14 +21,14 @@ import { environment } from 'environment/environment';
   styleUrls: ['./product-unit-edit.component.css']
 })
 export class ProductUnitEditComponent implements OnInit, OnDestroy {
-
+  @ViewChild('fileUpload1') public fileUpload!: FileUpload;
   private subscription = new Subscription();
   items: MenuItem[];
   activeIndex: number = 0;
   public treeConfig: IDynamicTree;
 
   load = false;
-  uploadAddress = `${environment}/file`;
+  uploadAddress = `${environment}/file`
   editForm: FormGroup;
   disableButton = false;
   updateMode = false;
@@ -84,23 +85,35 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
       realEstateUniqueCode: ['', [Validators.required, Validators.maxLength(36)]],
       realEstatePlate: ['', [Validators.required, Validators.maxLength(36)]],
       address: ['', [Validators.required]],
-      statusId: ['', [Validators.required]],
-      landDocumentStatusId: ['', [Validators.required]],
-      landAreaStatusId: ['', [Validators.required]],
+      id: null,
+      submitDate: null,
+      resultDate: null,
+      resultId:0,
+      locatedInId: ['',[Validators.required]],
+      landBoundaryId: ['', [Validators.required]],
       typeId: ['', [Validators.required]],
-      landAreaId: ['', [Validators.required]],
-      documentTypeId: ['', [Validators.required]],
-      landDocumentId: ['', [Validators.required]],
-      ownershipTypeId: ['', [Validators.required]],
-      ownershipTypeTitle: [''],
-      locatedInId: [''],
+      ownershipTypeId: [''],
+      deedOwnershipTypeId: [''],
+      deedId: ['', [Validators.required]],
       locatedInTitle: [''],
-      id: null
+      ownershipApproved: false,
+      ownershipApprovalDescription: null,
+      boundaryApproved: false,
+      boundaryApprovalDescription: null,
+
     });
   }
 
-  realEstateUniqueCode: string;
 
+
+  get docs(){
+    return this.editForm.controls['deedId'].value !== null &&
+     this.editForm.controls['landBoundaryId'].value !== null 
+  }
+
+  realEstateUniqueCode: string;
+  fileName1:string='';
+  fileName2:string='';
 
   ngOnInit(): void {
     this.subscription.add(
@@ -131,19 +144,97 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
     this.subscription.unsubscribe();
   }
 
+
+  deleteFile1(){
+    this.editForm.controls['deedId'].setValue(null);
+    this.fileName1 = '';
+  }
+  deleteFile2(){
+    this.editForm.controls['landBoundaryId'].setValue(null);
+    this.fileName2 = '';
+  }
+  pickPhoto($event: any) {
+
+    const file: File = $event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      this.fileName1 = file.name;
+      setTimeout(() => {
+        
+        let tmp: IFile = {
+          name: file.name,
+          displayName: file.name,
+          size: file.size,
+          createdAt: null,
+          modifiedAt: null,
+          content: reader.result as string
+        };
+          
+      this.puService.create(tmp,'','file').subscribe(res=>{
+        this.shService.showSuccess('فایل آپلود شد');
+        this.editForm.controls['deedId'].setValue(res.id);
+      });
+      }, 2000);
+
+    }
+
+  }
+
+  pickPhoto2($event: any) {
+
+    const file: File = $event.target.files[0];
+    if (file) {
+      this.fileName2 = file.name;
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+
+      setTimeout(() => {
+          
+        let tmp: IFile = {
+          name: file.name,
+          displayName: file.name,
+          size: file.size,
+          createdAt: null,
+          modifiedAt: null,
+          content: reader.result as string
+        };
+          
+      this.puService.create(tmp,'','file').subscribe(res=>{
+        this.shService.showSuccess('فایل آپلود شد');
+        this.editForm.controls['landBoundaryId'].setValue(res.id);
+      });
+      }, 2000);
+
+    }
+
+  }
+
   uploader(event) {
     let file = event.files[0];
+    const reader = new FileReader();
+    let x = reader.readAsArrayBuffer(file);
+    console.log(x);
+    
+    const formData: FormData = new FormData();
+    for (let file of event.files) {
+      formData.append('documento', file.data, file.data.name);
+    }
+
+
     let tmp: IFile = {
       name: file.name,
       displayName: file.name,
       size: file.size,
-      createdAt: new Date().toString(),
-      modifiedAt: new Date().toString(),
+      createdAt: null,
+      modifiedAt: null,
       content: [
-        file.objectURL['changingThisBreaksApplicationSecurity']
+        file
       ]
     };
-    this.puService.create(tmp).subscribe({});
+
+
+    this.puService.create(tmp,'','file').subscribe({});
   }
 
   openFindBox(idControlName: string, titleControlname: string, url: string, expandUrl: string, title: string) {
@@ -179,11 +270,10 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
 
 
   onLandDocUpload(event) {
-    console.log(event);
     let id = event.originalEvent.body.id;
     for (let file of event.files) {
       this.landDocFiles.push(file);
-      this.editForm.controls['landDocumentId'].setValue(id);
+      this.editForm.controls['deedId'].setValue(id);
     }
   }
 
@@ -191,13 +281,11 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
     let id = event.originalEvent.body.id;
     for (let file of event.files) {
       this.landAreaFiles.push(file);
-      this.editForm.controls['landAreaId'].setValue(id);
+      this.editForm.controls['landBoundaryId'].setValue(id);
     }
   }
 
   onActiveIndexChange(event) {
-    console.log(event);
-
     this.activeIndex = event;
   }
 
@@ -216,20 +304,34 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
   }
 
   setDataToForm(entityData: any) {
-    this.editForm.setValue(entityData as IProductionUnit[]);
+    this.puService.readById(entityData.locatedInId,'','countryDivision').pipe(
+      map(res=>{
+        this.puService.readById(entityData.deedId,'','file').pipe(
+          map(result=>{
+            this.puService.readById(entityData.deedId,'','file').subscribe(res2=>{
+              this.fileName2 = res2.name;
+            })
+            return result;
+          })
+        ).subscribe(res1=>{
+          this.fileName1 = res1.name;
+        })
+        return res;
+      })
+    ).subscribe(res=>{
+      entityData.locatedInTitle = res.name;
+      this.editForm.setValue(entityData as IProductionUnit[]);
+    });
+    
   }
 
   submit() {
 
     this.disableButton = true;
     let productUnit = this.editForm.value;
-    productUnit.documentTypeId = this.editForm.controls['documentTypeId'].value.id;
-    productUnit.landDocumentStatusId = this.editForm.controls['landDocumentStatusId'].value.id;
-    productUnit.statusId = this.editForm.controls['statusId'].value.id;
-    productUnit.typeId = this.editForm.controls['typeId'].value.id;
 
     if (this.editForm.valid) {
-      let rest = this.updateMode ? this.puService.update(this.editForm.value.id, productUnit) : this.puService.create(productUnit);
+      let rest = this.updateMode ? this.puService.update( productUnit) : this.puService.create(productUnit);
       let restSub = rest.subscribe({
         next: (result) => {
           this.shService.showSuccess();
@@ -248,7 +350,7 @@ export class ProductUnitEditComponent implements OnInit, OnDestroy {
   }
 
   cancle() {
-    this.router.navigate(['pages/lands/product-unit']);
+    this.router.navigate(['pages/product-units']);
   }
 
 }

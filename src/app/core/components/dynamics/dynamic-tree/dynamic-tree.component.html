@@ -1,24 +1,23 @@
 <ng-container
   *ngIf='isLoaded'>
 
-    <p-tree scrollHeight="380px" 
+    <p-tree scrollHeight="380px"
       [value]='files'
       [selectionMode]="configs.selectionMode ?? 'checkbox'"
       (onNodeExpand)='nodeExpand($event)'
       [(selection)]='configs.selectedFile'>
-      
+
     <ng-template pTemplate="empty" let-node>
 
         <p>داده ای برای نمایش نیست</p>
 
     </ng-template>
-    
+
     </p-tree>
 
     <p-contextMenu
       [model]='configs.contextMenuItems'>
     </p-contextMenu>
-
 
   </ng-container>
 

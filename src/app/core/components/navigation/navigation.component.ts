@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
-    
-    public currentHref: string = "";
 
+    public currentHref: string = "";
+    mohammad = ['ali','fasdf','FARMER'];
 
   constructor(location: Location, router: Router) {
     router.events.subscribe((val) => {
@@ -25,13 +25,13 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+
   toggleIcon: boolean = true;
-  
+
     toggleLoveIcon() {
         this.toggleIcon = !this.toggleIcon;
     }
-    
+
 
 
 }

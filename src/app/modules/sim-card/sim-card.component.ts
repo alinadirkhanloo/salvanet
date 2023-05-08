@@ -13,7 +13,7 @@ import { GenericGrid, IGridHeader } from 'app/core/interfaces/grid.interface';
   styleUrls: ['./sim-card.component.css']
 })
 export class SimCardComponent {
-  
+
   headers:IGridHeader[] = [
     {title:'operator',persianTitle:'اپراتو',sortKey:'operator'},
     {title:'phoneNumber',persianTitle:'شماره تلفن',sortKey:'phoneNumber'},

@@ -37,7 +37,7 @@ export class ArticleEditComponent {
     });
   }
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.routeSub = this.route.params.subscribe(params => {
       if (params['id']) {
         this.updateMode = true;
@@ -53,7 +53,7 @@ export class ArticleEditComponent {
         this.setDataToForm(result);
       },
       error(err) {
-        
+
       },
       complete() {
         res.unsubscribe();
@@ -83,7 +83,7 @@ export class ArticleEditComponent {
         },
         complete() {
           restSub.unsubscribe();
-          
+
         }
       });
     }

@@ -7,7 +7,7 @@ import { GenericApiService } from 'app/core/services/generic-api/generic-api.ser
 @Injectable({
   providedIn: 'root'
 })
-export class PositionService extends GenericApiService<any>{
+export class PositionHistoryService extends GenericApiService<any>{
 
   constructor(http: HttpClient) {
     super(http , 'position' )

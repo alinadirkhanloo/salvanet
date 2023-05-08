@@ -82,15 +82,15 @@ export class JwtInterceptor implements HttpInterceptor {
     return request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
   }
 
- 
-  
+
+
     getAuthToken() : string {
     let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  
+
      if(currentUser != null) {
     return currentUser.accessToken;
     }
-  
+
     return '';
     }
 }

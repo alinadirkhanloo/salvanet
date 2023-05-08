@@ -142,7 +142,7 @@ export class PersonnelFormComponent extends GenericClass implements OnInit,OnDes
   cancle() {
     // this.router.navigate(['/pages/personnel']);
     console.log(this.accountForm.value);
-    
+
   }
 
 

@@ -40,16 +40,13 @@ export class UniversityFormComponent  implements OnInit, OnDestroy{
         id:-1,
         name:['',[Validators.required,Validators.maxLength(32),Validators.minLength(2)]],
         locatedInId:['',[Validators.required]],
-        locatedInName:['',[Validators.required]],
+        locatedInName:[''],
       })
   }
-  ngOnDestroy(): void {
-   this.sub.unsubscribe();
-  }
+
   ngOnInit(): void {
     if (this.updateMode) {
       console.log(this.product);
-      
       this.editForm.setValue(this.product);
     }
   }
@@ -118,4 +115,8 @@ export class UniversityFormComponent  implements OnInit, OnDestroy{
   }
 
   close(){this.activeModal.dismiss()}
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+   }
 }

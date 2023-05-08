@@ -60,7 +60,6 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    
     let username = this.auth.getUsername();
     if (!username || this._sh.returnUrl.value === '') {
       this.goToLogin();
@@ -143,7 +142,7 @@ export class RegistrationComponent implements OnInit, OnDestroy {
 
      this.submitPerson().subscribe({
                 next: (res) => {
-                  this.router.navigate(['/role-determination']);
+                  this.router.navigate(['/pages']);
                   this._sh.showSuccess();
                 },error:(err)=>{
                   this._sh.showError('خطا در ثبت اطلاعات');

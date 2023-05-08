@@ -9,11 +9,11 @@
   </div>
   <div class="">
       <p-card>
-          <p-table [value]="dataSource" [lazy]="dataGrid.lazy" [tableStyle]="dataGrid.customTableStyle"
+          <p-table [value]="dataSource" [lazy]="false" [tableStyle]="dataGrid.customTableStyle"
               [selection]="dataGrid.selectedData" [paginator]="dataGrid.paginator" [rows]="dataGrid.rowCount"
               [totalRecords]="dataGrid.totalRecords" [loading]="dataGrid.loading"
               [globalFilterFields]="dataGrid.filterHeaerFields" [selectAll]="dataGrid.selectAll"
-              (onLazyLoad)="loadDataSource($event)" (selectionChange)="dataGrid.selectionChange($event)"
+              (selectionChange)="dataGrid.selectionChange($event)"
               (selectAllChange)="onSelectAllChange($event)"
               [(first)]="first" [rowsPerPageOptions]="[10,25,50]">
 
@@ -23,10 +23,10 @@
                       <!-- CRUD ACTIONS -->
                       <!-- <p-button label="ایجاد" icon="pi pi-plus" iconPos="left" (click)="dataGrid.redirect('pages/organization/new')"
                           styleClass="p-button-success ml-2" tooltipvenue="bottom"></p-button> -->
-                          <p-button label="ایجاد منطقه" icon="pi pi-plus" iconPos="left" (click)="dataGrid.redirect('pages/organization/region/new')"
+                          <p-button label="ایجاد منطقه" icon="pi pi-plus" iconPos="left"
+                          (click)="dataGrid.redirect('pages/organization/region/new')"
                           styleClass="p-button-success ml-2" tooltipvenue="bottom"></p-button>
-                          <p-button label="سمت ها" (click)="dataGrid.redirect('pages/organization/position-history')"
-                          styleClass="p-button-info ml-2" tooltipvenue="bottom"></p-button>
+
 
                       <p-confirmDialog [position]="dataGrid.position"></p-confirmDialog>
 
@@ -46,10 +46,9 @@
                           ردیف
                       </th>
                       <ng-container *ngFor="let header of dataGrid.tableHeaerFields">
-                          <th [pSortableColumn]="header.title">{{header.persianTitle}}<p-sortIcon
-                                  [field]="header.sortKey"></p-sortIcon></th>
+                          <th [pSortableColumn]="header.title">{{header.persianTitle}}</th>
                       </ng-container>
-                      <th style="width: 12rem">عملیات</th>
+                      <th style="width: 12rem"  >عملیات</th>
                   </tr>
 
                   <!-- <tr>
@@ -90,19 +89,20 @@
                       </td>
 
                           <td >{{rows.name}}</td>
+                          <td >{{rows.fullAddress}}</td>
 
 
                       <td>
-                        <p-inputSwitch [(ngModel)]="rows.isActive"
-                        (onChange)="confirmAccountActivation($event,rows)"
-                            [pTooltip]="rows.isActive?'غیرفعال سازی':'فعال سازی'"></p-inputSwitch>
+                        <p-inputSwitch [(ngModel)]="rows.hasOrganizationUnit"
+                        (onChange)="confirmActivation($event,rows)"
+                            [pTooltip]="rows.hasOrganizationUnit?'غیرفعال سازی':'فعال سازی'"></p-inputSwitch>
                     </td>
 
                       <td class="flex">
-                          <button pButton type="button" class="p-button-warning ml-2"
-                              (click)="openProductEditForm(rows)" icon="pi pi-pencil"></button>
-                          <button pButton type="button" class="p-button-danger"
-                              (click)="confirmThesisDelete($event,rows.id)" icon="pi pi-trash"></button>
+                        <p-button label="سمت ها" (click)="dataGrid.redirect('pages/organization/positions/'+rows.organizationId)"
+                          styleClass="p-button-info ml-2" tooltipvenue="bottom"></p-button>
+                          <button pButton type="button" class="p-button-danger" *ngIf="rows.organizationId"
+                              (click)="confirmThesisDelete($event,rows.organizationId)" icon="pi pi-trash"></button>
                       </td>
 
                   </tr>

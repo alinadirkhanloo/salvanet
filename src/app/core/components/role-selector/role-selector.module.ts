@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RoleSelectorComponent } from './role-selector.component';
 import { SharedModule } from 'app/shared/modules/shared.module';
 
+import { ListboxModule } from 'primeng/listbox';
 
 
 @NgModule({
@@ -9,7 +10,7 @@ import { SharedModule } from 'app/shared/modules/shared.module';
     RoleSelectorComponent
   ],
   imports: [
-    SharedModule
+    SharedModule,ListboxModule
   ],
   exports:[RoleSelectorComponent]
 })

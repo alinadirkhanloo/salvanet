@@ -11,4 +11,3 @@ export class AccountService extends GenericApiService<any> {
       super(http,'account')
      }
   }
-  

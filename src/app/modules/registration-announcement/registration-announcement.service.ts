@@ -12,8 +12,8 @@ export class RegistrationAnnouncementService extends GenericApiService<any>{
     constructor(http: HttpClient) {
       super(http , 'registrationAnnouncement' )
     }
-  
-    
+
+
     get roles$(): Observable<any>{
         return this.http.get(`${environment.baseUrl}/role`);
       }

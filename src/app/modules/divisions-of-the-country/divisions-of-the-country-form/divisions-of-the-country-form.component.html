@@ -21,40 +21,35 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label>ساختار بالادستی</label>
-                                        <input *ngIf="node" formControlName="superDivisionLabel"  type="text" class="form-control" placeholder="">
+                                        <input *ngIf="node" formControlName="superDivisionLabel" readonly="true" [disabled]="updateMode"  type="text" class="form-control" placeholder="">
                                         <p *ngIf="!node" class="form-control-plaintext">تعریف نشده</p>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>نوع</label>
-                                        <!-- <app-dynamic-select formControlName="typeId"
-                                     [selectionConfig]="typeConfig" 
-                                    ></app-dynamic-select> -->
-                                    <select class="default-select form-control" formControlName="typeId"
+                                        <app-dynamic-select formControlName="typeId" [disabled]="updateMode"
+                                     [selectionConfig]="typeConfig"
+                                    ></app-dynamic-select>
+                                    <!-- <select class="default-select form-control" formControlName="typeId" [disabled]="updateMode"
                                      id="theme_version" name="theme_version">
-                                        <option [value]="1">منطقه</option>
-                                        <option [value]="2">استان</option>
-                                        <option [value]="3">شهرستان</option>
-                                        <option [value]="4">بخش</option>
-                                        <option [value]="5">شهر</option>
-                                        <option [value]="6">روستا</option>
-                                     </select>
+                                        <option *ngFor="let item of types" [value]="item.id">{{item.value}}</option>
+                                     </select> -->
                                     </div>
-            
+
                                     <div class="form-group col-md-6">
                                         <label>کد</label>
-                                        <input  formControlName="code" OnlyNumber="true" maxlength="3" minlength="3" type="text" class="form-control">
+                                        <input  formControlName="code" [readonly]="updateMode" OnlyNumber="true" maxlength="3" minlength="3" type="text" class="form-control">
                                     </div>
-            
+
                                     <div class="form-group col-md-6">
                                         <label>نام</label>
                                         <input  formControlName="name" type="text" maxlength="64" minlength="3" class="form-control" placeholder="">
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label>آدرس کامل</label>
-                                        <input  formControlName="fullAddress" maxlength="512" minlength="3" type="text" class="form-control">
+                                        <input [readonly]="updateMode" formControlName="fullAddress" maxlength="512" minlength="3" type="text" class="form-control">
                                     </div>
                                 </div>
-            
+
                                 <div class="text-center">
                                     <button type="submit" pButton pRipple [disabled]="!editForm.valid || disableButton"
                                         (click)="submit()" class="p-button-success mx-2">
@@ -66,7 +61,7 @@
                                         انصراف
                                     </button>
                                 </div>
-            
+
                             </form>
                         </div>
                     </div>

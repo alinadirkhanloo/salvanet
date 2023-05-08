@@ -27,4 +27,6 @@ export class ProductUnitService  extends GenericApiService<any> {
     return this.http.get<any>(`${environment.baseUrl}/baseinformation/registrationStatus`);
   }
 
+  
+
 }

@@ -21,7 +21,7 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
   @Input()
   updateMode = false;
 
-  @Input() 
+  @Input()
   model!:IMajorStudyField;
   node!:TreeNode;
 
@@ -38,7 +38,7 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
         studyFieldId:-1,
         studyFiledTitle:['',[Validators.required]],
         description:['',[Validators.required,Validators.maxLength(512),Validators.minLength(2)]]
-        
+
       })
   }
   ngOnDestroy(): void {
@@ -47,14 +47,15 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
   ngOnInit(): void {
     if (this.updateMode) {
       this.loadById(this.node.data);
+      this.editForm.controls['id'].setValue(this.node.data);
       this.editForm.controls['studyFiledTitle'].setValue(this.node?.parent.label);
-        this.editForm.controls['studyFieldId'].setValue(this.node?.parent.data); 
+        this.editForm.controls['studyFieldId'].setValue(this.node?.parent.data);
     }else {
       if (this.node) {
         this.editForm.controls['studyFiledTitle'].setValue(this.node?.label);
-        this.editForm.controls['studyFieldId'].setValue(this.node?.data);  
+        this.editForm.controls['studyFieldId'].setValue(this.node?.data);
       }
-    }    
+    }
   }
 
   loadById(id:number|string) {
@@ -94,8 +95,8 @@ export class MajorStudyFiledFormComponent implements OnInit, OnDestroy{
         studyFieldId:this.editForm.value.studyFieldId,
         title:this.editForm.value.title
       }
-      
-      
+
+
       this.sub.add(
         this.msfService.create(temp).subscribe({
           next:(res)=>{

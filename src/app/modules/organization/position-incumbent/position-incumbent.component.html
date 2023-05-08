@@ -1,43 +1,50 @@
 <div class="row no-gutters">
   <div class="col-xl-12">
     <div class="auth-form">
-      <h2 class="text-center mb-4">( انتصاب |انفصال ) متصدی سمت</h2>
+      <h2 class="text-center mb-4">{{ label }} سمت</h2>
 
       <form>
-        <div class="form-row align-items-center">
-          <div class="input-group mb-3" dir="ltr">
-            <div class="input-group-prepend">
-              <label class="input-group-text">سمت سازمانی </label>
-            </div>
-            <select class="default-select form-control">
-              <option selected>انتخاب</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-
-          </div>
+        <div class="form-group col-lg-12 mb-2">
+          <label class="mb-1">سمت سازمانی </label>
+          <input
+            type="text"
+            class="form-control text-center"
+            placeholder=""
+            [readonly]="true"
+            [disabled]="true"
+            [value]="positionLabel"
+          />
         </div>
-
         <label class="mb-1 text-right"><small>فرد</small></label>
         <div class="input-group mb-3" dir="ltr">
           <div class="input-group-prepend">
-            <button class="btn btn-primary h-100" type="button">
-              <i class="flaticon-381-add-1"></i>
+            <button class="btn btn-success h-100" (click)="redirectToRegistration()" type="button">
+              ایجاد فرد
+            </button>
+            <button (click)="opemPersonFilter()" class="btn btn-success h-100" type="button">
+              انتخاب فرد
             </button>
           </div>
-          <input type="text" class="form-control text-right" placeholder="">
-
+          <input
+            type="text"
+            [readonly]="true"
+            [disabled]="true"
+            [value]="fullName"
+            class="form-control text-left"
+            placeholder=""
+          />
         </div>
 
+        <div class="form-group"></div>
         <div class="form-group">
-        </div>
-        <div class="form-group">
-          <button type="submit" pButton pRipple class="p-button-success mx-2">انتصاب| انفصال</button>
-          <button type="button" pButton pRipple class="p-button-danger">انصراف</button>
+          <button type="submit" pButton pRipple class="p-button-success mx-2" (click)="submit()">
+            {{ label }}
+          </button>
+          <button type="button" pButton pRipple class="p-button-danger" (click)="cancle()">
+            انصراف
+          </button>
         </div>
       </form>
-
     </div>
   </div>
 </div>

@@ -14,57 +14,20 @@ export class PositionStatusComponent implements OnInit {
   disableButton = false;
   updateMode = false;
   routeSub=null;
+  label='';
+  positionLabel='';
+  positionId=0;
 
-  products=[
-    {name:'afa'},
-    {name:'afa'},
-  ]
 
-  constructor(
-    private _formBuilder: FormBuilder,
-    private companyService: OrganizationService,
-    private route: ActivatedRoute
-  ) {
+  constructor( ) {
 
-    this.editForm = this._formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(36)]],
-      establishmentDate: ['', [Validators.required, Validators.maxLength(36)]],
-      registrationDate: ['', [Validators.required, Validators.maxLength(36)]],
-      registrationNumber: ['', [Validators.required, Validators.maxLength(36)]],
-      lastRegisteredCapital: ['', [Validators.required, Validators.maxLength(36)]],
-      type: ['', [Validators.required, Validators.maxLength(36)]],
-      id:-1
-    });
   }
 
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe(params => {
-      if (params['id']) {
-        this.updateMode = true;
-        this.loadById(params['id']);
-      }
-    });
+
   }
 
-
-  loadById(id:number|string) {
-    // let res = this.companyService.getById(id).subscribe({
-    //   next:(result)=>{
-    //     this.setDataToForm(result);
-    //   },
-    //   error(err) {
-
-    //   },
-    //   complete() {
-    //     res.unsubscribe();
-    //   },
-    // });
-  }
-
-  setDataToForm(entityData:any) {
-    // this.editForm.setValue(entityData as ICompany[]);
-  }
 
   submit() {
 

@@ -1,16 +1,16 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SharedService } from 'app/shared/services/shared.service';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject, map } from 'rxjs';
 import { IDynamicSelect, IDynamicSelectItem } from 'core/components/dynamics/dynamic-select/dynamic-select.interface';
-import { AgriculturalExperiencesService } from './agricultural-experiences.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { GenericClass } from 'app/core/models/genericClass.model';
 import { CommonService } from 'app/core/services/common/common.service';
 import { IDynamicTree } from 'app/core/components/dynamics/dynamic-tree/dynamic-tree.interface';
 import { FindBoxComponent } from 'app/core/components/find-box/find-box.component';
 import { SelectionMode } from 'app/core/enums/dynamic-tree.enum';
-
+import { FarmerService, IFarmer } from '../farmer.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-agricultural-experiences',
   templateUrl: './agricultural-experiences.component.html',
@@ -30,18 +30,16 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
   colapsed=true
 
   constructor(
-    private aeService:AgriculturalExperiencesService,
+    private aeService:FarmerService,
     private _fb:FormBuilder,
     private commonService: CommonService,
-    private modalService: NgbModal,
+    private modalService: NgbModal,private router:Router,
     private shService: SharedService) {
       super();
       this.formGroup =  this._fb.group(
         {
-          divisionCountryId:[-1,[Validators.required]],
-          divisionCountryTitle:['',[Validators.required]],
-          productTitle:[-1,[Validators.required]],
-          productId:['',[Validators.required]]
+          divisionCountryId:[null,[Validators.required]],
+          productId:[null,[Validators.required]]
         }
       );
     }
@@ -68,23 +66,24 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
 
   initialSelections() {
 
-
-    this.caltivarConfig = {
-      options$: this.aeService.readList('caltivar'),
-      selectId: 'caltivarSelector',
-      placeholder: '...',
-      optionValue:'id',
-      filter: true,
-      showClear:true,
-      emptyFilterMessage: 'موردی یافت نشد',
-      emptyMessage: 'موردی یافت نشد'
-    }
-
     this.myProductConfig = {
-      options$: this.aeService.readList('product'),
+      options$: this.aeService.readList('','product').pipe(map((res:any)=>{
+        if (res) {
+          let temp=[];
+          res.forEach(element => {
+            temp.push(
+              {
+                title:element.name,
+                id:element.id
+              }
+          );
+          });
+          return temp
+        }
+      })),
       selectId: 'productSelector',
-      placeholder: '...',
       optionValue:'id',
+      placeholder:'...',
       filter: true,
       showClear:true,
       emptyFilterMessage: 'موردی یافت نشد',
@@ -143,17 +142,9 @@ export class AgriculturalExperiencesComponent extends GenericClass implements On
 
   submit(){
     this.disableButton = true;
-    this.subscription =
-      this.aeService.create({}, `${this.shService.getProfile().id}/${this.formGroup.value.divisionCountryId}`).subscribe({
-        next: (res) => {
-          this.experiences.push({address:this.formGroup.value.divisionCountryTitle,product:this.formGroup.value.productTitle});
-          this.reset();
-          this.shService.showSuccess();
-        },
-        error: (err) => {
-          this.shService.showError();
-          this.disableButton = false;
-        }
-      });
+    let temp:IFarmer = this.aeService.getFarmer();
+    // temp.workplaceId = this.divisionCountryId;
+      this.aeService.setWorkPlace(temp);
+      this.router.navigateByUrl('/pages/farmer-registration/agricultural-experiences');
   }
 }

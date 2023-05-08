@@ -7,6 +7,6 @@ import { GenericApiService } from 'app/core/services/generic-api/generic-api.ser
 })
 export class OwnersService extends GenericApiService<any> {
   constructor(http: HttpClient) {
-      super(http,'owners');
+      super(http,'ownership');
   }
 }

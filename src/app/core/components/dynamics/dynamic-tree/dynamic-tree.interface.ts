@@ -6,6 +6,7 @@ export interface IDynamicTree
 {
   treeNodes$: Observable<TreeNode[]>;
   lazyUrl: string | [string,string];
+  study?:boolean;
   contextMenuItems?: ICustomMenuItem[];
   selectionChange?: ReplaySubject<any>;
   onNodeSelect?: ReplaySubject<any>;
@@ -20,7 +21,7 @@ export interface IDynamicTree
   onFilter?: ReplaySubject<any>;
   selectionMode?: SelectionMode;
   selectedFile?: TreeNode[];
-  
+
   // TODO => Implementation Features below
   // style?: any;
   // styleClass?: string;
